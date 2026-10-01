@@ -1,0 +1,149 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import Card from '@/components/ui/Card.astro';
+import Tag from '@/components/ui/Tag.astro';
+import Icon from '@/components/icons/Icon.astro';
+import { SITE } from '@/lib/site';
+
+const repos = [
+  {
+    name: 'cancer-biomarker-discovery',
+    description: 'End-to-end computational platform for pharmaceutical-grade cancer biomarker discovery.',
+    language: 'Python',
+    url: 'https://github.com/famenaghawon/cancer-biomarker-discovery',
+    tags: ['bioinformatics', 'machine-learning', 'multi-omics'],
+  },
+  {
+    name: 'argus-platform',
+    description: 'Multi-source public health intelligence system for epidemiological surveillance and early warning.',
+    language: 'Python',
+    url: 'https://github.com/famenaghawon/argus-platform',
+    tags: ['public-health', 'data-engineering', 'real-time'],
+  },
+  {
+    name: 'microbiome-analysis-project',
+    description: 'Computational pipeline for microbiome analysis — differential abundance and community structure.',
+    language: 'Python',
+    url: 'https://github.com/famenaghawon/microbiome-analysis-project',
+    tags: ['bioinformatics', 'data-science'],
+  },
+  {
+    name: 'epl-excel-dashboard',
+    description: 'Bioinformatics-driven Premier League evolution analysis. Applying computational biology frameworks to football analytics.',
+    language: 'Python',
+    url: 'https://github.com/famenaghawon/epl-excel-dashboard',
+    tags: ['analytics', 'visualization'],
+  },
+  {
+    name: 'drug-response-prediction',
+    description: 'Advanced Drug Response Prediction & Multi-Omics Platform. Interactive computational biology dashboard with ML integration.',
+    language: 'Jupyter Notebook',
+    url: 'https://github.com/famenaghawon/drug-response-prediction',
+    tags: ['machine-learning', 'genomics'],
+  },
+  {
+    name: 'primeshieldhub-showcase',
+    description: 'PrimeShieldHub — Premium Gadgets, AI Commerce, Cloud Infrastructure, Data Analytics and Technology Innovation.',
+    language: 'HTML',
+    url: 'https://github.com/famenaghawon/primeshieldhub-showcase',
+    tags: ['showcase'],
+  },
+];
+---
+
+<BaseLayout
+  title="Open Source"
+  description="Public repositories — computational biology, data science, research pipelines, and engineering work."
+  canonical="/open-source/"
+>
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md">
+        <span class="eyebrow">Open Source</span>
+        <h1>Public repositories.</h1>
+        <p class="lead">
+          Research pipelines, data engineering, and engineering work published
+          openly. Browse everything on GitHub.
+        </p>
+        <a href={SITE.author.github} class="github-link" target="_blank" rel="noopener">
+          github.com/famenaghawon →
+        </a>
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md" class="repo-list">
+        {repos.map((repo) => (
+          <Card href={repo.url} padding="lg" class="repo-card">
+            <Stack gap="sm">
+              <div class="repo-card__top">
+                <h3 class="repo-card__name">{repo.name}</h3>
+                <Icon name="arrow-up-right" size={18} />
+              </div>
+              <p class="repo-card__desc">{repo.description}</p>
+              <div class="repo-card__meta">
+                <span class="repo-card__lang">{repo.language}</span>
+                {repo.tags.map((tag) => <Tag>{tag}</Tag>)}
+              </div>
+            </Stack>
+          </Card>
+        ))}
+      </Stack>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .github-link {
+    display: inline-block;
+    margin-top: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--color-accent-soft);
+    text-decoration: none;
+  }
+  .github-link:hover { color: var(--color-accent); }
+
+  .repo-list { max-width: 900px; }
+
+  .repo-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .repo-card__name {
+    font-family: var(--font-mono);
+    font-size: var(--fs-base);
+    font-weight: var(--fw-semibold);
+    color: var(--color-accent);
+    letter-spacing: 0;
+  }
+
+  .repo-card__desc {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .repo-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .repo-card__lang {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: var(--ls-wide);
+    color: var(--color-text-muted);
+  }
+</style>

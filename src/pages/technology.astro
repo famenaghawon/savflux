@@ -1,0 +1,151 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import { technologies } from '@/data/technologies';
+
+const groups = {
+  language: 'Languages',
+  framework: 'Frameworks & Runtimes',
+  data: 'Data & Analytics',
+  infrastructure: 'Infrastructure',
+  ai: 'AI',
+  research: 'Research',
+} as const;
+
+const grouped = Object.entries(groups).map(([key, label]) => ({
+  key,
+  label,
+  items: technologies.filter((t) => t.group === key),
+}));
+---
+
+<BaseLayout
+  title="Technology"
+  description="The technology stack — languages, frameworks, infrastructure, AI, and research — with evidence of where each has been used."
+  canonical="/technology/"
+>
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md">
+        <span class="eyebrow">Technology</span>
+        <h1>What I work with.</h1>
+        <p class="lead">
+          Not a skill grid. Every entry links back to the projects where it's
+          actually been used. Evidence over claims.
+        </p>
+      </Stack>
+    </Container>
+  </Section>
+
+  {grouped.map((group) => (
+    <Section spacing="md" background="surface">
+      <Container>
+        <h2>{group.label}</h2>
+        <Stack gap="lg" class="tech-list">
+          {group.items.map((tech) => (
+            <div class="tech-item">
+              <div class="tech-item__main">
+                <h3 class="tech-item__name">{tech.name}</h3>
+                <p class="tech-item__desc">{tech.description}</p>
+              </div>
+              {tech.usedIn.length > 0 && (
+                <div class="tech-item__usage">
+                  <span class="tech-item__label">Used in</span>
+                  <div class="tech-item__links">
+                    {tech.usedIn.map((slug) => (
+                      <a href={`/work/${slug}`} class="tech-item__link">
+                        {slug.replace(/-/g, ' ')} →
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </Stack>
+      </Container>
+    </Section>
+  ))}
+</BaseLayout>
+
+<style>
+  h2 {
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tight);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-10);
+  }
+
+  .tech-list {
+    max-width: 900px;
+  }
+
+  .tech-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 768px) {
+    .tech-item {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-10);
+    }
+  }
+
+  .tech-item__main {
+    flex: 1;
+  }
+
+  .tech-item__name {
+    font-family: var(--font-mono);
+    font-size: var(--fs-base);
+    font-weight: var(--fw-semibold);
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+    letter-spacing: var(--ls-normal);
+  }
+
+  .tech-item__desc {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 60ch;
+  }
+
+  .tech-item__usage {
+    flex-shrink: 0;
+  }
+
+  .tech-item__label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .tech-item__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .tech-item__link {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-accent-soft);
+    text-decoration: none;
+    text-transform: capitalize;
+  }
+  .tech-item__link:hover { color: var(--color-accent); }
+</style>

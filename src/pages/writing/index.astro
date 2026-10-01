@@ -1,0 +1,64 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Grid from '@/components/primitives/Grid.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import ArticleCard from '@/components/content/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('articles'))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout
+  title="Writing"
+  description="Technical articles, essays, and lessons on software, AI, data, cloud, and technology businesses."
+  canonical="/writing/"
+>
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md">
+        <span class="eyebrow">Writing</span>
+        <h1>Essays and technical notes.</h1>
+        <p class="lead">
+          On software engineering, building technology businesses, and lessons
+          learned from shipping systems in production.
+        </p>
+        <a href="/rss.xml" class="rss-link">Subscribe via RSS →</a>
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md">
+    <Container>
+      <Grid cols={3} gap="md">
+        {articles.map((article) => (
+          <ArticleCard
+            title={article.data.title}
+            description={article.data.description}
+            href={`/writing/${article.id}`}
+            category={article.data.category}
+            date={article.data.publishedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            readingTime={5}
+          />
+        ))}
+      </Grid>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .rss-link {
+    display: inline-block;
+    margin-top: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .rss-link:hover { color: var(--color-accent); }
+</style>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import Button from '@/components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="Not found"
+  description="Page not found."
+  noindex
+>
+  <Section spacing="lg">
+    <Container width="narrow">
+      <Stack gap="lg" class="notfound">
+        <span class="notfound__code">404</span>
+        <h1>Not found.</h1>
+        <p class="lead">
+          The page you're looking for doesn't exist, has moved, or was never
+          here in the first place.
+        </p>
+        <Stack direction="horizontal" gap="sm" wrap>
+          <Button href="/" variant="primary" icon="arrow-right">Back home</Button>
+          <Button href="/work" variant="ghost">See the work</Button>
+        </Stack>
+      </Stack>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    min-height: 40vh;
+    justify-content: center;
+  }
+
+  .notfound__code {
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    letter-spacing: var(--ls-wider);
+    color: var(--color-accent);
+  }
+</style>

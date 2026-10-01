@@ -37,7 +37,6 @@ const ogImage = new URL(image, Astro.site);
 <link rel="canonical" href={canonicalURL} />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<!-- Open Graph -->
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content="Savflux" />
 <meta property="og:title" content={pageTitle} />
@@ -51,13 +50,11 @@ const ogImage = new URL(image, Astro.site);
 {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
 {author && <meta property="article:author" content={author} />}
 
-<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-<!-- Misc -->
 <meta name="theme-color" content="#07090F" />
 <meta name="color-scheme" content="dark" />
 <meta name="generator" content={Astro.generator} />

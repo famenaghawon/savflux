@@ -1,125 +1,245 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Grid from '@/components/primitives/Grid.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import Button from '@/components/ui/Button.astro';
+import ProjectCard from '@/components/content/ProjectCard.astro';
+import ArticleCard from '@/components/content/ArticleCard.astro';
+import ExperimentCard from '@/components/content/ExperimentCard.astro';
+import Icon from '@/components/icons/Icon.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.weight - a.data.weight)
+  .slice(0, 3);
+
+const articles = (await getCollection('articles'))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 3);
+
+const experiments = (await getCollection('experiments'))
+  .sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf())
+  .slice(0, 3);
+
+const capabilities = [
+  { icon: 'code', title: 'Software', description: 'Full-stack applications, APIs and digital platforms.' },
+  { icon: 'sparkles', title: 'AI', description: 'AI-powered systems, automation and intelligent tools.' },
+  { icon: 'database', title: 'Data', description: 'Analytics, dashboards, business intelligence and visualization.' },
+  { icon: 'cloud', title: 'Cloud', description: 'Cloud infrastructure, distributed systems and serverless architecture.' },
+] as const;
 ---
 
 <BaseLayout>
-  <section class="hero">
-    <div class="container">
+  <!-- HERO -->
+  <Section spacing="lg" background="gradient">
+    <Container>
       <p class="eyebrow">Technology Lab · Est. 2026</p>
-      <h1>
-        I build technology that
-        <br />
-        turns ideas into working systems.
+      <h1 class="hero-title">
+        I build technology that turns ideas into working systems.
       </h1>
-      <p class="lead">
-        Technology entrepreneur, full-stack developer and builder exploring software, AI, data,
-        cloud infrastructure and digital systems.
+      <p class="lead hero-lead">
+        Technology entrepreneur, full-stack developer and builder exploring
+        software, AI, data, cloud infrastructure and digital systems.
       </p>
-
-      <div class="hero__cta">
-        <a href="/work" class="btn btn--primary">
-          Explore My Work
-        </a>
-        <a href="/lab" class="btn btn--ghost">
-          Enter the Lab
-        </a>
-      </div>
-
-      <p class="hero__founder">
-        Founder of
-        <a href="https://primeshieldhub.com" rel="noopener">
-          PrimeShieldHub →
-        </a>
+      <Stack direction="horizontal" gap="md" wrap class="hero-cta">
+        <Button href="/work" variant="primary" icon="arrow-right">Explore My Work</Button>
+        <Button href="/lab" variant="ghost">Enter the Lab</Button>
+      </Stack>
+      <p class="hero-founder">
+        Founder of <a href="https://primeshieldhub.com" rel="noopener">PrimeShieldHub →</a>
       </p>
-    </div>
-  </section>
+    </Container>
+  </Section>
 
-  <section class="section">
-    <div class="container">
-      <p class="eyebrow">Phase 1 · Foundation Live</p>
-      <p class="lead" style="margin-top: var(--space-4);">
-        The foundation is deployed. Design system, pages and content engine arrive in Phases 2–4.
-      </p>
-    </div>
-  </section>
+  <!-- CAPABILITIES -->
+  <Section spacing="md" background="surface">
+    <Container>
+      <Stack gap="md" class="section-intro">
+        <span class="eyebrow">What I Build</span>
+        <h2>Four disciplines, one practice.</h2>
+      </Stack>
+      <Grid cols={4} gap="md">
+        {capabilities.map((cap) => (
+          <div class="capability" data-reveal>
+            <div class="capability__icon">
+              <Icon name={cap.icon} size={22} />
+            </div>
+            <h3 class="capability__title">{cap.title}</h3>
+            <p class="capability__desc">{cap.description}</p>
+          </div>
+        ))}
+      </Grid>
+    </Container>
+  </Section>
+
+  <!-- SELECTED WORK -->
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md" class="section-intro">
+        <span class="eyebrow">Selected Work</span>
+        <h2>Systems I've built.</h2>
+        <p class="lead">Real projects, in production, serving real users.</p>
+      </Stack>
+      <Grid cols={2} gap="lg">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            summary={project.data.summary}
+            href={`/work/${project.id}`}
+            year={project.data.year}
+            status={project.data.status}
+            category={project.data.category}
+            stack={project.data.stack}
+          />
+        ))}
+      </Grid>
+      <Stack align="center" class="section-cta">
+        <Button href="/work" variant="ghost" icon="arrow-right">All work</Button>
+      </Stack>
+    </Container>
+  </Section>
+
+  <!-- FROM THE LAB -->
+  <Section spacing="md" background="surface">
+    <Container>
+      <Stack gap="md" class="section-intro">
+        <span class="eyebrow">From the Lab</span>
+        <h2>Experiments in progress.</h2>
+        <p class="lead">Ideas, prototypes, and research — documented honestly.</p>
+      </Stack>
+      <Grid cols={3} gap="md">
+        {experiments.map((exp) => (
+          <ExperimentCard
+            title={exp.data.title}
+            summary={exp.data.summary}
+            href={`/lab/${exp.id}`}
+            status={exp.data.status}
+            updatedAt={exp.data.updatedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+          />
+        ))}
+      </Grid>
+      <Stack align="center" class="section-cta">
+        <Button href="/lab" variant="ghost" icon="arrow-right">Enter the Lab</Button>
+      </Stack>
+    </Container>
+  </Section>
+
+  <!-- LATEST WRITING -->
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md" class="section-intro">
+        <span class="eyebrow">Latest Writing</span>
+        <h2>Essays and technical notes.</h2>
+      </Stack>
+      <Grid cols={3} gap="md">
+        {articles.map((article) => (
+          <ArticleCard
+            title={article.data.title}
+            description={article.data.description}
+            href={`/writing/${article.id}`}
+            category={article.data.category}
+            date={article.data.publishedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            readingTime={5}
+          />
+        ))}
+      </Grid>
+      <Stack align="center" class="section-cta">
+        <Button href="/writing" variant="ghost" icon="arrow-right">All writing</Button>
+      </Stack>
+    </Container>
+  </Section>
 </BaseLayout>
 
 <style>
-  .hero {
-    padding-block: var(--space-24) var(--space-16);
-    background: var(--gradient-hero);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 1px;
-    background: var(--gradient-accent-line);
-    opacity: 0.4;
-  }
-
-  .hero h1 {
-    margin-top: var(--space-5);
-    margin-bottom: var(--space-6);
-    max-width: 18ch;
-  }
-
-  .hero .lead {
-    margin-bottom: var(--space-10);
-  }
-
-  .hero__cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-    margin-bottom: var(--space-10);
-  }
-
-  .hero__founder {
-    color: var(--color-text-muted);
-    font-size: var(--fs-sm);
-    font-family: var(--font-mono);
-    letter-spacing: var(--ls-wide);
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-3) var(--space-6);
-    border-radius: var(--radius-md);
-    font-size: var(--fs-sm);
-    font-weight: var(--fw-semibold);
-    letter-spacing: var(--ls-normal);
-    text-decoration: none;
-    transition: all var(--duration-micro) var(--ease-standard);
-    border: 1px solid transparent;
-  }
-
-  .btn--primary {
-    background: var(--color-accent);
-    color: var(--color-text-inverse);
-  }
-
-  .btn--primary:hover {
-    background: var(--color-accent-hover);
-    color: var(--color-text-inverse);
-    box-shadow: var(--shadow-accent);
-  }
-
-  .btn--ghost {
-    background: transparent;
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-tighter);
+    line-height: 1.05;
     color: var(--color-text-primary);
+    margin-block: var(--space-6) var(--space-6);
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+
+  .hero-lead {
+    font-size: var(--fs-md);
+    max-width: 60ch;
+    margin-bottom: var(--space-10);
+  }
+
+  .hero-cta {
+    margin-bottom: var(--space-10);
+  }
+
+  .hero-founder {
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    letter-spacing: var(--ls-wide);
+    color: var(--color-text-muted);
+  }
+
+  .hero-founder a {
+    color: var(--color-accent-soft);
+    text-decoration: none;
+  }
+  .hero-founder a:hover { color: var(--color-accent); }
+
+  .section-intro {
+    margin-bottom: var(--space-12);
+    max-width: 60ch;
+  }
+
+  .section-intro h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tight);
+    color: var(--color-text-primary);
+  }
+
+  .section-cta {
+    margin-top: var(--space-12);
+  }
+
+  .capability {
+    padding: var(--space-6);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-micro) var(--ease-standard);
+  }
+
+  .capability:hover {
     border-color: var(--color-border-strong);
   }
 
-  .btn--ghost:hover {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+  .capability__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
     background: var(--color-accent-tint);
+    color: var(--color-accent);
+    margin-bottom: var(--space-5);
+  }
+
+  .capability__title {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    letter-spacing: var(--ls-tight);
+  }
+
+  .capability__desc {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
   }
 </style>

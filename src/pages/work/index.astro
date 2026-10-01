@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Grid from '@/components/primitives/Grid.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import ProjectCard from '@/components/content/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => b.data.weight - a.data.weight);
+---
+
+<BaseLayout
+  title="Work"
+  description="Real projects, in production, serving real users. Software, AI, data, cloud, and research."
+  canonical="/work/"
+>
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md">
+        <span class="eyebrow">Work</span>
+        <h1>Systems I've built.</h1>
+        <p class="lead">
+          Real projects, in production, serving real users. Every project below
+          has a case study with architecture, decisions, and lessons learned.
+        </p>
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md">
+    <Container>
+      <Grid cols={2} gap="lg">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            summary={project.data.summary}
+            href={`/work/${project.id}`}
+            year={project.data.year}
+            status={project.data.status}
+            category={project.data.category}
+            stack={project.data.stack}
+          />
+        ))}
+      </Grid>
+    </Container>
+  </Section>
+</BaseLayout>

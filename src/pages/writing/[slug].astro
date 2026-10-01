@@ -1,0 +1,29 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+// Estimate reading time from the raw body. In Astro 7, `body` lives on the
+// entry itself (not data.body), and is only populated for glob-loaded markdown.
+const raw = article.body ?? '';
+const wordCount = raw.split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+---
+
+<ArticleLayout article={article} readingTime={readingTime}>
+  <Content />
+</ArticleLayout>

@@ -11,6 +11,7 @@ export const SITE = {
     additionalName: 'Evbakoe',
     familyName: 'Amenaghawon',
     role: 'Technology Entrepreneur & Full-Stack Developer',
+    email: 'f.e.amenaghawon@gmail.com',
     orcid: '0009-0003-1457-809X',
     github: 'https://github.com/famenaghawon',
     linkedin: 'https://www.linkedin.com/in/freedom-amenaghawon-720456414',

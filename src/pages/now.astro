@@ -1,0 +1,117 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Stack from '@/components/primitives/Stack.astro';
+
+const now = {
+  updated: 'October 2026',
+  building: [
+    'Savflux — the technology lab itself',
+    'Phase 3 of Savflux: core pages and content engine',
+    'PrimeShieldHub infrastructure refinements',
+  ],
+  learning: [
+    'Advanced Cloudflare Workers patterns',
+    'Retrieval-augmented generation (RAG) with Vectorize',
+    'Enterprise system design',
+  ],
+  exploring: [
+    'AI agents for SME automation',
+    'Digital infrastructure for traditional financial systems',
+    'Computational biology at production scale',
+  ],
+  reading: [
+    'Site Reliability Engineering (Google)',
+    'Designing Data-Intensive Applications (Kleppmann)',
+    'The Systems View of Life (Capra & Luisi)',
+  ],
+};
+---
+
+<BaseLayout
+  title="Now"
+  description="What Freedom Amenaghawon is currently building, learning, exploring, and reading."
+  canonical="/now/"
+>
+  <Section spacing="md">
+    <Container width="narrow">
+      <Stack gap="md">
+        <span class="eyebrow">Now</span>
+        <h1>What I'm working on.</h1>
+        <p class="lead">
+          A snapshot of the current focus. Updated periodically — not a blog,
+          not a commitment, just what's actually moving.
+        </p>
+        <p class="updated">Last updated: {now.updated}</p>
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md" background="surface">
+    <Container width="narrow">
+      <Stack gap="lg">
+        <div class="now-group">
+          <h2>Currently building</h2>
+          <ul>{now.building.map((item) => <li>{item}</li>)}</ul>
+        </div>
+
+        <div class="now-group">
+          <h2>Currently learning</h2>
+          <ul>{now.learning.map((item) => <li>{item}</li>)}</ul>
+        </div>
+
+        <div class="now-group">
+          <h2>Currently exploring</h2>
+          <ul>{now.exploring.map((item) => <li>{item}</li>)}</ul>
+        </div>
+
+        <div class="now-group">
+          <h2>Currently reading</h2>
+          <ul>{now.reading.map((item) => <li>{item}</li>)}</ul>
+        </div>
+      </Stack>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .updated {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .now-group h2 {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-primary);
+    letter-spacing: var(--ls-tight);
+    margin-bottom: var(--space-4);
+  }
+
+  .now-group ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .now-group li {
+    position: relative;
+    padding-left: var(--space-6);
+    color: var(--color-text-secondary);
+    font-size: var(--fs-base);
+    line-height: var(--lh-relaxed);
+  }
+
+  .now-group li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+  }
+</style>

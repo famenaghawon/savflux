@@ -1,0 +1,99 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Grid from '@/components/primitives/Grid.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import ExperimentCard from '@/components/content/ExperimentCard.astro';
+import { getCollection } from 'astro:content';
+
+const experiments = (await getCollection('experiments'))
+  .sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
+
+const statusLegend = [
+  { key: 'idea', label: 'Idea' },
+  { key: 'research', label: 'Research' },
+  { key: 'prototype', label: 'Prototype' },
+  { key: 'building', label: 'Building' },
+  { key: 'live', label: 'Live' },
+  { key: 'archived', label: 'Archived' },
+];
+---
+
+<BaseLayout
+  title="The Lab"
+  description="Experiments, prototypes, and ideas in progress. Software, AI, data, and research."
+  canonical="/lab/"
+>
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md">
+        <span class="eyebrow">Savflux Lab</span>
+        <h1>Experiments in progress.</h1>
+        <p class="lead">
+          Ideas don't have to be finished to be worth documenting. Every entry
+          here is marked by its actual status — not dressed up to look more complete than it is.
+        </p>
+      </Stack>
+
+      <Stack direction="horizontal" gap="sm" wrap class="status-legend">
+        {statusLegend.map((s) => (
+          <span class="legend-item">
+            <span class={`legend-dot legend-dot--${s.key}`} />
+            {s.label}
+          </span>
+        ))}
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md">
+    <Container>
+      <Grid cols={3} gap="md">
+        {experiments.map((exp) => (
+          <ExperimentCard
+            title={exp.data.title}
+            summary={exp.data.summary}
+            href={`/lab/${exp.id}`}
+            status={exp.data.status}
+            updatedAt={exp.data.updatedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+          />
+        ))}
+      </Grid>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .status-legend {
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .legend-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-text-muted);
+  }
+
+  .legend-dot--idea      { background: #9AA4B2; }
+  .legend-dot--research  { background: #5B8CFF; }
+  .legend-dot--prototype { background: #fbbf24; }
+  .legend-dot--building  { background: #00D9FF; }
+  .legend-dot--live      { background: #4ade80; }
+  .legend-dot--archived  { background: #5C6577; }
+</style>

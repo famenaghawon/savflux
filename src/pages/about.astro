@@ -1,0 +1,156 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import Timeline from '@/components/content/Timeline.astro';
+
+const timelineEntries = [
+  { year: '2026', title: 'Savflux', description: 'A personal technology laboratory — the durable identity for everything built, researched, and written.' },
+  { year: '2025', title: 'PrimeShieldHub BuildMart', description: 'Enterprise operating system for construction material procurement.' },
+  { year: '2025', title: 'PrimeShieldHub', description: 'Technology-driven commerce infrastructure for premium gadgets.' },
+  { year: '2024–2025', title: 'Computational biology research', description: 'Bioinformatics pipelines, multi-omics analysis, cancer biomarker discovery.' },
+  { year: 'University of Benin', title: 'B.Sc. Microbiology', description: 'The foundation — systems thinking applied to the smallest living things.' },
+];
+
+const chapters = [
+  {
+    number: '01',
+    title: 'Who I Am',
+    body: 'Technology entrepreneur, full-stack developer, and systems builder. I work at the intersection of software, data, cloud infrastructure, and AI — building systems that make businesses and research work better.',
+  },
+  {
+    number: '02',
+    title: 'Education',
+    body: 'B.Sc. Microbiology from the University of Benin. The degree that taught me how to think in systems — not because microbiology is about systems, but because understanding biology requires systems thinking.',
+  },
+  {
+    number: '03',
+    title: 'From Microbiology to Technology',
+    body: 'The transition happened gradually, through data. Bioinformatics pipelines led to Python, Python led to engineering, engineering led to infrastructure, infrastructure led to building businesses on top of it.',
+  },
+  {
+    number: '04',
+    title: 'Technology Journey',
+    body: 'Data science → full-stack development → cloud architecture → technology entrepreneurship. Each step built on the previous one, each one taught a new dimension of what it means to build systems that work at scale.',
+  },
+  {
+    number: '05',
+    title: 'Entrepreneurship',
+    body: 'Founder of PrimeShieldHub — a technology-driven commerce platform for premium gadgets and enterprise procurement. Every system built here exists because the business needed it.',
+  },
+  {
+    number: '06',
+    title: 'What I\'m Building',
+    body: 'Savflux — a technology lab that documents, builds, and ships. Software, AI, data, cloud, research. Proof of work, not claims of skill.',
+  },
+  {
+    number: '07',
+    title: 'What I Believe',
+    body: 'Systems thinking outlasts domain expertise. Boring infrastructure wins. Ship evidence, not promises. AI is a tool, not a strategy. Build the business; ship the technology that serves it.',
+  },
+  {
+    number: '08',
+    title: 'Current Focus',
+    body: 'AI experiments, enterprise systems, computational research, and public technical writing. See the Now page for what\'s actively moving.',
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="Freedom Evbakoe Amenaghawon — technology entrepreneur, full-stack developer, and systems builder. Founder of PrimeShieldHub."
+  type="profile"
+  canonical="/about/"
+>
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md">
+        <span class="eyebrow">About</span>
+        <h1>Freedom Evbakoe Amenaghawon.</h1>
+        <p class="lead">
+          Technology entrepreneur, full-stack developer, and systems builder.
+          Founder of PrimeShieldHub. Based in Benin City, Nigeria.
+        </p>
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md" background="surface">
+    <Container>
+      <Stack gap="lg" class="chapters">
+        {chapters.map((ch) => (
+          <article class="chapter">
+            <span class="chapter__number">{ch.number}</span>
+            <div class="chapter__content">
+              <h2 class="chapter__title">{ch.title}</h2>
+              <p class="chapter__body">{ch.body}</p>
+            </div>
+          </article>
+        ))}
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md" class="section-intro">
+        <span class="eyebrow">Timeline</span>
+        <h2>The path so far.</h2>
+      </Stack>
+      <Timeline entries={timelineEntries} />
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .chapters { max-width: 800px; }
+
+  .chapter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 640px) {
+    .chapter {
+      flex-direction: row;
+      gap: var(--space-8);
+    }
+  }
+
+  .chapter__number {
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--color-accent);
+    letter-spacing: var(--ls-wider);
+    flex-shrink: 0;
+  }
+
+  .chapter__title {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-primary);
+    letter-spacing: var(--ls-tight);
+    margin-bottom: var(--space-3);
+  }
+
+  .chapter__body {
+    font-size: var(--fs-base);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .section-intro {
+    margin-bottom: var(--space-12);
+  }
+
+  .section-intro h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tight);
+    color: var(--color-text-primary);
+  }
+</style>

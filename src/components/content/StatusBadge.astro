@@ -2,7 +2,7 @@
 import Badge from '@/components/ui/Badge.astro';
 
 interface Props {
-  status: 'idea' | 'research' | 'prototype' | 'building' | 'live' | 'archived';
+  status: 'idea' | 'research' | 'prototype' | 'building' | 'live' | 'concept' | 'archived';
   class?: string;
 }
 
@@ -14,10 +14,12 @@ const map = {
   prototype: { variant: 'warning', label: 'Prototype' },
   building:  { variant: 'accent',  label: 'Building' },
   live:      { variant: 'success', label: 'Live' },
+  concept:   { variant: 'info',    label: 'Concept' },
   archived:  { variant: 'default', label: 'Archived' },
 } as const;
 
-const { variant, label } = map[status];
+const entry = map[status];
+const variant = entry.variant as 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'info';
 ---
 
-<Badge variant={variant} dot class={className}>{label}</Badge>
+<Badge variant={variant} dot class={className}>{entry.label}</Badge>

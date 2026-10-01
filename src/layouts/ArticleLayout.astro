@@ -1,0 +1,159 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import Prose from '@/components/content/Prose.astro';
+import Icon from '@/components/icons/Icon.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  readingTime?: number;
+}
+
+const { article, readingTime = 5 } = Astro.props;
+const { data } = article;
+
+const formattedDate = data.publishedAt.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const updatedDate = data.updatedAt
+  ? data.updatedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  : null;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  type="article"
+  canonical={`/writing/${article.id}/`}
+  publishedTime={data.publishedAt.toISOString()}
+  modifiedTime={data.updatedAt?.toISOString()}
+>
+  <Section spacing="md">
+    <Container width="narrow">
+      <Stack gap="lg">
+        <a href="/writing" class="back-link">
+          <Icon name="arrow-right" size={14} />
+          All writing
+        </a>
+
+        <Stack gap="md">
+          <Stack direction="horizontal" gap="sm" wrap align="center">
+            <span class="article-category">{data.category}</span>
+            <span class="article-meta">{formattedDate}</span>
+            <span class="article-meta">{readingTime} min read</span>
+          </Stack>
+
+          <h1>{data.title}</h1>
+          <p class="lead">{data.description}</p>
+
+          {updatedDate && (
+            <p class="article-updated">Last updated {updatedDate}</p>
+          )}
+        </Stack>
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md" background="surface">
+    <Container width="narrow">
+      <Prose>
+        <slot />
+      </Prose>
+    </Container>
+  </Section>
+
+  <Section spacing="md">
+    <Container width="narrow">
+      <div class="article-footer">
+        <p class="article-author">
+          Written by <strong>Freedom Evbakoe Amenaghawon</strong>
+        </p>
+        <a href="/contact" class="article-contact">
+          Get in touch
+          <Icon name="arrow-right" size={14} />
+        </a>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--color-accent); }
+  .back-link :global(svg) { transform: rotate(180deg); }
+
+  .article-category {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .article-meta {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .article-updated {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+  }
+
+  .article-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 640px) {
+    .article-footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .article-author {
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .article-author strong { color: var(--color-text-primary); }
+
+  .article-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+    text-decoration: none;
+  }
+
+  .article-contact:hover { color: var(--color-accent); }
+</style>
