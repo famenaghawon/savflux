@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /draft/
+Disallow: /api/
+
+Sitemap: https://savflux.com/sitemap-index.xml

@@ -1,0 +1,168 @@
+/* ============================================================
+   SAVFLUX DESIGN TOKENS — v1.0 (LOCKED)
+   Midnight Indigo + Electric Cyan
+   Do not improvise colors outside this file.
+   ============================================================ */
+
+:root {
+  /* ---------------------------------------------------------
+     COLOR · CORE (dark-first, the primary Savflux environment)
+     --------------------------------------------------------- */
+  --color-bg: #07090f;
+  --color-surface: #101522;
+  --color-surface-2: #151c4f;
+  --color-surface-3: #1b2350;
+  --color-border: #1e2540;
+  --color-border-strong: #2a3252;
+
+  --color-text-primary: #f5f7fa;
+  --color-text-secondary: #9aa4b2;
+  --color-text-muted: #5c6577;
+  --color-text-inverse: #07090f;
+
+  /* Accent — used as SIGNAL, not surface. ≤5% of any screen. */
+  --color-accent: #00d9ff;
+  --color-accent-hover: #33e1ff;
+  --color-accent-active: #00b8d9;
+  --color-accent-soft: #5b8cff;
+  --color-accent-glow: rgba(0, 217, 255, 0.15);
+  --color-accent-tint: rgba(0, 217, 255, 0.08);
+
+  /* Status */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+  --color-info: #5b8cff;
+
+  /* Focus ring */
+  --color-focus: rgba(0, 217, 255, 0.55);
+
+  /* Gradients — decorative only, low opacity, never on buttons */
+  --gradient-hero: linear-gradient(135deg, #151c4f 0%, #07090f 60%);
+  --gradient-accent-line: linear-gradient(90deg, #151c4f 0%, #00d9ff 100%);
+
+  /* ---------------------------------------------------------
+     TYPOGRAPHY
+     --------------------------------------------------------- */
+  --font-display:
+    'Inter Variable', 'Inter Display', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, monospace;
+
+  /* Type scale — 1.250 major third, base 16px */
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-sm: 0.875rem; /* 14px */
+  --fs-base: 1rem; /* 16px */
+  --fs-md: 1.125rem; /* 18px */
+  --fs-lg: 1.25rem; /* 20px */
+  --fs-xl: 1.5rem; /* 24px */
+  --fs-2xl: 1.875rem; /* 30px */
+  --fs-3xl: 2.25rem; /* 36px */
+  --fs-4xl: 2.75rem; /* 44px */
+  --fs-5xl: 3.5rem; /* 56px */
+  --fs-6xl: 4.5rem; /* 72px */
+
+  /* Line heights */
+  --lh-tight: 1.08;
+  --lh-snug: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.6;
+  --lh-loose: 1.75;
+
+  /* Letter spacing */
+  --ls-tighter: -0.03em;
+  --ls-tight: -0.02em;
+  --ls-normal: -0.01em;
+  --ls-wide: 0.02em;
+  --ls-wider: 0.08em;
+
+  /* Font weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Reading widths */
+  --measure-body: 68ch;
+  --measure-heading: 45ch;
+
+  /* ---------------------------------------------------------
+     SPACING (8px base unit)
+     --------------------------------------------------------- */
+  --space-0: 0;
+  --space-1: 0.25rem; /*  4px */
+  --space-2: 0.5rem; /*  8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
+  --space-32: 8rem; /* 128px */
+
+  /* ---------------------------------------------------------
+     LAYOUT
+     --------------------------------------------------------- */
+  --container-max: 1200px;
+  --container-narrow: 720px;
+  --container-wide: 1440px;
+  --gutter-mobile: var(--space-6);
+  --gutter-desktop: var(--space-12);
+  --header-height: 64px;
+
+  /* ---------------------------------------------------------
+     RADII
+     --------------------------------------------------------- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------------
+     SHADOWS (subtle, dark-mode tuned)
+     --------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-accent: 0 0 0 1px var(--color-accent), 0 0 24px var(--color-accent-glow);
+
+  /* ---------------------------------------------------------
+     MOTION
+     --------------------------------------------------------- */
+  --duration-instant: 80ms;
+  --duration-micro: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+
+  /* ---------------------------------------------------------
+     Z-INDEX
+     --------------------------------------------------------- */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-micro: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}

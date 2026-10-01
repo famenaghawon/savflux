@@ -1,0 +1,17 @@
+{
+  "name": "Savflux — Technology Lab",
+  "short_name": "Savflux",
+  "description": "Technology Lab by Freedom Evbakoe Amenaghawon",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07090F",
+  "theme_color": "#07090F",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
