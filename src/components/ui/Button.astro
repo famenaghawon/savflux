@@ -1,0 +1,182 @@
+---
+import Icon from '@/components/icons/Icon.astro';
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'link';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  loading?: boolean;
+  icon?: string;
+  iconPosition?: 'left' | 'right';
+  class?: string;
+  target?: '_blank' | '_self';
+  rel?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  disabled = false,
+  loading = false,
+  icon,
+  iconPosition = 'right',
+  class: className = '',
+  target,
+  rel,
+} = Astro.props;
+
+const classes = ['btn', `btn--${variant}`, `btn--${size}`, className]
+  .filter(Boolean)
+  .join(' ');
+
+const isDisabled = disabled || loading;
+const Tag = href && !isDisabled ? 'a' : 'button';
+---
+
+<Tag
+  class={classes}
+  href={href}
+  type={Tag === 'button' ? type : undefined}
+  disabled={Tag === 'button' ? isDisabled : undefined}
+  aria-disabled={isDisabled ? 'true' : undefined}
+  target={target}
+  rel={target === '_blank' ? rel ?? 'noopener noreferrer' : rel}
+  aria-busy={loading ? 'true' : undefined}
+>
+  {loading && <Icon name="loader" size={16} class="btn__spinner" />}
+  {icon && iconPosition === 'left' && !loading && <Icon name={icon} size={16} />}
+  <span class="btn__label"><slot /></span>
+  {icon && iconPosition === 'right' && !loading && <Icon name={icon} size={16} />}
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-normal);
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background var(--duration-micro) var(--ease-standard),
+      border-color var(--duration-micro) var(--ease-standard),
+      color var(--duration-micro) var(--ease-standard),
+      box-shadow var(--duration-micro) var(--ease-standard),
+      transform var(--duration-instant) var(--ease-standard);
+    user-select: none;
+  }
+
+  .btn:active:not([aria-disabled='true']) {
+    transform: translateY(1px);
+  }
+
+  .btn[aria-disabled='true'],
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Sizes */
+  .btn--sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--fs-sm);
+    height: 34px;
+  }
+
+  .btn--md {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--fs-sm);
+    height: 42px;
+  }
+
+  .btn--lg {
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--fs-base);
+    height: 50px;
+  }
+
+  /* Primary — the cyan signal */
+  .btn--primary {
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+  }
+  .btn--primary:hover:not([aria-disabled='true']) {
+    background: var(--color-accent-hover);
+    color: var(--color-text-inverse);
+    box-shadow: 0 0 0 1px var(--color-accent), 0 0 20px var(--color-accent-glow);
+  }
+
+  /* Secondary — indigo surface, cyan text */
+  .btn--secondary {
+    background: var(--color-surface-2);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-strong);
+  }
+  .btn--secondary:hover:not([aria-disabled='true']) {
+    background: var(--color-surface-3);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* Ghost — outline only */
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-text-primary);
+    border-color: var(--color-border-strong);
+  }
+  .btn--ghost:hover:not([aria-disabled='true']) {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-tint);
+  }
+
+  /* Danger */
+  .btn--danger {
+    background: var(--color-danger);
+    color: #fff;
+  }
+  .btn--danger:hover:not([aria-disabled='true']) {
+    background: #b91c1c;
+    color: #fff;
+  }
+
+  /* Link */
+  .btn--link {
+    background: transparent;
+    color: var(--color-accent-soft);
+    padding-inline: 0;
+    height: auto;
+    border-radius: 0;
+  }
+  .btn--link:hover:not([aria-disabled='true']) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .btn__label { line-height: 1; }
+
+  .btn__spinner {
+    animation: btn-spin 0.8s linear infinite;
+  }
+
+  @keyframes btn-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+    .btn__spinner { animation: none; }
+  }
+</style>

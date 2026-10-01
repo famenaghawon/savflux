@@ -1,0 +1,64 @@
+---
+interface Props {
+  href?: string;
+  active?: boolean;
+  class?: string;
+}
+
+const { href, active = false, class: className = '' } = Astro.props;
+
+const classes = ['chip', active && 'chip--active', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{href ? (
+  <a
+    class={classes}
+    href={href}
+    aria-current={active ? 'page' : undefined}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    class={classes}
+    type="button"
+    aria-pressed={active}
+  >
+    <slot />
+  </button>
+)}
+
+<style>
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background var(--duration-micro) var(--ease-standard),
+      border-color var(--duration-micro) var(--ease-standard),
+      color var(--duration-micro) var(--ease-standard);
+  }
+
+  .chip:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-border-strong);
+  }
+
+  .chip--active {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-tint);
+  }
+</style>

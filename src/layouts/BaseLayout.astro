@@ -35,5 +35,9 @@ const props = Astro.props;
       <slot />
     </main>
     <Footer />
+    <script>
+      import { initMotion } from '@/lib/motion';
+      initMotion();
+    </script>
   </body>
 </html>

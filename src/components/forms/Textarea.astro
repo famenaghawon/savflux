@@ -1,0 +1,72 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  placeholder?: string;
+  value?: string;
+  rows?: number;
+  required?: boolean;
+  disabled?: boolean;
+  error?: boolean;
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  placeholder,
+  value,
+  rows = 5,
+  required = false,
+  disabled = false,
+  error = false,
+  class: className = '',
+} = Astro.props;
+
+const classes = ['textarea', error && 'textarea--error', className].filter(Boolean).join(' ');
+---
+
+<textarea
+  id={id}
+  name={name}
+  placeholder={placeholder}
+  rows={rows}
+  required={required}
+  disabled={disabled}
+  class={classes}
+  aria-invalid={error ? 'true' : undefined}
+  aria-describedby={error ? `${id}-error` : undefined}
+>{value}</textarea>
+
+<style>
+  .textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    resize: vertical;
+    min-height: 120px;
+    transition:
+      border-color var(--duration-micro) var(--ease-standard),
+      background var(--duration-micro) var(--ease-standard);
+  }
+
+  .textarea::placeholder { color: var(--color-text-muted); }
+  .textarea:hover:not(:disabled) { border-color: var(--color-border-strong); }
+  .textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-tint);
+  }
+  .textarea:disabled { opacity: 0.5; cursor: not-allowed; }
+  .textarea--error { border-color: #dc2626; }
+  .textarea--error:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+  }
+</style>

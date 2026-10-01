@@ -1,0 +1,92 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  value?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  value = 'on',
+  checked = false,
+  disabled = false,
+  class: className = '',
+} = Astro.props;
+---
+
+<label class={`checkbox ${className}`.trim()} for={id}>
+  <input
+    type="checkbox"
+    id={id}
+    name={name}
+    value={value}
+    checked={checked}
+    disabled={disabled}
+    class="checkbox__input"
+  />
+  <span class="checkbox__box" aria-hidden="true">
+    <svg viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </span>
+  <span class="checkbox__label">{label}</span>
+</label>
+
+<style>
+  .checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .checkbox__input {
+    position: absolute;
+    opacity: 0;
+    width: 1px; height: 1px;
+    pointer-events: none;
+  }
+
+  .checkbox__box {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    transition:
+      background var(--duration-micro) var(--ease-standard),
+      border-color var(--duration-micro) var(--ease-standard),
+      color var(--duration-micro) var(--ease-standard);
+  }
+
+  .checkbox__box svg { width: 12px; height: 12px; }
+
+  .checkbox:hover .checkbox__box { border-color: var(--color-accent); }
+
+  .checkbox__input:checked + .checkbox__box {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text-inverse);
+  }
+
+  .checkbox__input:focus-visible + .checkbox__box {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .checkbox__input:disabled ~ * { opacity: 0.5; }
+
+  .checkbox__label {
+    font-size: var(--fs-sm);
+    color: var(--color-text-primary);
+  }
+</style>

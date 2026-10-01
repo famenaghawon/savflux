@@ -1,0 +1,138 @@
+---
+import Card from '@/components/ui/Card.astro';
+import StatusBadge from '@/components/content/StatusBadge.astro';
+import Icon from '@/components/icons/Icon.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  year?: number;
+  status?: 'idea' | 'research' | 'prototype' | 'building' | 'live' | 'archived';
+  category?: string;
+  stack?: string[];
+  class?: string;
+}
+
+const {
+  title,
+  summary,
+  href,
+  year,
+  status = 'live',
+  category,
+  stack = [],
+  class: className,
+} = Astro.props;
+---
+
+<Card href={href} padding="lg" class={className}>
+  <div class="project-card__top">
+    {category && <span class="project-card__category">{category}</span>}
+    <StatusBadge status={status} />
+  </div>
+
+  <h3 class="project-card__title">{title}</h3>
+  <p class="project-card__summary">{summary}</p>
+
+  {stack.length > 0 && (
+    <ul class="project-card__stack" role="list">
+      {stack.slice(0, 5).map((tech) => (
+        <li><span class="project-card__tech">{tech}</span></li>
+      ))}
+      {stack.length > 5 && <li><span class="project-card__tech">+{stack.length - 5}</span></li>}
+    </ul>
+  )}
+
+  <div class="project-card__meta">
+    <span class="project-card__year">{year ?? ''}</span>
+    <span class="project-card__cta">
+      View case study
+      <Icon name="arrow-right" size={16} />
+    </span>
+  </div>
+</Card>
+
+<style>
+  .project-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  .project-card__category {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .project-card__title {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tight);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    transition: color var(--duration-micro) var(--ease-standard);
+  }
+
+  .project-card:hover .project-card__title { color: var(--color-accent); }
+
+  .project-card__summary {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-5);
+    max-width: 60ch;
+  }
+
+  .project-card__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .project-card__tech {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-text-secondary);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 2px 6px;
+    letter-spacing: var(--ls-wide);
+  }
+
+  .project-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .project-card__year {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+  }
+
+  .project-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--color-accent-soft);
+    transition: color var(--duration-micro) var(--ease-standard);
+  }
+
+  .project-card:hover .project-card__cta { color: var(--color-accent); }
+</style>

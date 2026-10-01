@@ -1,0 +1,73 @@
+---
+import Card from '@/components/ui/Card.astro';
+import StatusBadge from '@/components/content/StatusBadge.astro';
+import Icon from '@/components/icons/Icon.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  status: 'idea' | 'research' | 'prototype' | 'building' | 'live' | 'archived';
+  updatedAt?: string;
+  class?: string;
+}
+
+const { title, summary, href, status, updatedAt, class: className } = Astro.props;
+---
+
+<Card href={href} padding="md" class={className}>
+  <div class="experiment-card__top">
+    <StatusBadge status={status} />
+    {updatedAt && <span class="experiment-card__updated">{updatedAt}</span>}
+  </div>
+  <h3 class="experiment-card__title">{title}</h3>
+  <p class="experiment-card__summary">{summary}</p>
+  <span class="experiment-card__link">
+    Read more <Icon name="arrow-right" size={14} />
+  </span>
+</Card>
+
+<style>
+  .experiment-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .experiment-card__updated {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+  }
+
+  .experiment-card__title {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tight);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    transition: color var(--duration-micro) var(--ease-standard);
+  }
+
+  .experiment-card:hover .experiment-card__title { color: var(--color-accent); }
+
+  .experiment-card__summary {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .experiment-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-xs);
+    font-family: var(--font-mono);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+  }
+</style>

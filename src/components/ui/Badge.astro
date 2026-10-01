@@ -1,0 +1,94 @@
+---
+interface Props {
+  variant?: 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'info';
+  size?: 'sm' | 'md';
+  dot?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  size = 'sm',
+  dot = false,
+  class: className = '',
+} = Astro.props;
+
+const classes = ['badge', `badge--${variant}`, `badge--${size}`, className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<span class={classes}>
+  {dot && <span class="badge__dot" aria-hidden="true"></span>}
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .badge--sm {
+    font-size: 0.6875rem;
+    padding: 5px 10px;
+  }
+
+  .badge--md {
+    font-size: var(--fs-xs);
+    padding: 6px 12px;
+  }
+
+  .badge__dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .badge--default {
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+  }
+
+  .badge--accent {
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+    border-color: rgba(0, 217, 255, 0.25);
+  }
+
+  .badge--success {
+    background: rgba(22, 163, 74, 0.12);
+    color: #4ade80;
+    border-color: rgba(22, 163, 74, 0.3);
+  }
+
+  .badge--warning {
+    background: rgba(217, 119, 6, 0.12);
+    color: #fbbf24;
+    border-color: rgba(217, 119, 6, 0.3);
+  }
+
+  .badge--danger {
+    background: rgba(220, 38, 38, 0.12);
+    color: #f87171;
+    border-color: rgba(220, 38, 38, 0.3);
+  }
+
+  .badge--info {
+    background: rgba(91, 140, 255, 0.12);
+    color: var(--color-accent-soft);
+    border-color: rgba(91, 140, 255, 0.3);
+  }
+</style>

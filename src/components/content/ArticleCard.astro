@@ -1,0 +1,107 @@
+---
+import Card from '@/components/ui/Card.astro';
+import Icon from '@/components/icons/Icon.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  category?: string;
+  readingTime?: number;
+  date?: string;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  href,
+  category,
+  readingTime,
+  date,
+  class: className,
+} = Astro.props;
+---
+
+<Card href={href} padding="md" class={className}>
+  {category && <span class="article-card__category">{category}</span>}
+  <h3 class="article-card__title">{title}</h3>
+  <p class="article-card__desc">{description}</p>
+  <div class="article-card__meta">
+    <span class="article-card__info">
+      {date && <time>{date}</time>}
+      {date && readingTime && <span>·</span>}
+      {readingTime && <span>{readingTime} min read</span>}
+    </span>
+    <Icon name="arrow-right" size={16} class="article-card__arrow" />
+  </div>
+</Card>
+
+<style>
+  .article-card__category {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .article-card__title {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tight);
+    line-height: var(--lh-snug);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    transition: color var(--duration-micro) var(--ease-standard);
+  }
+
+  .article-card:hover .article-card__title { color: var(--color-accent); }
+
+  .article-card__desc {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-5);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .article-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .article-card__info {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .article-card__arrow {
+    color: var(--color-text-muted);
+    transition: transform var(--duration-micro) var(--ease-standard),
+                color var(--duration-micro) var(--ease-standard);
+  }
+
+  .article-card:hover .article-card__arrow {
+    color: var(--color-accent);
+    transform: translateX(2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .article-card__arrow { transition: color var(--duration-micro) var(--ease-standard); }
+    .article-card:hover .article-card__arrow { transform: none; }
+  }
+</style>

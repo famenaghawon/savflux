@@ -1,0 +1,94 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  value: string;
+  checked?: boolean;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  value,
+  checked = false,
+  disabled = false,
+  class: className = '',
+} = Astro.props;
+---
+
+<label class={`radio ${className}`.trim()} for={id}>
+  <input
+    type="radio"
+    id={id}
+    name={name}
+    value={value}
+    checked={checked}
+    disabled={disabled}
+    class="radio__input"
+  />
+  <span class="radio__dot" aria-hidden="true"></span>
+  <span class="radio__label">{label}</span>
+</label>
+
+<style>
+  .radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .radio__input {
+    position: absolute;
+    opacity: 0;
+    width: 1px; height: 1px;
+    pointer-events: none;
+  }
+
+  .radio__dot {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 50%;
+    background: var(--color-bg);
+    position: relative;
+    transition:
+      background var(--duration-micro) var(--ease-standard),
+      border-color var(--duration-micro) var(--ease-standard);
+  }
+
+  .radio__dot::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: var(--color-text-inverse);
+    transform: scale(0);
+    transition: transform var(--duration-micro) var(--ease-standard);
+  }
+
+  .radio:hover .radio__dot { border-color: var(--color-accent); }
+
+  .radio__input:checked + .radio__dot {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  .radio__input:checked + .radio__dot::after { transform: scale(1); }
+
+  .radio__input:focus-visible + .radio__dot {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .radio__input:disabled ~ * { opacity: 0.5; }
+
+  .radio__label {
+    font-size: var(--fs-sm);
+    color: var(--color-text-primary);
+  }
+</style>

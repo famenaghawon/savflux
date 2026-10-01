@@ -1,0 +1,93 @@
+---
+interface TimelineEntry {
+  year: string;
+  title: string;
+  description?: string;
+}
+
+interface Props {
+  entries: TimelineEntry[];
+  class?: string;
+}
+
+const { entries, class: className = '' } = Astro.props;
+---
+
+<ol class={`timeline ${className}`.trim()}>
+  {entries.map((entry) => (
+    <li class="timeline__item">
+      <div class="timeline__marker" aria-hidden="true"></div>
+      <div class="timeline__content">
+        <span class="timeline__year">{entry.year}</span>
+        <h3 class="timeline__title">{entry.title}</h3>
+        {entry.description && <p class="timeline__desc">{entry.description}</p>}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .timeline__item {
+    position: relative;
+    padding-left: var(--space-10);
+    padding-bottom: var(--space-10);
+  }
+
+  .timeline__item:last-child { padding-bottom: 0; }
+
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: -8px;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  .timeline__item:last-child::before { display: none; }
+
+  .timeline__marker {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    border: 2px solid var(--color-accent);
+    box-shadow: 0 0 0 4px var(--color-accent-tint);
+  }
+
+  .timeline__year {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .timeline__title {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tight);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .timeline__desc {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 60ch;
+  }
+</style>

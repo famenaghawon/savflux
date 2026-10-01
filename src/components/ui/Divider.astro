@@ -1,0 +1,66 @@
+---
+interface Props {
+  orientation?: 'horizontal' | 'vertical';
+  label?: string;
+  class?: string;
+}
+
+const {
+  orientation = 'horizontal',
+  label,
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'divider',
+  `divider--${orientation}`,
+  label && 'divider--labeled',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={classes} role="separator" aria-orientation={orientation}>
+  {label && <span class="divider__label">{label}</span>}
+</div>
+
+<style>
+  .divider {
+    background: var(--color-border);
+  }
+
+  .divider--horizontal {
+    width: 100%;
+    height: 1px;
+    margin-block: var(--space-6);
+  }
+
+  .divider--vertical {
+    width: 1px;
+    height: 100%;
+    margin-inline: var(--space-4);
+  }
+
+  .divider--labeled {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: none;
+    height: auto;
+  }
+
+  .divider--labeled::before,
+  .divider--labeled::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .divider__label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+</style>

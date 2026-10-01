@@ -1,0 +1,13 @@
+---
+import Tag from '@/components/ui/Tag.astro';
+
+interface Props {
+  name: string;
+  href?: string;
+  class?: string;
+}
+
+const { name, href, class: className } = Astro.props;
+---
+
+<Tag href={href} class={className}>{name}</Tag>

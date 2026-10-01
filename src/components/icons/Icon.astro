@@ -1,0 +1,56 @@
+---
+import * as lucide from 'lucide-static';
+
+// Convert kebab-case names to PascalCase, e.g. "arrow-right" → "ArrowRight"
+// This matches lucide-static's named exports.
+function toPascalCase(kebab: string): string {
+  return kebab
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('');
+}
+
+interface Props {
+  name: string;
+  size?: number;
+  strokeWidth?: number;
+  class?: string;
+  'aria-label'?: string;
+}
+
+const {
+  name,
+  size = 20,
+  strokeWidth = 1.75,
+  class: className = '',
+  'aria-label': ariaLabel,
+} = Astro.props;
+
+const exportName = toPascalCase(name);
+const rawSvg = (lucide as Record<string, string | undefined>)[exportName];
+
+if (typeof rawSvg !== 'string') {
+  throw new Error(
+    `Icon "${name}" is not available in lucide-static. ` +
+    `Expected export "${exportName}". ` +
+    `Check the exact name at https://lucide.dev/icons/`,
+  );
+}
+
+const svg = rawSvg.replace(
+  /^<svg/,
+  `<svg class="${className}" width="${size}" height="${size}" ` +
+    `stroke-width="${strokeWidth}" ` +
+    (ariaLabel ? `aria-label="${ariaLabel}" role="img"` : 'aria-hidden="true"'),
+);
+---
+
+<Fragment set:html={svg} />
+
+<style>
+  :global(svg) {
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: -0.125em;
+  }
+</style>
