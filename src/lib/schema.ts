@@ -52,7 +52,6 @@ export function personSchema(): JsonLd {
       'Digital Systems',
     ],
     owns: { '@id': IDS.website },
-    founderOf: { '@id': IDS.organization },
   };
 }
 
@@ -108,8 +107,8 @@ export function profilePageSchema(): JsonLd {
     isPartOf: { '@id': IDS.website },
     mainEntity: { '@id': IDS.person },
     about: { '@id': IDS.person },
-    dateCreated: '2026-01-01',
-    dateModified: new Date().toISOString().split('T')[0],
+    dateCreated: '2026-01-01T00:00:00Z',
+    dateModified: new Date().toISOString(),
   };
 }
 
