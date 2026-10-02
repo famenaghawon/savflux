@@ -1,0 +1,275 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`search ${className}`.trim()}>
+  <div class="search__input-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input
+      type="search"
+      class="search__input"
+      placeholder="Search projects, articles, experiments…"
+      aria-label="Search"
+      autofocus
+      data-search-input
+    />
+    <kbd class="search__kbd" aria-hidden="true">ESC</kbd>
+  </div>
+
+  <div class="search__status" data-search-status aria-live="polite"></div>
+
+  <div class="search__results" data-search-results></div>
+</div>
+
+<style>
+  .search {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .search__input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-micro) var(--ease-standard);
+  }
+
+  .search__input-wrap:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-tint);
+  }
+
+  .search__input-wrap svg { color: var(--color-text-muted); flex-shrink: 0; }
+
+  .search__input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: var(--fs-base);
+    color: var(--color-text-primary);
+    padding: 0;
+  }
+
+  .search__input::placeholder { color: var(--color-text-muted); }
+
+  .search__kbd {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    padding: 3px 6px;
+    color: var(--color-text-muted);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    letter-spacing: var(--ls-wide);
+  }
+
+  .search__status {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-top: var(--space-4);
+    min-height: 1.4em;
+  }
+
+  .search__results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .search__results :global(.result) {
+    display: block;
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color var(--duration-micro) var(--ease-standard),
+                background var(--duration-micro) var(--ease-standard);
+  }
+
+  .search__results :global(.result:hover) {
+    border-color: var(--color-border-strong);
+    background: color-mix(in srgb, var(--color-surface) 85%, var(--color-surface-2));
+  }
+
+  .search__results :global(.result__type) {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .search__results :global(.result__title) {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-primary);
+    margin: var(--space-2) 0 var(--space-2);
+    letter-spacing: var(--ls-tight);
+  }
+
+  .search__results :global(.result__desc) {
+    font-size: var(--fs-sm);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .search__results :global(.result mark) {
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+    padding: 1px 3px;
+    border-radius: 3px;
+  }
+
+  .search__results :global(.result__empty) {
+    padding: var(--space-8);
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+</style>
+
+<script>
+  interface SearchRecord {
+    type: string;
+    title: string;
+    description: string;
+    href: string;
+    body: string;
+    tags: string[];
+    category?: string;
+    date?: string;
+  }
+
+  const inputEl = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const statusEl = document.querySelector<HTMLElement>('[data-search-status]');
+  const resultsEl = document.querySelector<HTMLElement>('[data-search-results]');
+
+  if (inputEl && statusEl && resultsEl) {
+    // Narrowed references so TypeScript knows they're non-null for the rest of this scope.
+    const input: HTMLInputElement = inputEl;
+    const status: HTMLElement = statusEl;
+    const results: HTMLElement = resultsEl;
+
+    let index: SearchRecord[] = [];
+    let loaded = false;
+
+    async function loadIndex(): Promise<void> {
+      if (loaded) return;
+      status.textContent = 'Loading…';
+      const res = await fetch('/search-index.json');
+      index = await res.json();
+      loaded = true;
+    }
+
+    function escapeHtml(text: string): string {
+      return text.replace(/[&<>"']/g, (c) =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] ?? c,
+      );
+    }
+
+    function highlight(text: string, query: string): string {
+      if (!query) return escapeHtml(text);
+      const safe = escapeHtml(text);
+      const terms = query
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+      if (terms.length === 0) return safe;
+      const re = new RegExp(`(${terms.join('|')})`, 'gi');
+      return safe.replace(re, '<mark>$1</mark>');
+    }
+
+    function search(query: string): SearchRecord[] {
+      const q = query.toLowerCase().trim();
+      if (!q) return [];
+      const terms = q.split(/\s+/).filter(Boolean);
+
+      const scored = index.map((rec) => {
+        let score = 0;
+        const title = rec.title.toLowerCase();
+        const desc = rec.description.toLowerCase();
+        const body = rec.body.toLowerCase();
+        const tags = rec.tags.join(' ').toLowerCase();
+
+        for (const term of terms) {
+          if (title.includes(term)) score += 10;
+          if (desc.includes(term)) score += 5;
+          if (tags.includes(term)) score += 4;
+          if (body.includes(term)) score += 1;
+        }
+        return { rec, score };
+      });
+
+      return scored
+        .filter((s) => s.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 20)
+        .map((s) => s.rec);
+    }
+
+    function render(query: string): void {
+      if (!query.trim()) {
+        status.textContent = '';
+        results.innerHTML = '';
+        return;
+      }
+
+      const matches = search(query);
+      status.textContent = `${matches.length} result${matches.length === 1 ? '' : 's'}`;
+
+      if (matches.length === 0) {
+        results.innerHTML = `<div class="result__empty">No results for "${escapeHtml(query)}"</div>`;
+        return;
+      }
+
+      results.innerHTML = matches
+        .map(
+          (m) => `
+        <a class="result" href="${m.href}">
+          <span class="result__type">${escapeHtml(m.type)}</span>
+          <h3 class="result__title">${highlight(m.title, query)}</h3>
+          <p class="result__desc">${highlight(m.description, query)}</p>
+        </a>
+      `,
+        )
+        .join('');
+    }
+
+    let debounce: number | undefined;
+    input.addEventListener('input', async (e) => {
+      const q = (e.target as HTMLInputElement).value;
+      if (!loaded) await loadIndex();
+      if (debounce) window.clearTimeout(debounce);
+      debounce = window.setTimeout(() => render(q), 120);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.activeElement === input) {
+        input.value = '';
+        render('');
+        input.blur();
+      }
+    });
+
+    input.addEventListener('focus', () => { void loadIndex(); }, { once: true });
+  }
+</script>
+

@@ -33,6 +33,7 @@ export const SITE = {
       { label: 'Technology', href: '/technology' },
       { label: 'About', href: '/about' },
       { label: 'Now', href: '/now' },
+      { label: 'Search', href: '/search' },
       { label: 'Contact', href: '/contact' },
     ],
   },

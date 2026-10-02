@@ -4,8 +4,14 @@ import Container from '@/components/primitives/Container.astro';
 import Section from '@/components/primitives/Section.astro';
 import Stack from '@/components/primitives/Stack.astro';
 import Prose from '@/components/content/Prose.astro';
-import Icon from '@/components/icons/Icon.astro';
-import type { CollectionEntry } from 'astro:content';
+import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
+import TableOfContents from '@/components/content/TableOfContents.astro';
+import RelatedContent from '@/components/content/RelatedContent.astro';
+import PrevNextNav from '@/components/content/PrevNextNav.astro';
+import ShareButtons from '@/components/content/ShareButtons.astro';
+import ReadingProgress from '@/components/content/ReadingProgress.astro';
+import { getRelatedContent, getPrevNext } from '@/lib/related';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 interface Props {
   article: CollectionEntry<'articles'>;
@@ -15,15 +21,32 @@ interface Props {
 const { article, readingTime = 5 } = Astro.props;
 const { data } = article;
 
+const allArticles = (await getCollection('articles', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const { prev, next } = getPrevNext(
+  allArticles.map((a) => ({ id: a.id, title: a.data.title })),
+  article.id,
+);
+
+const related = await getRelatedContent({
+  type: 'article',
+  id: article.id,
+  tags: data.tags,
+  category: data.category,
+  relatedProjects: data.relatedProjects,
+  relatedArticles: data.relatedArticles,
+});
+
 const formattedDate = data.publishedAt.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+  year: 'numeric', month: 'long', day: 'numeric',
 });
 
 const updatedDate = data.updatedAt
   ? data.updatedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
   : null;
+
+const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
 ---
 
 <BaseLayout
@@ -34,13 +57,17 @@ const updatedDate = data.updatedAt
   publishedTime={data.publishedAt.toISOString()}
   modifiedTime={data.updatedAt?.toISOString()}
 >
+  <ReadingProgress />
+
   <Section spacing="md">
     <Container width="narrow">
       <Stack gap="lg">
-        <a href="/writing" class="back-link">
-          <Icon name="arrow-right" size={14} />
-          All writing
-        </a>
+        <Breadcrumbs crumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Writing', href: '/writing' },
+          { label: data.category, href: `/writing/tag/${data.category.toLowerCase().replace(/\s+/g, '-')}` },
+          { label: data.title },
+        ]} />
 
         <Stack gap="md">
           <Stack direction="horizontal" gap="sm" wrap align="center">
@@ -52,52 +79,43 @@ const updatedDate = data.updatedAt
           <h1>{data.title}</h1>
           <p class="lead">{data.description}</p>
 
-          {updatedDate && (
-            <p class="article-updated">Last updated {updatedDate}</p>
-          )}
+          {updatedDate && <p class="article-updated">Last updated {updatedDate}</p>}
         </Stack>
+
+        {data.tags.length > 0 && (
+          <Stack direction="horizontal" gap="sm" wrap>
+            {data.tags.map((tag) => (
+              <a href={`/writing/tag/${tag}/`} class="article-tag">#{tag}</a>
+            ))}
+          </Stack>
+        )}
       </Stack>
     </Container>
   </Section>
 
   <Section spacing="md" background="surface">
-    <Container width="narrow">
-      <Prose>
-        <slot />
-      </Prose>
+    <Container>
+      <div class="article-grid">
+        <div class="article-body" data-article-body>
+          <Prose>
+            <slot />
+          </Prose>
+        </div>
+        <TableOfContents class="article-toc" />
+      </div>
     </Container>
   </Section>
 
   <Section spacing="md">
     <Container width="narrow">
-      <div class="article-footer">
-        <p class="article-author">
-          Written by <strong>Freedom Evbakoe Amenaghawon</strong>
-        </p>
-        <a href="/contact" class="article-contact">
-          Get in touch
-          <Icon name="arrow-right" size={14} />
-        </a>
-      </div>
+      <ShareButtons url={canonicalURL} title={data.title} />
+      <PrevNextNav prev={prev} next={next} basePath="/writing" />
+      <RelatedContent items={related} />
     </Container>
   </Section>
 </BaseLayout>
 
 <style>
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    letter-spacing: var(--ls-wide);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    text-decoration: none;
-  }
-  .back-link:hover { color: var(--color-accent); }
-  .back-link :global(svg) { transform: rotate(180deg); }
-
   .article-category {
     font-family: var(--font-mono);
     font-size: var(--fs-xs);
@@ -120,40 +138,44 @@ const updatedDate = data.updatedAt
     color: var(--color-text-muted);
   }
 
-  .article-footer {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--color-border);
+  .article-tag {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 3px 8px;
+    text-decoration: none;
+    letter-spacing: var(--ls-wide);
   }
 
-  @media (min-width: 640px) {
-    .article-footer {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+  .article-tag:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1024px) {
+    .article-grid {
+      grid-template-columns: minmax(0, 68ch) 220px;
+      gap: var(--space-16);
+      align-items: start;
     }
   }
 
-  .article-author {
-    font-size: var(--fs-sm);
-    color: var(--color-text-secondary);
+  .article-body { min-width: 0; }
+
+  .article-toc { display: none; }
+
+  @media (min-width: 1024px) {
+    .article-toc { display: block; }
   }
-
-  .article-author strong { color: var(--color-text-primary); }
-
-  .article-contact {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    letter-spacing: var(--ls-wide);
-    text-transform: uppercase;
-    color: var(--color-accent-soft);
-    text-decoration: none;
-  }
-
-  .article-contact:hover { color: var(--color-accent); }
 </style>

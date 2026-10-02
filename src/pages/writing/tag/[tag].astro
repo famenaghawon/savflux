@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Grid from '@/components/primitives/Grid.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import ArticleCard from '@/components/content/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  const tags = new Set<string>();
+  articles.forEach((a) => a.data.tags.forEach((t) => tags.add(t)));
+
+  return Array.from(tags).map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      articles: articles.filter((a) => a.data.tags.includes(tag)),
+    },
+  }));
+}
+
+interface Props {
+  tag: string;
+  articles: Awaited<ReturnType<typeof getCollection<'articles'>>>;
+}
+
+const { tag, articles } = Astro.props;
+const sorted = [...articles].sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+---
+
+<BaseLayout
+  title={`Tag: ${tag}`}
+  description={`Articles tagged "${tag}".`}
+  canonical={`/writing/tag/${tag}/`}
+>
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md">
+        <a href="/writing" class="back">← All writing</a>
+        <span class="eyebrow">Tag</span>
+        <h1>#{tag}</h1>
+        <p class="lead">{sorted.length} article{sorted.length === 1 ? '' : 's'} with this tag.</p>
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md">
+    <Container>
+      <Grid cols={3} gap="md">
+        {sorted.map((article) => (
+          <ArticleCard
+            title={article.data.title}
+            description={article.data.description}
+            href={`/writing/${article.id}`}
+            category={article.data.category}
+            date={article.data.publishedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            readingTime={5}
+          />
+        ))}
+      </Grid>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .back {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .back:hover { color: var(--color-accent); }
+</style>

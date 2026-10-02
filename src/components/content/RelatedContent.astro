@@ -1,0 +1,104 @@
+---
+import Card from '@/components/ui/Card.astro';
+import Icon from '@/components/icons/Icon.astro';
+import type { RelatedItem } from '@/lib/related';
+
+interface Props {
+  items: RelatedItem[];
+  class?: string;
+}
+
+const { items, class: className = '' } = Astro.props;
+
+const labels = {
+  project: 'Project',
+  article: 'Article',
+  experiment: 'Lab',
+} as const;
+---
+
+{items.length > 0 && (
+  <section class={`related ${className}`.trim()}>
+    <h2 class="related__title">Related</h2>
+    <div class="related__grid">
+      {items.map((item) => (
+        <Card href={item.href} padding="md" class="related__card">
+          <div class="related__head">
+            <span class="related__type">{labels[item.type]}</span>
+            <Icon name="arrow-right" size={14} class="related__arrow" />
+          </div>
+          <h3 class="related__name">{item.title}</h3>
+          <p class="related__desc">{item.summary}</p>
+        </Card>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .related {
+    margin-top: var(--space-16);
+    padding-top: var(--space-12);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .related__title {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+  }
+
+  .related__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .related__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .related__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
+  }
+
+  .related__type {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .related__arrow {
+    color: var(--color-text-muted);
+    transition: color var(--duration-micro) var(--ease-standard);
+  }
+
+  .related__card:hover .related__arrow { color: var(--color-accent); }
+
+  .related__name {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-primary);
+    letter-spacing: var(--ls-tight);
+    margin-bottom: var(--space-2);
+    line-height: var(--lh-snug);
+  }
+
+  .related__card:hover .related__name { color: var(--color-accent); }
+
+  .related__desc {
+    font-size: var(--fs-xs);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text-secondary);
+  }
+</style>

@@ -6,7 +6,14 @@ import Stack from '@/components/primitives/Stack.astro';
 import StatusBadge from '@/components/content/StatusBadge.astro';
 import Prose from '@/components/content/Prose.astro';
 import Icon from '@/components/icons/Icon.astro';
-import type { CollectionEntry } from 'astro:content';
+import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
+import TableOfContents from '@/components/content/TableOfContents.astro';
+import RelatedContent from '@/components/content/RelatedContent.astro';
+import PrevNextNav from '@/components/content/PrevNextNav.astro';
+import ShareButtons from '@/components/content/ShareButtons.astro';
+import ReadingProgress from '@/components/content/ReadingProgress.astro';
+import { getRelatedContent, getPrevNext } from '@/lib/related';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -14,6 +21,25 @@ interface Props {
 
 const { project } = Astro.props;
 const { data } = project;
+
+const allProjects = (await getCollection('projects'))
+  .sort((a, b) => b.data.weight - a.data.weight);
+
+const { prev, next } = getPrevNext(
+  allProjects.map((p) => ({ id: p.id, title: p.data.title })),
+  project.id,
+);
+
+const related = await getRelatedContent({
+  type: 'project',
+  id: project.id,
+  tags: data.stack,
+  category: data.category,
+  relatedProjects: data.relatedProjects,
+  relatedArticles: data.relatedArticles,
+});
+
+const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
 ---
 
 <BaseLayout
@@ -22,13 +48,17 @@ const { data } = project;
   type="article"
   canonical={`/work/${project.id}/`}
 >
+  <ReadingProgress />
+
   <Section spacing="md">
     <Container>
       <Stack gap="lg">
-        <a href="/work" class="back-link">
-          <Icon name="arrow-right" size={14} />
-          All work
-        </a>
+        <Breadcrumbs crumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Work', href: '/work' },
+          { label: data.category, href: `/work/category/${data.category}/` },
+          { label: data.title },
+        ]} />
 
         <Stack gap="md">
           <Stack direction="horizontal" gap="sm" wrap align="center">
@@ -38,20 +68,17 @@ const { data } = project;
           </Stack>
 
           <h1>{data.title}</h1>
-
           <p class="lead">{data.description}</p>
 
           <Stack direction="horizontal" gap="sm" wrap>
             {data.liveUrl && (
               <a href={data.liveUrl} class="btn btn--primary" target="_blank" rel="noopener">
-                Visit live
-                <Icon name="arrow-up-right" size={16} />
+                Visit live <Icon name="arrow-up-right" size={16} />
               </a>
             )}
             {data.repoUrl && (
               <a href={data.repoUrl} class="btn btn--ghost" target="_blank" rel="noopener">
-                Source
-                <Icon name="external-link" size={16} />
+                Source <Icon name="external-link" size={16} />
               </a>
             )}
           </Stack>
@@ -66,9 +93,7 @@ const { data } = project;
           <Stack gap="sm">
             <span class="eyebrow">Stack</span>
             <Stack direction="horizontal" gap="sm" wrap>
-              {data.stack.map((tech) => (
-                <span class="tech-tag">{tech}</span>
-              ))}
+              {data.stack.map((tech) => <span class="tech-tag">{tech}</span>)}
             </Stack>
           </Stack>
         )}
@@ -77,43 +102,28 @@ const { data } = project;
   </Section>
 
   <Section spacing="md" background="surface">
-    <Container width="narrow">
-      <Prose>
-        <slot />
-      </Prose>
+    <Container>
+      <div class="project-grid">
+        <div class="project-body" data-article-body>
+          <Prose>
+            <slot />
+          </Prose>
+        </div>
+        <TableOfContents class="project-toc" />
+      </div>
     </Container>
   </Section>
 
   <Section spacing="md">
     <Container>
-      <a href="/work" class="back-link">
-        <Icon name="arrow-right" size={14} />
-        Back to all work
-      </a>
+      <ShareButtons url={canonicalURL} title={data.title} />
+      <PrevNextNav prev={prev} next={next} basePath="/work" label="Project" />
+      <RelatedContent items={related} />
     </Container>
   </Section>
 </BaseLayout>
 
 <style>
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    letter-spacing: var(--ls-wide);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    transition: color var(--duration-micro) var(--ease-standard);
-  }
-
-  .back-link:hover { color: var(--color-accent); }
-
-  .back-link :global(svg) {
-    transform: rotate(180deg);
-  }
-
   .meta-tag {
     font-family: var(--font-mono);
     font-size: var(--fs-xs);
@@ -145,23 +155,29 @@ const { data } = project;
     transition: all var(--duration-micro) var(--ease-standard);
   }
 
-  .btn--primary {
-    background: var(--color-accent);
-    color: var(--color-text-inverse);
-  }
-  .btn--primary:hover {
-    background: var(--color-accent-hover);
-    box-shadow: var(--shadow-accent);
+  .btn--primary { background: var(--color-accent); color: var(--color-text-inverse); }
+  .btn--primary:hover { background: var(--color-accent-hover); box-shadow: var(--shadow-accent); }
+
+  .btn--ghost { background: transparent; color: var(--color-text-primary); border: 1px solid var(--color-border-strong); }
+  .btn--ghost:hover { color: var(--color-accent); border-color: var(--color-accent); background: var(--color-accent-tint); }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
-  .btn--ghost {
-    background: transparent;
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border-strong);
+  @media (min-width: 1024px) {
+    .project-grid {
+      grid-template-columns: minmax(0, 68ch) 220px;
+      gap: var(--space-16);
+      align-items: start;
+    }
   }
-  .btn--ghost:hover {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-    background: var(--color-accent-tint);
-  }
+
+  .project-body { min-width: 0; }
+  .project-toc { display: none; }
+  @media (min-width: 1024px) { .project-toc { display: block; } }
 </style>

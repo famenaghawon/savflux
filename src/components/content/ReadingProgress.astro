@@ -1,0 +1,69 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`reading-progress ${className}`.trim()} data-reading-progress>
+  <div class="reading-progress__bar" data-reading-bar></div>
+</div>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: var(--z-sticky);
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .reading-progress__bar {
+    height: 100%;
+    background: var(--gradient-accent-line);
+    width: 0%;
+    transition: width 80ms linear;
+    will-change: width;
+  }
+</style>
+
+<script>
+  function initProgress() {
+    const bar = document.querySelector<HTMLElement>('[data-reading-bar]');
+    if (!bar) return;
+
+    let ticking = false;
+
+    const update = () => {
+      const doc = document.documentElement;
+      const scrollTop = window.scrollY;
+      const height = doc.scrollHeight - window.innerHeight;
+      const pct = height > 0 ? Math.min(100, (scrollTop / height) * 100) : 0;
+      bar.style.width = `${pct}%`;
+      ticking = false;
+    };
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+
+    update();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProgress);
+  } else {
+    initProgress();
+  }
+</script>

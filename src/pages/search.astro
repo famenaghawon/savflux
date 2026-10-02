@@ -1,0 +1,33 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/primitives/Container.astro';
+import Section from '@/components/primitives/Section.astro';
+import Stack from '@/components/primitives/Stack.astro';
+import SearchClient from '@/components/search/SearchClient.astro';
+---
+
+<BaseLayout
+  title="Search"
+  description="Search across projects, articles, experiments, and pages."
+  canonical="/search/"
+  noindex
+>
+  <Section spacing="md">
+    <Container>
+      <Stack gap="md">
+        <span class="eyebrow">Search</span>
+        <h1>Find anything.</h1>
+        <p class="lead">
+          Search projects, articles, experiments, and pages. Powered by a
+          static index — no backend, no tracking.
+        </p>
+      </Stack>
+    </Container>
+  </Section>
+
+  <Section spacing="md">
+    <Container>
+      <SearchClient />
+    </Container>
+  </Section>
+</BaseLayout>

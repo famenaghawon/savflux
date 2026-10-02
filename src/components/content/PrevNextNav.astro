@@ -1,0 +1,99 @@
+---
+import Icon from '@/components/icons/Icon.astro';
+
+interface NavItem {
+  id: string;
+  title: string;
+}
+
+interface Props {
+  prev: NavItem | null;
+  next: NavItem | null;
+  basePath: string;
+  label?: string;
+}
+
+const { prev, next, basePath, label = 'More' } = Astro.props;
+---
+
+{(prev || next) && (
+  <nav class="prevnext" aria-label={`${label} navigation`}>
+    {prev ? (
+      <a href={`${basePath}/${prev.id}`} class="prevnext__item prevnext__item--prev">
+        <span class="prevnext__label">
+          <Icon name="arrow-right" size={12} class="prevnext__icon-back" />
+          Previous
+        </span>
+        <span class="prevnext__title">{prev.title}</span>
+      </a>
+    ) : <div />}
+
+    {next ? (
+      <a href={`${basePath}/${next.id}`} class="prevnext__item prevnext__item--next">
+        <span class="prevnext__label">
+          Next
+          <Icon name="arrow-right" size={12} />
+        </span>
+        <span class="prevnext__title">{next.title}</span>
+      </a>
+    ) : <div />}
+  </nav>
+)}
+
+<style>
+  .prevnext {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 640px) {
+    .prevnext { grid-template-columns: 1fr 1fr; }
+  }
+
+  .prevnext__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color var(--duration-micro) var(--ease-standard),
+                background var(--duration-micro) var(--ease-standard);
+  }
+
+  .prevnext__item:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface);
+  }
+
+  .prevnext__item--next { text-align: right; }
+
+  .prevnext__label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .prevnext__item--next .prevnext__label { justify-content: flex-end; }
+
+  .prevnext__icon-back { transform: rotate(180deg); }
+
+  .prevnext__title {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-medium);
+    color: var(--color-text-primary);
+    line-height: var(--lh-snug);
+  }
+
+  .prevnext__item:hover .prevnext__title { color: var(--color-accent); }
+</style>

@@ -5,7 +5,10 @@ import Section from '@/components/primitives/Section.astro';
 import Stack from '@/components/primitives/Stack.astro';
 import StatusBadge from '@/components/content/StatusBadge.astro';
 import Prose from '@/components/content/Prose.astro';
-import Icon from '@/components/icons/Icon.astro';
+import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
+import RelatedContent from '@/components/content/RelatedContent.astro';
+import ShareButtons from '@/components/content/ShareButtons.astro';
+import { getRelatedContent } from '@/lib/related';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -17,6 +20,16 @@ const { data } = experiment;
 
 const startedDate = data.startedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 const updatedDate = data.updatedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const related = await getRelatedContent({
+  type: 'experiment',
+  id: experiment.id,
+  tags: data.tags,
+  category: data.category,
+  relatedArticles: data.relatedArticles,
+});
+
+const canonicalURL = new URL(`/lab/${experiment.id}/`, Astro.site).toString();
 ---
 
 <BaseLayout
@@ -28,10 +41,11 @@ const updatedDate = data.updatedAt.toLocaleDateString('en-US', { year: 'numeric'
   <Section spacing="md">
     <Container width="narrow">
       <Stack gap="lg">
-        <a href="/lab" class="back-link">
-          <Icon name="arrow-right" size={14} />
-          The Lab
-        </a>
+        <Breadcrumbs crumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Lab', href: '/lab' },
+          { label: data.title },
+        ]} />
 
         <Stack gap="md">
           <Stack direction="horizontal" gap="sm" wrap align="center">
@@ -42,15 +56,12 @@ const updatedDate = data.updatedAt.toLocaleDateString('en-US', { year: 'numeric'
 
           <h1>{data.title}</h1>
           <p class="lead">{data.summary}</p>
-
           <p class="lab-updated">Last updated {updatedDate}</p>
         </Stack>
 
         {data.tags.length > 0 && (
           <Stack direction="horizontal" gap="sm" wrap>
-            {data.tags.map((tag) => (
-              <span class="lab-tag">{tag}</span>
-            ))}
+            {data.tags.map((tag) => <span class="lab-tag">{tag}</span>)}
           </Stack>
         )}
       </Stack>
@@ -67,29 +78,13 @@ const updatedDate = data.updatedAt.toLocaleDateString('en-US', { year: 'numeric'
 
   <Section spacing="md">
     <Container width="narrow">
-      <a href="/lab" class="back-link">
-        <Icon name="arrow-right" size={14} />
-        Back to the Lab
-      </a>
+      <ShareButtons url={canonicalURL} title={data.title} />
+      <RelatedContent items={related} />
     </Container>
   </Section>
 </BaseLayout>
 
 <style>
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    letter-spacing: var(--ls-wide);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    text-decoration: none;
-  }
-  .back-link:hover { color: var(--color-accent); }
-  .back-link :global(svg) { transform: rotate(180deg); }
-
   .lab-meta {
     font-family: var(--font-mono);
     font-size: var(--fs-xs);

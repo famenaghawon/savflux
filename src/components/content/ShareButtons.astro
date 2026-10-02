@@ -1,0 +1,113 @@
+---
+import Icon from '@/components/icons/Icon.astro';
+
+interface Props {
+  url: string;
+  title: string;
+  class?: string;
+}
+
+const { url, title, class: className = '' } = Astro.props;
+
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+
+const shares = [
+  { name: 'X', icon: 'code', href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}` },
+  { name: 'LinkedIn', icon: 'briefcase', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+];
+---
+
+<div class={`share ${className}`.trim()}>
+  <span class="share__label">Share</span>
+  <div class="share__buttons">
+    {shares.map((s) => (
+      <a
+        href={s.href}
+        class="share__btn"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Share on ${s.name}`}
+      >
+        <Icon name={s.icon} size={14} />
+        <span>{s.name}</span>
+      </a>
+    ))}
+    <button
+      type="button"
+      class="share__btn"
+      data-copy-url={url}
+      aria-label="Copy link"
+    >
+      <Icon name="link" size={14} />
+      <span data-copy-label>Copy link</span>
+    </button>
+  </div>
+</div>
+
+<style>
+  .share {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .share__label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .share__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .share__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--fs-xs);
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      color var(--duration-micro) var(--ease-standard),
+      border-color var(--duration-micro) var(--ease-standard);
+  }
+
+  .share__btn:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-url]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const url = btn.dataset.copyUrl;
+      if (!url) return;
+      try {
+        await navigator.clipboard.writeText(url);
+        const label = btn.querySelector<HTMLElement>('[data-copy-label]');
+        if (label) {
+          const orig = label.textContent ?? 'Copy link';
+          label.textContent = 'Copied';
+          setTimeout(() => { label.textContent = orig; }, 2000);
+        }
+      } catch {
+        /* clipboard unsupported — silent fail */
+      }
+    });
+  });
+</script>
