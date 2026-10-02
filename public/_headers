@@ -1,3 +1,6 @@
+# Cloudflare Workers — cache & security headers for savflux.com
+
+# Security headers (all routes)
 /*
   Content-Security-Policy: default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-src https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
@@ -5,4 +8,42 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Cross-Origin-Opener-Policy: same-origin
+
+# Hashed assets — immutable, 1 year
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts — immutable, 1 year
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# OG images — immutable, 1 year (regenerated on build, hashed URL)
+/og/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Search index — cacheable but revalidated
+/search-index.json
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# RSS — cacheable
+/rss.xml
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# Sitemaps — cacheable
+/sitemap*.xml
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# HTML pages — revalidate on every request (Cloudflare caches at edge)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# favicon and static
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
+/favicon.svg
+  Cache-Control: public, max-age=86400
+
+# All other static assets
+/images/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
