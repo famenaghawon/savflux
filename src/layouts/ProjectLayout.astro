@@ -14,6 +14,7 @@ import ShareButtons from '@/components/content/ShareButtons.astro';
 import ReadingProgress from '@/components/content/ReadingProgress.astro';
 import { getRelatedContent, getPrevNext } from '@/lib/related';
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { projectSchema } from '@/lib/schema';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -47,6 +48,18 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
   description={data.summary}
   type="article"
   canonical={`/work/${project.id}/`}
+  structuredData={[
+    projectSchema({
+      url: new URL(`/work/${project.id}/`, Astro.site).toString(),
+      title: data.title,
+      summary: data.summary,
+      year: data.year,
+      category: data.category,
+      stack: data.stack,
+      liveUrl: data.liveUrl,
+      repoUrl: data.repoUrl,
+    }),
+  ]}
 >
   <ReadingProgress />
 

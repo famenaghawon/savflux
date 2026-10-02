@@ -10,6 +10,7 @@ import RelatedContent from '@/components/content/RelatedContent.astro';
 import ShareButtons from '@/components/content/ShareButtons.astro';
 import { getRelatedContent } from '@/lib/related';
 import type { CollectionEntry } from 'astro:content';
+import { experimentSchema } from '@/lib/schema';
 
 interface Props {
   experiment: CollectionEntry<'experiments'>;
@@ -37,6 +38,17 @@ const canonicalURL = new URL(`/lab/${experiment.id}/`, Astro.site).toString();
   description={data.summary}
   type="article"
   canonical={`/lab/${experiment.id}/`}
+  structuredData={[
+    experimentSchema({
+      url: new URL(`/lab/${experiment.id}/`, Astro.site).toString(),
+      title: data.title,
+      summary: data.summary,
+      category: data.category,
+      tags: data.tags,
+      startedAt: data.startedAt.toISOString(),
+      updatedAt: data.updatedAt.toISOString(),
+    }),
+  ]}
 >
   <Section spacing="md">
     <Container width="narrow">

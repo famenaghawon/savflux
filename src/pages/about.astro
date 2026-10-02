@@ -4,6 +4,7 @@ import Container from '@/components/primitives/Container.astro';
 import Section from '@/components/primitives/Section.astro';
 import Stack from '@/components/primitives/Stack.astro';
 import Timeline from '@/components/content/Timeline.astro';
+import { profilePageSchema } from '@/lib/schema';
 
 const timelineEntries = [
   { year: '2026', title: 'Savflux', description: 'A personal technology laboratory — the durable identity for everything built, researched, and written.' },
@@ -62,6 +63,7 @@ const chapters = [
   description="Freedom Evbakoe Amenaghawon — technology entrepreneur, full-stack developer, and systems builder. Founder of PrimeShieldHub."
   type="profile"
   canonical="/about/"
+  structuredData={[profilePageSchema()]}
 >
   <Section spacing="md">
     <Container>

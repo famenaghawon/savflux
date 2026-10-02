@@ -12,7 +12,7 @@ import ShareButtons from '@/components/content/ShareButtons.astro';
 import ReadingProgress from '@/components/content/ReadingProgress.astro';
 import { getRelatedContent, getPrevNext } from '@/lib/related';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
+import { articleSchema } from '@/lib/schema';
 interface Props {
   article: CollectionEntry<'articles'>;
   readingTime?: number;
@@ -56,6 +56,18 @@ const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
   canonical={`/writing/${article.id}/`}
   publishedTime={data.publishedAt.toISOString()}
   modifiedTime={data.updatedAt?.toISOString()}
+  structuredData={[
+    articleSchema({
+      url: new URL(`/writing/${article.id}/`, Astro.site).toString(),
+      title: data.title,
+      description: data.description,
+      publishedAt: data.publishedAt.toISOString(),
+      updatedAt: data.updatedAt?.toISOString(),
+      category: data.category,
+      tags: data.tags,
+      wordCount: (article.body ?? '').split(/\s+/).filter(Boolean).length,
+    }),
+  ]}
 >
   <ReadingProgress />
 
