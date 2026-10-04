@@ -1,0 +1,19 @@
+---
+interface Props {
+  links?: Array<{ href: string; label: string }>;
+}
+
+const {
+  links = [
+    { href: '#main', label: 'Skip to content' },
+    { href: '#nav-primary', label: 'Skip to navigation' },
+    { href: '#footer', label: 'Skip to footer' },
+  ],
+} = Astro.props;
+---
+
+<nav class="skip-links" aria-label="Skip links">
+  {links.map((link) => (
+    <a href={link.href}>{link.label}</a>
+  ))}
+</nav>

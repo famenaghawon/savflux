@@ -29,16 +29,39 @@ export function personSchema(): JsonLd {
     '@type': 'Person',
     '@id': IDS.person,
     name: SITE.author.name,
+    alternateName: [
+      'Freedom Amenaghawon',
+      'Freedom Evbakoe Amenaghawon',
+      'Freedom E. Amenaghawon',
+      'Freedom',
+    ],
     givenName: SITE.author.givenName,
     additionalName: SITE.author.additionalName,
     familyName: SITE.author.familyName,
-    jobTitle: SITE.author.role,
-    url: SITE.url,
+    jobTitle: [
+      'Technology Entrepreneur',
+      'Full-Stack Developer',
+      'Systems Builder',
+    ],
+    description:
+      'Freedom Evbakoe Amenaghawon is a technology entrepreneur, full-stack developer, and systems builder. Founder of Savflux, a technology lab, and PrimeShieldHub, a technology-driven commerce platform.',
+    url: `${SITE.url}/about/`,
+    mainEntityOfPage: `${SITE.url}/about/`,
     email: `mailto:${SITE.author.email}`,
+    image: `${SITE.url}/og/about.png`,
     identifier: {
       '@type': 'PropertyValue',
       propertyID: 'ORCID',
       value: SITE.author.orcid,
+    },
+    nationality: {
+      '@type': 'Country',
+      name: 'Nigeria',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Benin City',
+      addressCountry: 'NG',
     },
     sameAs,
     knowsAbout: [
@@ -46,12 +69,17 @@ export function personSchema(): JsonLd {
       'Full-Stack Development',
       'Artificial Intelligence',
       'Cloud Infrastructure',
+      'Serverless Architecture',
       'Data Analytics',
       'Bioinformatics',
+      'Computational Biology',
       'Technology Entrepreneurship',
       'Digital Systems',
     ],
-    owns: { '@id': IDS.website },
+    owns: [
+      { '@id': IDS.website },
+      { '@id': IDS.organization },
+    ],
   };
 }
 
@@ -87,11 +115,19 @@ export function organizationSchema(): JsonLd {
     '@type': 'Organization',
     '@id': IDS.organization,
     name: SITE.organization.name,
+    alternateName: 'PrimeShieldHub',
     url: SITE.organization.url,
     founder: { '@id': IDS.person },
     foundingDate: '2025',
     description:
       'Technology-driven commerce infrastructure for premium gadgets and enterprise procurement.',
+    knowsAbout: [
+      'E-Commerce Infrastructure',
+      'Enterprise Software',
+      'Cloud Architecture',
+      'Digital Commerce',
+    ],
+    sameAs: [SITE.organization.url],
   };
 }
 

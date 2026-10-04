@@ -121,6 +121,9 @@ const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
   <Section spacing="md">
     <Container width="narrow">
       <ShareButtons url={canonicalURL} title={data.title} />
+      <p class="article-author">
+        Written by <a href="/about" rel="author"><strong>Freedom Amenaghawon</strong></a>
+      </p>
       <PrevNextNav prev={prev} next={next} basePath="/writing" />
       <RelatedContent items={related} />
     </Container>
@@ -128,6 +131,26 @@ const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
 </BaseLayout>
 
 <style>
+  .article-author {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .article-author a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration-micro) var(--ease-standard);
+  }
+
+  .article-author a:hover {
+    border-bottom-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
   .article-category {
     font-family: var(--font-mono);
     font-size: var(--fs-xs);

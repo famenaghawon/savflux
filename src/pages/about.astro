@@ -5,6 +5,7 @@ import Section from '@/components/primitives/Section.astro';
 import Stack from '@/components/primitives/Stack.astro';
 import Timeline from '@/components/content/Timeline.astro';
 import { profilePageSchema } from '@/lib/schema';
+import { IDS } from '@/lib/schema';
 
 const timelineEntries = [
   { year: '2026', title: 'Savflux', description: 'A personal technology laboratory — the durable identity for everything built, researched, and written.' },
@@ -60,10 +61,22 @@ const chapters = [
 
 <BaseLayout
   title="About"
-  description="Freedom Evbakoe Amenaghawon — technology entrepreneur, full-stack developer, and systems builder. Founder of PrimeShieldHub."
+  description="Freedom Amenaghawon (Freedom Evbakoe Amenaghawon) — technology entrepreneur, full-stack developer, and systems builder. Founder of Savflux and PrimeShieldHub. Based in Benin City, Nigeria."
   type="profile"
   canonical="/about/"
-  structuredData={[profilePageSchema()]}
+  structuredData={[
+    profilePageSchema(),
+    {
+      '@type': 'WebPage',
+      '@id': `${Astro.site?.toString() ?? 'https://savflux.com'}/about/#webpage`,
+      url: new URL('/about/', Astro.site).toString(),
+      name: 'About Freedom Evbakoe Amenaghawon',
+      description: 'Biography, education, and technology journey of Freedom Evbakoe Amenaghawon.',
+      isPartOf: { '@id': IDS.website },
+      about: { '@id': IDS.person },
+      mainEntity: { '@id': IDS.person },
+    },
+  ]}
 >
   <Section spacing="md">
     <Container>
@@ -71,8 +84,11 @@ const chapters = [
         <span class="eyebrow">About</span>
         <h1>Freedom Evbakoe Amenaghawon.</h1>
         <p class="lead">
-          Technology entrepreneur, full-stack developer, and systems builder.
-          Founder of PrimeShieldHub. Based in Benin City, Nigeria.
+          Also known as <strong>Freedom Amenaghawon</strong>. Technology entrepreneur,
+          full-stack developer, and systems builder. Founder of
+          <a href="https://savflux.com" rel="noopener">Savflux</a> — a technology lab —
+          and <a href="https://primeshieldhub.com" rel="noopener">PrimeShieldHub</a> —
+          a technology-driven commerce platform. Based in Benin City, Nigeria.
         </p>
       </Stack>
     </Container>

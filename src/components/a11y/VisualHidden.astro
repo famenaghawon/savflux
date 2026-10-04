@@ -1,0 +1,12 @@
+---
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  class?: string;
+}
+
+const { as: Tag = 'span', class: className = '' } = Astro.props;
+---
+
+<Tag class={`sr-only ${className}`.trim()}>
+  <slot />
+</Tag>

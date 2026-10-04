@@ -2,6 +2,7 @@
 
 @import './tokens.css';
 @import './typography.css';
+@import './a11y.css';
 
 /* ============================================================
    RESET / BASE

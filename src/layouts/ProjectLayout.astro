@@ -130,6 +130,9 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
   <Section spacing="md">
     <Container>
       <ShareButtons url={canonicalURL} title={data.title} />
+      <p class="project-author">
+        Built by <a href="/about" rel="author"><strong>Freedom Amenaghawon</strong></a>
+      </p>
       <PrevNextNav prev={prev} next={next} basePath="/work" label="Project" />
       <RelatedContent items={related} />
     </Container>
@@ -188,6 +191,25 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
       gap: var(--space-16);
       align-items: start;
     }
+  }
+  .project-author {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .project-author a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration-micro) var(--ease-standard);
+  }
+
+  .project-author a:hover {
+    border-bottom-color: var(--color-accent);
+    color: var(--color-accent);
   }
 
   .project-body { min-width: 0; }
