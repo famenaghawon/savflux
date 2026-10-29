@@ -14,8 +14,18 @@ const projects = defineCollection({
     category: z.enum(['software', 'ai', 'data', 'cloud', 'business', 'research']),
     stack: z.array(z.string()).default([]),
     heroImage: z.string().optional(),
-    liveUrl: z.url().optional(),
-    repoUrl: z.url().optional(),
+    heroImageAlt: z.string().optional(),
+    gallery: z
+      .array(
+        z.object({
+          src: z.string(),
+          alt: z.string(),
+          caption: z.string().optional(),
+        }),
+      )
+      .default([]),
+    liveUrl: z.string().url().optional(),
+    repoUrl: z.string().url().optional(),
     featured: z.boolean().default(false),
     weight: z.number().default(0),
     relatedArticles: z.array(z.string()).default([]),

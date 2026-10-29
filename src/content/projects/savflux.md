@@ -12,6 +12,12 @@ stack:
   - Cloudflare Workers
   - Tailwind CSS
   - lucide-static
+heroImage: /images/projects/savflux/hero.png
+heroImageAlt: Savflux homepage
+gallery:
+  - src: /images/projects/savflux/design-system.png
+    alt: Savflux design system catalog
+    caption: Design system catalog at /design
 featured: true
 weight: 80
 relatedArticles:

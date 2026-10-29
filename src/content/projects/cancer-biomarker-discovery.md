@@ -11,6 +11,12 @@ stack:
   - pandas
   - scikit-learn
   - Jupyter
+heroImage: /images/projects/cancer-biomarker/hero.png
+heroImageAlt: Cancer biomarker discovery platform visualization
+gallery:
+  - src: /images/projects/cancer-biomarker/pipeline.png
+    alt: Multi-omics analysis pipeline
+    caption: Multi-omics analysis pipeline
 featured: true
 weight: 70
 liveUrl: https://github.com/famenaghawon/cancer-biomarker-discovery

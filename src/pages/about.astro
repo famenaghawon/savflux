@@ -6,6 +6,7 @@ import Stack from '@/components/primitives/Stack.astro';
 import Timeline from '@/components/content/Timeline.astro';
 import { profilePageSchema } from '@/lib/schema';
 import { IDS } from '@/lib/schema';
+import Image from '@/components/media/Image.astro';
 
 const timelineEntries = [
   { year: '2026', title: 'Savflux', description: 'A personal technology laboratory — the durable identity for everything built, researched, and written.' },
@@ -91,6 +92,18 @@ const chapters = [
           a technology-driven commerce platform. Based in Benin City, Nigeria.
         </p>
       </Stack>
+
+      <div class="about-portrait">
+        <Image
+          src="/images/about/freedom-portrait.jpg"
+          alt="Portrait of Freedom Evbakoe Amenaghawon"
+          loading="eager"
+          fetchpriority="high"
+          width={800}
+          height={1000}
+          aspectRatio="4/5"
+        />
+      </div>
     </Container>
   </Section>
 
@@ -170,5 +183,20 @@ const chapters = [
     font-weight: var(--fw-semibold);
     letter-spacing: var(--ls-tight);
     color: var(--color-text-primary);
+  }
+
+  .about-portrait {
+    max-width: 320px;
+    margin-top: var(--space-10);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .about-portrait :global(img) {
+    border-radius: 0;
+    margin: 0;
+    width: 100%;
+    height: auto;
   }
 </style>

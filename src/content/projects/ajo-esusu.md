@@ -12,6 +12,12 @@ stack:
   - D1
   - Gemini API
   - WhatsApp Cloud API
+heroImage: /images/projects/ajo-esusu/hero.png
+heroImageAlt: Ajo/Esusu platform prototype
+gallery:
+  - src: /images/projects/ajo-esusu/flow.png
+    alt: Contribution and payout flow
+    caption: Contribution & payout flow
 featured: false
 weight: 60
 publishedAt: 2026-06-01

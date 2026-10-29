@@ -1,0 +1,65 @@
+---
+import Image from '@/components/media/Image.astro';
+
+interface GalleryImage {
+  src: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
+interface Props {
+  images: GalleryImage[];
+  class?: string;
+}
+
+const { images, class: className = '' } = Astro.props;
+---
+
+{images.length > 0 && (
+  <div class={`gallery ${className}`.trim()}>
+    {images.map((image) => (
+      <figure class="gallery__item">
+        <Image
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          width={image.width}
+          height={image.height}
+        />
+        {image.caption && (
+          <figcaption class="gallery__caption">{image.caption}</figcaption>
+        )}
+      </figure>
+    ))}
+  </div>
+)}
+
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-block: var(--space-10);
+  }
+
+  .gallery__item {
+    margin: 0;
+  }
+
+  .gallery__item :global(img) {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .gallery__caption {
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+</style>

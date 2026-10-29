@@ -16,6 +16,18 @@ stack:
   - Paystack
   - Resend
   - Gemini API
+heroImage: /images/projects/primeshieldhub/hero.png
+heroImageAlt: PrimeShieldHub commerce platform homepage
+gallery:
+  - src: /images/projects/primeshieldhub/architecture.png
+    alt: PrimeShieldHub architecture — Cloudflare Workers, D1, R2, KV
+    caption: Platform architecture
+  - src: /images/projects/primeshieldhub/dashboard.png
+    alt: PrimeShieldHub operations dashboard
+    caption: Business operations dashboard
+  - src: /images/projects/primeshieldhub/mobile.png
+    alt: PrimeShieldHub mobile experience
+    caption: Mobile commerce flow
 featured: true
 weight: 100
 relatedArticles:

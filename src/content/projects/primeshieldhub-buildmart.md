@@ -12,6 +12,12 @@ stack:
   - D1
   - R2
   - KV
+heroImage: /images/projects/buildmart/hero.png
+heroImageAlt: BuildMart enterprise procurement platform
+gallery:
+  - src: /images/projects/buildmart/workspace.png
+    alt: BuildMart workspace control center
+    caption: Workspace control center
 featured: true
 weight: 90
 relatedProjects:
