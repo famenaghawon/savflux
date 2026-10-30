@@ -20,6 +20,7 @@ Can a small AI assistant meaningfully reduce the operational burden on a Nigeria
 Most Nigerian SMEs run on WhatsApp. Customer inquiries arrive 24/7. The owner answers every message personally — inquiries, orders, complaints, logistics. This is unsustainable, but hiring staff for it is expensive.
 
 An AI assistant, integrated into the SME's existing WhatsApp workflow, could:
+
 - Handle common inquiries automatically
 - Route complex questions to the owner
 - Capture order details

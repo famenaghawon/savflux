@@ -8,26 +8,25 @@ interface Props {
   class?: string;
 }
 
-const {
-  label,
-  htmlFor,
-  required = false,
-  hint,
-  error,
-  class: className = '',
-} = Astro.props;
+const { label, htmlFor, required = false, hint, error, class: className = '' } = Astro.props;
 ---
 
 <div class={`field ${className}`.trim()}>
   <label class="field__label" for={htmlFor}>
     {label}
-    {required && <span class="field__required" aria-hidden="true">*</span>}
+    {required && (
+      <span class="field__required" aria-hidden="true">
+        *
+      </span>
+    )}
   </label>
 
   <slot />
 
   {hint && !error && (
-    <p class="field__hint" id={`${htmlFor}-hint`}>{hint}</p>
+    <p class="field__hint" id={`${htmlFor}-hint`}>
+      {hint}
+    </p>
   )}
 
   {error && (

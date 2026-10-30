@@ -36,6 +36,7 @@ Beneath the storefront, there are eight layers. Every one of them has failure mo
 ### 1. Product Catalogue
 
 Not "a list of products." A system with:
+
 - Categories, tags, attributes
 - Inventory state (in stock, out of stock, backorder, discontinued)
 - Pricing (base, wholesale, reseller, promotional)
@@ -46,6 +47,7 @@ Not "a list of products." A system with:
 ### 2. Cart & Checkout
 
 Not "add to cart, click pay." A flow with:
+
 - Guest vs authenticated checkout
 - Shipping calculation
 - Tax handling
@@ -57,6 +59,7 @@ Not "add to cart, click pay." A flow with:
 ### 3. Payment Processing
 
 Paystack handles the mechanics, but the platform handles:
+
 - Webhook verification
 - Idempotent webhook handling (the same webhook can arrive multiple times)
 - Reconciliation (matching payments to orders)
@@ -67,6 +70,7 @@ Paystack handles the mechanics, but the platform handles:
 ### 4. Order Management
 
 An order isn't a row in a table. It's a state machine:
+
 - Created → Confirmed → Processing → Shipped → Delivered → Completed
 - Or: Cancelled, Refunded, Disputed, Returned
 - Every transition has an actor, a timestamp, and often a notification
@@ -74,6 +78,7 @@ An order isn't a row in a table. It's a state machine:
 ### 5. Fulfilment
 
 Physical goods mean:
+
 - Warehouse location tracking
 - Pick, pack, ship workflow
 - Courier integration
@@ -84,6 +89,7 @@ Physical goods mean:
 ### 6. Customer Communication
 
 Every order event triggers communication:
+
 - Order confirmation (email + optionally SMS)
 - Shipping notification with tracking
 - Delivery confirmation
@@ -94,6 +100,7 @@ All of this has to be **idempotent** — never send the same notification twice.
 ### 7. Business Operations
 
 Behind the storefront:
+
 - Staff accounts with roles and permissions
 - Sales reports
 - Customer records (with privacy considerations)
@@ -103,6 +110,7 @@ Behind the storefront:
 ### 8. Trust & Security
 
 The most underrated layer:
+
 - HTTPS everywhere
 - PCI compliance (or delegating to a processor)
 - Session security

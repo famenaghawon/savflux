@@ -38,9 +38,15 @@ const {
   {stack.length > 0 && (
     <ul class="project-card__stack" role="list">
       {stack.slice(0, 5).map((tech) => (
-        <li><span class="project-card__tech">{tech}</span></li>
+        <li>
+          <span class="project-card__tech">{tech}</span>
+        </li>
       ))}
-      {stack.length > 5 && <li><span class="project-card__tech">+{stack.length - 5}</span></li>}
+      {stack.length > 5 && (
+        <li>
+          <span class="project-card__tech">+{stack.length - 5}</span>
+        </li>
+      )}
     </ul>
   )}
 
@@ -79,7 +85,9 @@ const {
     transition: color var(--duration-micro) var(--ease-standard);
   }
 
-  .project-card:hover .project-card__title { color: var(--color-accent); }
+  .project-card:hover .project-card__title {
+    color: var(--color-accent);
+  }
 
   .project-card__summary {
     font-size: var(--fs-sm);
@@ -134,5 +142,7 @@ const {
     transition: color var(--duration-micro) var(--ease-standard);
   }
 
-  .project-card:hover .project-card__cta { color: var(--color-accent); }
+  .project-card:hover .project-card__cta {
+    color: var(--color-accent);
+  }
 </style>

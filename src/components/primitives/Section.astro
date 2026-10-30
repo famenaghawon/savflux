@@ -16,12 +16,9 @@ const {
 } = Astro.props;
 
 const Tag = as;
-const classes = [
-  'section',
-  `section--pad-${spacing}`,
-  `section--bg-${background}`,
-  className,
-].filter(Boolean).join(' ');
+const classes = ['section', `section--pad-${spacing}`, `section--bg-${background}`, className]
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <Tag class={classes} id={id}>
@@ -29,19 +26,39 @@ const classes = [
 </Tag>
 
 <style>
-  .section { position: relative; }
-
-  .section--pad-none { padding-block: 0; }
-  .section--pad-sm   { padding-block: var(--space-10); }
-  .section--pad-md   { padding-block: var(--space-16); }
-  .section--pad-lg   { padding-block: var(--space-24); }
-
-  @media (min-width: 768px) {
-    .section--pad-md { padding-block: var(--space-24); }
-    .section--pad-lg { padding-block: var(--space-32); }
+  .section {
+    position: relative;
   }
 
-  .section--bg-default  { background: var(--color-bg); }
-  .section--bg-surface  { background: var(--color-surface); }
-  .section--bg-gradient { background: var(--gradient-hero); }
+  .section--pad-none {
+    padding-block: 0;
+  }
+  .section--pad-sm {
+    padding-block: var(--space-10);
+  }
+  .section--pad-md {
+    padding-block: var(--space-16);
+  }
+  .section--pad-lg {
+    padding-block: var(--space-24);
+  }
+
+  @media (min-width: 768px) {
+    .section--pad-md {
+      padding-block: var(--space-24);
+    }
+    .section--pad-lg {
+      padding-block: var(--space-32);
+    }
+  }
+
+  .section--bg-default {
+    background: var(--color-bg);
+  }
+  .section--bg-surface {
+    background: var(--color-surface);
+  }
+  .section--bg-gradient {
+    background: var(--gradient-hero);
+  }
 </style>

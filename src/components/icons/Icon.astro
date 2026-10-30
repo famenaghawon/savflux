@@ -32,8 +32,8 @@ const rawSvg = (lucide as Record<string, string | undefined>)[exportName];
 if (typeof rawSvg !== 'string') {
   throw new Error(
     `Icon "${name}" is not available in lucide-static. ` +
-    `Expected export "${exportName}". ` +
-    `Check the exact name at https://lucide.dev/icons/`,
+      `Expected export "${exportName}". ` +
+      `Check the exact name at https://lucide.dev/icons/`,
   );
 }
 

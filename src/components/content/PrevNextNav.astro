@@ -26,7 +26,9 @@ const { prev, next, basePath, label = 'More' } = Astro.props;
         </span>
         <span class="prevnext__title">{prev.title}</span>
       </a>
-    ) : <div />}
+    ) : (
+      <div />
+    )}
 
     {next ? (
       <a href={`${basePath}/${next.id}`} class="prevnext__item prevnext__item--next">
@@ -36,7 +38,9 @@ const { prev, next, basePath, label = 'More' } = Astro.props;
         </span>
         <span class="prevnext__title">{next.title}</span>
       </a>
-    ) : <div />}
+    ) : (
+      <div />
+    )}
   </nav>
 )}
 
@@ -51,7 +55,9 @@ const { prev, next, basePath, label = 'More' } = Astro.props;
   }
 
   @media (min-width: 640px) {
-    .prevnext { grid-template-columns: 1fr 1fr; }
+    .prevnext {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   .prevnext__item {
@@ -62,8 +68,9 @@ const { prev, next, basePath, label = 'More' } = Astro.props;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     text-decoration: none;
-    transition: border-color var(--duration-micro) var(--ease-standard),
-                background var(--duration-micro) var(--ease-standard);
+    transition:
+      border-color var(--duration-micro) var(--ease-standard),
+      background var(--duration-micro) var(--ease-standard);
   }
 
   .prevnext__item:hover {
@@ -71,7 +78,9 @@ const { prev, next, basePath, label = 'More' } = Astro.props;
     background: var(--color-surface);
   }
 
-  .prevnext__item--next { text-align: right; }
+  .prevnext__item--next {
+    text-align: right;
+  }
 
   .prevnext__label {
     display: inline-flex;
@@ -84,9 +93,13 @@ const { prev, next, basePath, label = 'More' } = Astro.props;
     color: var(--color-text-muted);
   }
 
-  .prevnext__item--next .prevnext__label { justify-content: flex-end; }
+  .prevnext__item--next .prevnext__label {
+    justify-content: flex-end;
+  }
 
-  .prevnext__icon-back { transform: rotate(180deg); }
+  .prevnext__icon-back {
+    transform: rotate(180deg);
+  }
 
   .prevnext__title {
     font-size: var(--fs-base);
@@ -95,5 +108,7 @@ const { prev, next, basePath, label = 'More' } = Astro.props;
     line-height: var(--lh-snug);
   }
 
-  .prevnext__item:hover .prevnext__title { color: var(--color-accent); }
+  .prevnext__item:hover .prevnext__title {
+    color: var(--color-accent);
+  }
 </style>

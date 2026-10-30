@@ -20,7 +20,11 @@ const { experiment } = Astro.props;
 const { data } = experiment;
 
 const startedDate = data.startedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-const updatedDate = data.updatedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const updatedDate = data.updatedAt.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
 
 const related = await getRelatedContent({
   type: 'experiment',
@@ -53,11 +57,13 @@ const canonicalURL = new URL(`/lab/${experiment.id}/`, Astro.site).toString();
   <Section spacing="md">
     <Container width="narrow">
       <Stack gap="lg">
-        <Breadcrumbs crumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Lab', href: '/lab' },
-          { label: data.title },
-        ]} />
+        <Breadcrumbs
+          crumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Lab', href: '/lab' },
+            { label: data.title },
+          ]}
+        />
 
         <Stack gap="md">
           <Stack direction="horizontal" gap="sm" wrap align="center">
@@ -73,7 +79,9 @@ const canonicalURL = new URL(`/lab/${experiment.id}/`, Astro.site).toString();
 
         {data.tags.length > 0 && (
           <Stack direction="horizontal" gap="sm" wrap>
-            {data.tags.map((tag) => <span class="lab-tag">{tag}</span>)}
+            {data.tags.map((tag) => (
+              <span class="lab-tag">{tag}</span>
+            ))}
           </Stack>
         )}
       </Stack>
@@ -92,7 +100,10 @@ const canonicalURL = new URL(`/lab/${experiment.id}/`, Astro.site).toString();
     <Container width="narrow">
       <ShareButtons url={canonicalURL} title={data.title} />
       <p class="lab-author">
-        Experiment by <a href="/about" rel="author"><strong>Freedom Amenaghawon</strong></a>
+        Experiment by{' '}
+        <a href="/about" rel="author">
+          <strong>Freedom Amenaghawon</strong>
+        </a>
       </p>
       <RelatedContent items={related} />
     </Container>
@@ -113,7 +124,7 @@ const canonicalURL = new URL(`/lab/${experiment.id}/`, Astro.site).toString();
     font-size: var(--fs-xs);
     color: var(--color-text-muted);
   }
-  
+
   .lab-author {
     margin-top: var(--space-8);
     padding-top: var(--space-6);
@@ -133,7 +144,6 @@ const canonicalURL = new URL(`/lab/${experiment.id}/`, Astro.site).toString();
     border-bottom-color: var(--color-accent);
     color: var(--color-accent);
   }
-
 
   .lab-tag {
     font-family: var(--font-mono);

@@ -40,8 +40,8 @@ const now = {
         <span class="eyebrow">Now</span>
         <h1>What I'm working on.</h1>
         <p class="lead">
-          A snapshot of the current focus. Updated periodically — not a blog,
-          not a commitment, just what's actually moving.
+          A snapshot of the current focus. Updated periodically — not a blog, not a commitment, just
+          what's actually moving.
         </p>
         <p class="updated">Last updated: {now.updated}</p>
       </Stack>
@@ -53,22 +53,38 @@ const now = {
       <Stack gap="lg">
         <div class="now-group">
           <h2>Currently building</h2>
-          <ul>{now.building.map((item) => <li>{item}</li>)}</ul>
+          <ul>
+            {now.building.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
         </div>
 
         <div class="now-group">
           <h2>Currently learning</h2>
-          <ul>{now.learning.map((item) => <li>{item}</li>)}</ul>
+          <ul>
+            {now.learning.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
         </div>
 
         <div class="now-group">
           <h2>Currently exploring</h2>
-          <ul>{now.exploring.map((item) => <li>{item}</li>)}</ul>
+          <ul>
+            {now.exploring.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
         </div>
 
         <div class="now-group">
           <h2>Currently reading</h2>
-          <ul>{now.reading.map((item) => <li>{item}</li>)}</ul>
+          <ul>
+            {now.reading.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
         </div>
       </Stack>
     </Container>

@@ -29,9 +29,7 @@ const {
   rel,
 } = Astro.props;
 
-const classes = ['btn', `btn--${variant}`, `btn--${size}`, className]
-  .filter(Boolean)
-  .join(' ');
+const classes = ['btn', `btn--${variant}`, `btn--${size}`, className].filter(Boolean).join(' ');
 
 const isDisabled = disabled || loading;
 const Tag = href && !isDisabled ? 'a' : 'button';
@@ -44,12 +42,14 @@ const Tag = href && !isDisabled ? 'a' : 'button';
   disabled={Tag === 'button' ? isDisabled : undefined}
   aria-disabled={isDisabled ? 'true' : undefined}
   target={target}
-  rel={target === '_blank' ? rel ?? 'noopener noreferrer' : rel}
+  rel={target === '_blank' ? (rel ?? 'noopener noreferrer') : rel}
   aria-busy={loading ? 'true' : undefined}
 >
   {loading && <Icon name="loader" size={16} class="btn__spinner" />}
   {icon && iconPosition === 'left' && !loading && <Icon name={icon} size={16} />}
-  <span class="btn__label"><slot /></span>
+  <span class="btn__label">
+    <slot />
+  </span>
   {icon && iconPosition === 'right' && !loading && <Icon name={icon} size={16} />}
 </Tag>
 
@@ -114,7 +114,9 @@ const Tag = href && !isDisabled ? 'a' : 'button';
   .btn--primary:hover:not([aria-disabled='true']) {
     background: var(--color-accent-hover);
     color: var(--color-text-inverse);
-    box-shadow: 0 0 0 1px var(--color-accent), 0 0 20px var(--color-accent-glow);
+    box-shadow:
+      0 0 0 1px var(--color-accent),
+      0 0 20px var(--color-accent-glow);
   }
 
   /* Secondary — indigo surface, cyan text */
@@ -165,18 +167,26 @@ const Tag = href && !isDisabled ? 'a' : 'button';
     text-underline-offset: 4px;
   }
 
-  .btn__label { line-height: 1; }
+  .btn__label {
+    line-height: 1;
+  }
 
   .btn__spinner {
     animation: btn-spin 0.8s linear infinite;
   }
 
   @keyframes btn-spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .btn { transition: none; }
-    .btn__spinner { animation: none; }
+    .btn {
+      transition: none;
+    }
+    .btn__spinner {
+      animation: none;
+    }
   }
 </style>

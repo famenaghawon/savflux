@@ -16,10 +16,11 @@ updatedAt: 2026-09-01
 Can a visitor to Savflux ask natural-language questions about the site's content and receive accurate, cited answers?
 
 Examples:
-- *"What has Freedom built with Cloudflare Workers?"*
-- *"Show me his AI projects."*
-- *"Explain the PrimeShieldHub architecture."*
-- *"What is he currently working on?"*
+
+- _"What has Freedom built with Cloudflare Workers?"_
+- _"Show me his AI projects."_
+- _"Explain the PrimeShieldHub architecture."_
+- _"What is he currently working on?"_
 
 ## Hypothesis
 
@@ -39,6 +40,6 @@ A retrieval-augmented generation (RAG) system over Savflux's own content could a
 
 ## Why This Is Interesting
 
-An AI assistant that cites its sources is trustworthy. An AI assistant that invents facts is a liability. The technical problem is not *generation* — it's *retrieval* and *grounding*.
+An AI assistant that cites its sources is trustworthy. An AI assistant that invents facts is a liability. The technical problem is not _generation_ — it's _retrieval_ and _grounding_.
 
 If this works, it becomes a template for any content-driven site that wants to offer conversational access to its knowledge.

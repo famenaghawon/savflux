@@ -10,4 +10,6 @@ interface Props {
 const { name, href, class: className } = Astro.props;
 ---
 
-<Tag href={href} class={className}>{name}</Tag>
+<Tag href={href} class={className}>
+  {name}
+</Tag>

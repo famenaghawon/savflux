@@ -28,9 +28,7 @@ const { images, class: className = '' } = Astro.props;
           width={image.width}
           height={image.height}
         />
-        {image.caption && (
-          <figcaption class="gallery__caption">{image.caption}</figcaption>
-        )}
+        {image.caption && <figcaption class="gallery__caption">{image.caption}</figcaption>}
       </figure>
     ))}
   </div>

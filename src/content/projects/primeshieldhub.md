@@ -59,23 +59,23 @@ A complete commercial platform, end to end:
 - **Business operations tooling** — inventory, orders, fulfilment, staff workflow
 
 ## Architecture
-PrimeShieldHub
-                          │
-                          ▼
-                 Web Platform (frontend)
-                          │
-                          ▼
-                Cloudflare Workers API
-                   ┌──────┼──────┐
-                   ▼      ▼      ▼
-                  D1     R2     KV
-                   │
-                   ▼
-            Commerce Systems
-          ┌────────┼────────┐
-          ▼        ▼        ▼
-      Products   Orders  Payments
 
+PrimeShieldHub
+│
+▼
+Web Platform (frontend)
+│
+▼
+Cloudflare Workers API
+┌──────┼──────┐
+▼ ▼ ▼
+D1 R2 KV
+│
+▼
+Commerce Systems
+┌────────┼────────┐
+▼ ▼ ▼
+Products Orders Payments
 
 Every layer runs on Cloudflare's global edge — the same infrastructure that serves the largest sites on the internet, at a fraction of traditional hosting cost.
 
@@ -110,5 +110,3 @@ A production platform serving real customers, running real revenue, and processi
 - **Serverless changes the economics of small businesses.** What used to require a VPS and an ops engineer now runs on managed infrastructure with predictable cost.
 - **Boring infrastructure wins.** Cloudflare Workers is not exotic. It's just exceptionally good at what it does.
 - **AI is a force multiplier, not a product.** The value of Gemini in PrimeShieldHub is in how it saves time and improves customer experience — not in being "an AI product."
-
-

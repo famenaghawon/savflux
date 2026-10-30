@@ -49,6 +49,7 @@ I diagram this. On paper, in Excalidraw, in Figma — anywhere that lets me see 
 This is the step most people underweight. But data outlives code.
 
 Questions I ask:
+
 - What are the entities? (User, Product, Order, Transaction, Document...)
 - What are the relationships?
 - What is the primary key? What makes each entity unique?
@@ -61,9 +62,10 @@ If the data model is right, the rest of the system flows naturally. If it's wron
 
 ## 4. APIs — The Contract
 
-An API is a promise. It says: *if you send me this, I will do that.*
+An API is a promise. It says: _if you send me this, I will do that._
 
 Every API endpoint I design answers:
+
 - What does it accept? (Types, validation, required vs optional)
 - What does it return? (Success shape, error shape)
 - What is it allowed to fail with? (Error codes, messages)
@@ -77,6 +79,7 @@ I document every endpoint before writing implementation. Not as an afterthought 
 Security isn't a feature you add. It's a constraint you design within.
 
 Baseline:
+
 - **Authentication** — How do we know who's calling?
 - **Authorization** — What are they allowed to do?
 - **Input validation** — Never trust the client. Ever.
@@ -93,6 +96,7 @@ I use OWASP's Top 10 as a starting checklist. If a system touches money or perso
 Performance is not "we'll optimize later." It's a budget, declared up front.
 
 For Savflux, the budget is:
+
 - LCP under 1.8s
 - CLS under 0.05
 - INP under 150ms
@@ -105,6 +109,7 @@ If a feature would blow the budget, it doesn't ship as-is. Either we cut scope, 
 ## 7. Deployment — Automatic, Repeatable, Reversible
 
 Deployment should be:
+
 - **Automatic** — push to main, deploy runs
 - **Repeatable** — same inputs, same output
 - **Reversible** — rollback is one command

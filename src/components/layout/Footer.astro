@@ -18,40 +18,60 @@ const year = new Date().getFullYear();
       <nav class="footer__group" aria-label="Savflux">
         <h3 class="footer__heading">Savflux</h3>
         <ul>
-          <li><a href="/about">About</a></li>
-          <li><a href="/now">Now</a></li>
-          <li><a href="/open-source">Open Source</a></li>
-          <li><a href="/media">Media</a></li>
-          <li><a href="/accessibility">Accessibility</a></li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/now">Now</a>
+          </li>
+          <li>
+            <a href="/open-source">Open Source</a>
+          </li>
+          <li>
+            <a href="/media">Media</a>
+          </li>
+          <li>
+            <a href="/accessibility">Accessibility</a>
+          </li>
         </ul>
       </nav>
 
       <nav class="footer__group" aria-label="Work">
         <h3 class="footer__heading">Work</h3>
         <ul>
-          <li><a href="/work">Projects</a></li>
-          <li><a href="/lab">Lab</a></li>
-          <li><a href="/technology">Technology</a></li>
-          <li><a href="/writing">Writing</a></li>
+          <li>
+            <a href="/work">Projects</a>
+          </li>
+          <li>
+            <a href="/lab">Lab</a>
+          </li>
+          <li>
+            <a href="/technology">Technology</a>
+          </li>
+          <li>
+            <a href="/writing">Writing</a>
+          </li>
         </ul>
       </nav>
 
       <nav class="footer__group" aria-label="Connect">
         <h3 class="footer__heading">Connect</h3>
         <ul>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href={SITE.author.github} rel="me noopener" target="_blank">GitHub</a></li>
+          <li>
+            <a href="/contact">Contact</a>
+          </li>
+          <li>
+            <a href={SITE.author.github} rel="me noopener" target="_blank">
+              GitHub
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
 
     <div class="footer__bottom">
-      <p class="footer__copyright">
-        © {year} Freedom Evbakoe Amenaghawon. All rights reserved.
-      </p>
-      <p class="footer__built">
-        Built with Astro · Deployed on Cloudflare
-      </p>
+      <p class="footer__copyright">© {year} Freedom Evbakoe Amenaghawon. All rights reserved.</p>
+      <p class="footer__built">Built with Astro · Deployed on Cloudflare</p>
     </div>
   </div>
 </footer>

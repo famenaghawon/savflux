@@ -50,18 +50,17 @@ An enterprise platform with modules for:
 ## Architecture
 
 BuildMart Platform
-                        │
-          ┌─────────────┼─────────────┐
-          ▼             ▼             ▼
-    Identity        Projects      Procurement
-          │             │             │
-          └─────────────┼─────────────┘
-                        ▼
-                Cloudflare Workers
-                   ┌────┼────┐
-                   ▼    ▼    ▼
-                  D1    R2   KV
-
+│
+┌─────────────┼─────────────┐
+▼ ▼ ▼
+Identity Projects Procurement
+│ │ │
+└─────────────┼─────────────┘
+▼
+Cloudflare Workers
+┌────┼────┐
+▼ ▼ ▼
+D1 R2 KV
 
 ## Stack
 

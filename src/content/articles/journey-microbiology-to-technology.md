@@ -45,6 +45,7 @@ Somewhere around my third research pipeline, I realized I was no longer a biolog
 That shift changed everything.
 
 I started asking engineering questions:
+
 - How does this system scale?
 - What happens when the data is 100× larger?
 - How do I make this reproducible?
@@ -72,6 +73,7 @@ I built PrimeShieldHub on Cloudflare Workers. Then BuildMart, its enterprise sib
 Microbiology didn't teach me to write code. It taught me something more useful: **how to think in systems.**
 
 A cell is a system. A business is a system. A serverless API is a system. A design system is a system. Each has:
+
 - Inputs and outputs
 - Feedback loops
 - Failure modes

@@ -26,10 +26,26 @@ const experiments = (await getCollection('experiments'))
   .slice(0, 3);
 
 const capabilities = [
-  { icon: 'code', title: 'Software', description: 'Full-stack applications, APIs and digital platforms.' },
-  { icon: 'sparkles', title: 'AI', description: 'AI-powered systems, automation and intelligent tools.' },
-  { icon: 'database', title: 'Data', description: 'Analytics, dashboards, business intelligence and visualization.' },
-  { icon: 'cloud', title: 'Cloud', description: 'Cloud infrastructure, distributed systems and serverless architecture.' },
+  {
+    icon: 'code',
+    title: 'Software',
+    description: 'Full-stack applications, APIs and digital platforms.',
+  },
+  {
+    icon: 'sparkles',
+    title: 'AI',
+    description: 'AI-powered systems, automation and intelligent tools.',
+  },
+  {
+    icon: 'database',
+    title: 'Data',
+    description: 'Analytics, dashboards, business intelligence and visualization.',
+  },
+  {
+    icon: 'cloud',
+    title: 'Cloud',
+    description: 'Cloud infrastructure, distributed systems and serverless architecture.',
+  },
 ] as const;
 ---
 
@@ -38,19 +54,24 @@ const capabilities = [
   <Section spacing="lg" background="gradient">
     <Container>
       <p class="eyebrow">Technology Lab · Est. 2026</p>
-      <h1 class="hero-title">
-        I build technology that turns ideas into working systems.
-      </h1>
+      <h1 class="hero-title">I build technology that turns ideas into working systems.</h1>
       <p class="lead hero-lead">
-        Technology entrepreneur, full-stack developer and builder exploring
-        software, AI, data, cloud infrastructure and digital systems.
+        Technology entrepreneur, full-stack developer and builder exploring software, AI, data,
+        cloud infrastructure and digital systems.
       </p>
       <Stack direction="horizontal" gap="md" wrap class="hero-cta">
-        <Button href="/work" variant="primary" icon="arrow-right">Explore My Work</Button>
-        <Button href="/lab" variant="ghost">Enter the Lab</Button>
+        <Button href="/work" variant="primary" icon="arrow-right">
+          Explore My Work
+        </Button>
+        <Button href="/lab" variant="ghost">
+          Enter the Lab
+        </Button>
       </Stack>
       <p class="hero-founder">
-        Founder of <a href="https://primeshieldhub.com" rel="noopener">PrimeShieldHub →</a>
+        Founder of{' '}
+        <a href="https://primeshieldhub.com" rel="noopener">
+          PrimeShieldHub →
+        </a>
       </p>
     </Container>
   </Section>
@@ -98,7 +119,9 @@ const capabilities = [
         ))}
       </Grid>
       <Stack align="center" class="section-cta">
-        <Button href="/work" variant="ghost" icon="arrow-right">All work</Button>
+        <Button href="/work" variant="ghost" icon="arrow-right">
+          All work
+        </Button>
       </Stack>
     </Container>
   </Section>
@@ -118,12 +141,17 @@ const capabilities = [
             summary={exp.data.summary}
             href={`/lab/${exp.id}`}
             status={exp.data.status}
-            updatedAt={exp.data.updatedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            updatedAt={exp.data.updatedAt.toLocaleDateString('en-US', {
+              month: 'short',
+              year: 'numeric',
+            })}
           />
         ))}
       </Grid>
       <Stack align="center" class="section-cta">
-        <Button href="/lab" variant="ghost" icon="arrow-right">Enter the Lab</Button>
+        <Button href="/lab" variant="ghost" icon="arrow-right">
+          Enter the Lab
+        </Button>
       </Stack>
     </Container>
   </Section>
@@ -142,13 +170,18 @@ const capabilities = [
             description={article.data.description}
             href={`/writing/${article.id}`}
             category={article.data.category}
-            date={article.data.publishedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            date={article.data.publishedAt.toLocaleDateString('en-US', {
+              month: 'short',
+              year: 'numeric',
+            })}
             readingTime={5}
           />
         ))}
       </Grid>
       <Stack align="center" class="section-cta">
-        <Button href="/writing" variant="ghost" icon="arrow-right">All writing</Button>
+        <Button href="/writing" variant="ghost" icon="arrow-right">
+          All writing
+        </Button>
       </Stack>
     </Container>
   </Section>
@@ -187,7 +220,9 @@ const capabilities = [
     color: var(--color-accent-soft);
     text-decoration: none;
   }
-  .hero-founder a:hover { color: var(--color-accent); }
+  .hero-founder a:hover {
+    color: var(--color-accent);
+  }
 
   .section-intro {
     margin-bottom: var(--space-12);

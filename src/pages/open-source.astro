@@ -11,42 +11,48 @@ import { SITE } from '@/lib/site';
 const repos = [
   {
     name: 'cancer-biomarker-discovery',
-    description: 'End-to-end computational platform for pharmaceutical-grade cancer biomarker discovery.',
+    description:
+      'End-to-end computational platform for pharmaceutical-grade cancer biomarker discovery.',
     language: 'Python',
     url: 'https://github.com/famenaghawon/cancer-biomarker-discovery',
     tags: ['bioinformatics', 'machine-learning', 'multi-omics'],
   },
   {
     name: 'argus-platform',
-    description: 'Multi-source public health intelligence system for epidemiological surveillance and early warning.',
+    description:
+      'Multi-source public health intelligence system for epidemiological surveillance and early warning.',
     language: 'Python',
     url: 'https://github.com/famenaghawon/argus-platform',
     tags: ['public-health', 'data-engineering', 'real-time'],
   },
   {
     name: 'microbiome-analysis-project',
-    description: 'Computational pipeline for microbiome analysis — differential abundance and community structure.',
+    description:
+      'Computational pipeline for microbiome analysis — differential abundance and community structure.',
     language: 'Python',
     url: 'https://github.com/famenaghawon/microbiome-analysis-project',
     tags: ['bioinformatics', 'data-science'],
   },
   {
     name: 'epl-excel-dashboard',
-    description: 'Bioinformatics-driven Premier League evolution analysis. Applying computational biology frameworks to football analytics.',
+    description:
+      'Bioinformatics-driven Premier League evolution analysis. Applying computational biology frameworks to football analytics.',
     language: 'Python',
     url: 'https://github.com/famenaghawon/epl-excel-dashboard',
     tags: ['analytics', 'visualization'],
   },
   {
     name: 'drug-response-prediction',
-    description: 'Advanced Drug Response Prediction & Multi-Omics Platform. Interactive computational biology dashboard with ML integration.',
+    description:
+      'Advanced Drug Response Prediction & Multi-Omics Platform. Interactive computational biology dashboard with ML integration.',
     language: 'Jupyter Notebook',
     url: 'https://github.com/famenaghawon/drug-response-prediction',
     tags: ['machine-learning', 'genomics'],
   },
   {
     name: 'primeshieldhub-showcase',
-    description: 'PrimeShieldHub — Premium Gadgets, AI Commerce, Cloud Infrastructure, Data Analytics and Technology Innovation.',
+    description:
+      'PrimeShieldHub — Premium Gadgets, AI Commerce, Cloud Infrastructure, Data Analytics and Technology Innovation.',
     language: 'HTML',
     url: 'https://github.com/famenaghawon/primeshieldhub-showcase',
     tags: ['showcase'],
@@ -65,8 +71,8 @@ const repos = [
         <span class="eyebrow">Open Source</span>
         <h1>Public repositories.</h1>
         <p class="lead">
-          Research pipelines, data engineering, and engineering work published
-          openly. Browse everything on GitHub.
+          Research pipelines, data engineering, and engineering work published openly. Browse
+          everything on GitHub.
         </p>
         <a href={SITE.author.github} class="github-link" target="_blank" rel="noopener">
           github.com/famenaghawon →
@@ -88,7 +94,9 @@ const repos = [
               <p class="repo-card__desc">{repo.description}</p>
               <div class="repo-card__meta">
                 <span class="repo-card__lang">{repo.language}</span>
-                {repo.tags.map((tag) => <Tag>{tag}</Tag>)}
+                {repo.tags.map((tag) => (
+                  <Tag>{tag}</Tag>
+                ))}
               </div>
             </Stack>
           </Card>
@@ -107,9 +115,13 @@ const repos = [
     color: var(--color-accent-soft);
     text-decoration: none;
   }
-  .github-link:hover { color: var(--color-accent); }
+  .github-link:hover {
+    color: var(--color-accent);
+  }
 
-  .repo-list { max-width: 900px; }
+  .repo-list {
+    max-width: 900px;
+  }
 
   .repo-card__top {
     display: flex;

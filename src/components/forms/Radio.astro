@@ -46,7 +46,8 @@ const {
   .radio__input {
     position: absolute;
     opacity: 0;
-    width: 1px; height: 1px;
+    width: 1px;
+    height: 1px;
     pointer-events: none;
   }
 
@@ -72,20 +73,26 @@ const {
     transition: transform var(--duration-micro) var(--ease-standard);
   }
 
-  .radio:hover .radio__dot { border-color: var(--color-accent); }
+  .radio:hover .radio__dot {
+    border-color: var(--color-accent);
+  }
 
   .radio__input:checked + .radio__dot {
     background: var(--color-accent);
     border-color: var(--color-accent);
   }
-  .radio__input:checked + .radio__dot::after { transform: scale(1); }
+  .radio__input:checked + .radio__dot::after {
+    transform: scale(1);
+  }
 
   .radio__input:focus-visible + .radio__dot {
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;
   }
 
-  .radio__input:disabled ~ * { opacity: 0.5; }
+  .radio__input:disabled ~ * {
+    opacity: 0.5;
+  }
 
   .radio__label {
     font-size: var(--fs-sm);

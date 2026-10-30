@@ -40,10 +40,14 @@ const sorted = [...projects].sort((a, b) => b.data.weight - a.data.weight);
   <Section spacing="md">
     <Container>
       <Stack gap="md">
-        <a href="/work" class="back">← All work</a>
+        <a href="/work" class="back">
+          ← All work
+        </a>
         <span class="eyebrow">Category</span>
         <h1 style="text-transform: capitalize;">{category}</h1>
-        <p class="lead">{sorted.length} project{sorted.length === 1 ? '' : 's'} in this category.</p>
+        <p class="lead">
+          {sorted.length} project{sorted.length === 1 ? '' : 's'} in this category.
+        </p>
       </Stack>
     </Container>
   </Section>
@@ -76,5 +80,7 @@ const sorted = [...projects].sort((a, b) => b.data.weight - a.data.weight);
     color: var(--color-text-muted);
     text-decoration: none;
   }
-  .back:hover { color: var(--color-accent); }
+  .back:hover {
+    color: var(--color-accent);
+  }
 </style>

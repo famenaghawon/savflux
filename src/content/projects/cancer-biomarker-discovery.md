@@ -30,6 +30,7 @@ An end-to-end computational platform for pharmaceutical-grade cancer biomarker d
 ## Problem
 
 Cancer biomarker research is data-rich but tool-poor. Researchers spend months on:
+
 - Assembling data from unrelated sources (genomics, transcriptomics, proteomics)
 - Normalizing across wildly different scales and formats
 - Reimplementing the same analysis pipelines

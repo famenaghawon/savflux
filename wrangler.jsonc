@@ -8,25 +8,25 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
   },
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "kv_namespaces": [
     {
       "binding": "SESSION",
-      "id": "e7dfb113844a4bc0a91d350044743f7a"
-    }
+      "id": "e7dfb113844a4bc0a91d350044743f7a",
+    },
   ],
   "routes": [
     {
       "pattern": "savflux.com",
-      "custom_domain": true
+      "custom_domain": true,
     },
     {
       "pattern": "www.savflux.com",
-      "custom_domain": true
-    }
-  ]
+      "custom_domain": true,
+    },
+  ],
 }

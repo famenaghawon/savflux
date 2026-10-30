@@ -9,17 +9,19 @@ interface Props {
 const { status, class: className } = Astro.props;
 
 const map = {
-  idea:      { variant: 'default', label: 'Idea' },
-  research:  { variant: 'info',    label: 'Research' },
+  idea: { variant: 'default', label: 'Idea' },
+  research: { variant: 'info', label: 'Research' },
   prototype: { variant: 'warning', label: 'Prototype' },
-  building:  { variant: 'accent',  label: 'Building' },
-  live:      { variant: 'success', label: 'Live' },
-  concept:   { variant: 'info',    label: 'Concept' },
-  archived:  { variant: 'default', label: 'Archived' },
+  building: { variant: 'accent', label: 'Building' },
+  live: { variant: 'success', label: 'Live' },
+  concept: { variant: 'info', label: 'Concept' },
+  archived: { variant: 'default', label: 'Archived' },
 } as const;
 
 const entry = map[status];
 const variant = entry.variant as 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'info';
 ---
 
-<Badge variant={variant} dot class={className}>{entry.label}</Badge>
+<Badge variant={variant} dot class={className}>
+  {entry.label}
+</Badge>

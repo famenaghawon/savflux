@@ -20,36 +20,101 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths: Array<{ params: { slug: string }; props: { og: OgData } }> = [];
 
   // Static pages
-  paths.push({ params: { slug: 'index' }, props: { og: { eyebrow: 'Savflux', title: 'I build technology that turns ideas into working systems.' } } });
-  paths.push({ params: { slug: 'about' }, props: { og: { eyebrow: 'About', title: 'Freedom Evbakoe Amenaghawon', subtitle: 'Technology entrepreneur, full-stack developer, systems builder.' } } });
-  paths.push({ params: { slug: 'work' }, props: { og: { eyebrow: 'Work', title: 'Systems I\u2019ve built.' } } });
-  paths.push({ params: { slug: 'lab' }, props: { og: { eyebrow: 'Savflux Lab', title: 'Experiments in progress.' } } });
-  paths.push({ params: { slug: 'writing' }, props: { og: { eyebrow: 'Writing', title: 'Essays and technical notes.' } } });
-  paths.push({ params: { slug: 'technology' }, props: { og: { eyebrow: 'Technology', title: 'What I work with.' } } });
-  paths.push({ params: { slug: 'now' }, props: { og: { eyebrow: 'Now', title: 'What I\u2019m working on.' } } });
-  paths.push({ params: { slug: 'open-source' }, props: { og: { eyebrow: 'Open Source', title: 'Public repositories.' } } });
-  paths.push({ params: { slug: 'media' }, props: { og: { eyebrow: 'Media', title: 'Videos and appearances.' } } });
-  paths.push({ params: { slug: 'contact' }, props: { og: { eyebrow: 'Contact', title: 'Get in touch.' } } });
-  paths.push({ params: { slug: 'search' }, props: { og: { eyebrow: 'Search', title: 'Find anything.' } } });
+  paths.push({
+    params: { slug: 'index' },
+    props: {
+      og: {
+        eyebrow: 'Savflux',
+        title: 'I build technology that turns ideas into working systems.',
+      },
+    },
+  });
+  paths.push({
+    params: { slug: 'about' },
+    props: {
+      og: {
+        eyebrow: 'About',
+        title: 'Freedom Evbakoe Amenaghawon',
+        subtitle: 'Technology entrepreneur, full-stack developer, systems builder.',
+      },
+    },
+  });
+  paths.push({
+    params: { slug: 'work' },
+    props: { og: { eyebrow: 'Work', title: 'Systems I\u2019ve built.' } },
+  });
+  paths.push({
+    params: { slug: 'lab' },
+    props: { og: { eyebrow: 'Savflux Lab', title: 'Experiments in progress.' } },
+  });
+  paths.push({
+    params: { slug: 'writing' },
+    props: { og: { eyebrow: 'Writing', title: 'Essays and technical notes.' } },
+  });
+  paths.push({
+    params: { slug: 'technology' },
+    props: { og: { eyebrow: 'Technology', title: 'What I work with.' } },
+  });
+  paths.push({
+    params: { slug: 'now' },
+    props: { og: { eyebrow: 'Now', title: 'What I\u2019m working on.' } },
+  });
+  paths.push({
+    params: { slug: 'open-source' },
+    props: { og: { eyebrow: 'Open Source', title: 'Public repositories.' } },
+  });
+  paths.push({
+    params: { slug: 'media' },
+    props: { og: { eyebrow: 'Media', title: 'Videos and appearances.' } },
+  });
+  paths.push({
+    params: { slug: 'contact' },
+    props: { og: { eyebrow: 'Contact', title: 'Get in touch.' } },
+  });
+  paths.push({
+    params: { slug: 'search' },
+    props: { og: { eyebrow: 'Search', title: 'Find anything.' } },
+  });
 
   for (const p of projects) {
     paths.push({
       params: { slug: `work/${p.id}` },
-      props: { og: { eyebrow: 'Project', title: p.data.title, subtitle: p.data.summary, category: p.data.category } },
+      props: {
+        og: {
+          eyebrow: 'Project',
+          title: p.data.title,
+          subtitle: p.data.summary,
+          category: p.data.category,
+        },
+      },
     });
   }
 
   for (const a of articles) {
     paths.push({
       params: { slug: `writing/${a.id}` },
-      props: { og: { eyebrow: 'Article', title: a.data.title, subtitle: a.data.description, category: a.data.category } },
+      props: {
+        og: {
+          eyebrow: 'Article',
+          title: a.data.title,
+          subtitle: a.data.description,
+          category: a.data.category,
+        },
+      },
     });
   }
 
   for (const e of experiments) {
     paths.push({
       params: { slug: `lab/${e.id}` },
-      props: { og: { eyebrow: 'Lab', title: e.data.title, subtitle: e.data.summary, category: e.data.category } },
+      props: {
+        og: {
+          eyebrow: 'Lab',
+          title: e.data.title,
+          subtitle: e.data.summary,
+          category: e.data.category,
+        },
+      },
     });
   }
 
@@ -125,13 +190,17 @@ export const GET: APIRoute = ({ props }) => {
 };
 
 function escapeXml(text: string): string {
-  return text.replace(/[<>&"']/g, (c) => ({
-    '<': '&lt;',
-    '>': '&gt;',
-    '&': '&amp;',
-    '"': '&quot;',
-    "'": '&apos;',
-  }[c] ?? c));
+  return text.replace(
+    /[<>&"']/g,
+    (c) =>
+      ({
+        '<': '&lt;',
+        '>': '&gt;',
+        '&': '&amp;',
+        '"': '&quot;',
+        "'": '&apos;',
+      })[c] ?? c,
+  );
 }
 
 function wrapText(text: string, maxChars: number): string[] {

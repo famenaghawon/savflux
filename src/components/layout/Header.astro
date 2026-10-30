@@ -2,8 +2,7 @@
 import { SITE } from '@/lib/site';
 
 const pathname = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === '/' ? pathname === '/' : pathname.startsWith(href);
+const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
 ---
 
 <header class="header" role="banner">
@@ -37,14 +36,19 @@ const isActive = (href: string) =>
       aria-label="Open menu"
       data-menu-toggle
     >
-      <span></span><span></span>
+      <span></span>
+      <span></span>
     </button>
   </div>
 
   <div class="header__mobile" id="mobile-menu" hidden data-menu>
     <ul class="header__mobile-list">
       {SITE.nav.primary.map((item) => (
-        <li><a href={item.href} class="header__mobile-link">{item.label}</a></li>
+        <li>
+          <a href={item.href} class="header__mobile-link">
+            {item.label}
+          </a>
+        </li>
       ))}
     </ul>
   </div>
@@ -125,8 +129,9 @@ const isActive = (href: string) =>
     font-size: var(--fs-sm);
     font-weight: var(--fw-medium);
     color: var(--color-text-secondary);
-    transition: color var(--duration-micro) var(--ease-standard),
-                background var(--duration-micro) var(--ease-standard);
+    transition:
+      color var(--duration-micro) var(--ease-standard),
+      background var(--duration-micro) var(--ease-standard);
   }
 
   .header__link:hover {

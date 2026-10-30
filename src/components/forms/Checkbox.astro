@@ -31,7 +31,15 @@ const {
     class="checkbox__input"
   />
   <span class="checkbox__box" aria-hidden="true">
-    <svg viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg viewBox="0 0 12 12" fill="none">
+      <path
+        d="M2 6L5 9L10 3"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
   </span>
   <span class="checkbox__label">{label}</span>
 </label>
@@ -48,7 +56,8 @@ const {
   .checkbox__input {
     position: absolute;
     opacity: 0;
-    width: 1px; height: 1px;
+    width: 1px;
+    height: 1px;
     pointer-events: none;
   }
 
@@ -68,9 +77,14 @@ const {
       color var(--duration-micro) var(--ease-standard);
   }
 
-  .checkbox__box svg { width: 12px; height: 12px; }
+  .checkbox__box svg {
+    width: 12px;
+    height: 12px;
+  }
 
-  .checkbox:hover .checkbox__box { border-color: var(--color-accent); }
+  .checkbox:hover .checkbox__box {
+    border-color: var(--color-accent);
+  }
 
   .checkbox__input:checked + .checkbox__box {
     background: var(--color-accent);
@@ -83,7 +97,9 @@ const {
     outline-offset: 2px;
   }
 
-  .checkbox__input:disabled ~ * { opacity: 0.5; }
+  .checkbox__input:disabled ~ * {
+    opacity: 0.5;
+  }
 
   .checkbox__label {
     font-size: var(--fs-sm);

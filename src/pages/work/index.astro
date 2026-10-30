@@ -7,8 +7,7 @@ import Stack from '@/components/primitives/Stack.astro';
 import ProjectCard from '@/components/content/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('projects'))
-  .sort((a, b) => b.data.weight - a.data.weight);
+const projects = (await getCollection('projects')).sort((a, b) => b.data.weight - a.data.weight);
 ---
 
 <BaseLayout
@@ -22,8 +21,8 @@ const projects = (await getCollection('projects'))
         <span class="eyebrow">Work</span>
         <h1>Systems I've built.</h1>
         <p class="lead">
-          Real projects, in production, serving real users. Every project below
-          has a case study with architecture, decisions, and lessons learned.
+          Real projects, in production, serving real users. Every project below has a case study
+          with architecture, decisions, and lessons learned.
         </p>
       </Stack>
     </Container>

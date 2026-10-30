@@ -42,10 +42,14 @@ const sorted = [...articles].sort(
   <Section spacing="md">
     <Container>
       <Stack gap="md">
-        <a href="/writing" class="back">← All writing</a>
+        <a href="/writing" class="back">
+          ← All writing
+        </a>
         <span class="eyebrow">Tag</span>
         <h1>#{tag}</h1>
-        <p class="lead">{sorted.length} article{sorted.length === 1 ? '' : 's'} with this tag.</p>
+        <p class="lead">
+          {sorted.length} article{sorted.length === 1 ? '' : 's'} with this tag.
+        </p>
       </Stack>
     </Container>
   </Section>
@@ -59,7 +63,10 @@ const sorted = [...articles].sort(
             description={article.data.description}
             href={`/writing/${article.id}`}
             category={article.data.category}
-            date={article.data.publishedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            date={article.data.publishedAt.toLocaleDateString('en-US', {
+              month: 'short',
+              year: 'numeric',
+            })}
             readingTime={5}
           />
         ))}
@@ -77,5 +84,7 @@ const sorted = [...articles].sort(
     color: var(--color-text-muted);
     text-decoration: none;
   }
-  .back:hover { color: var(--color-accent); }
+  .back:hover {
+    color: var(--color-accent);
+  }
 </style>

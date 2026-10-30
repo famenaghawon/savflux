@@ -22,8 +22,9 @@ interface Props {
 const { article, readingTime = 5 } = Astro.props;
 const { data } = article;
 
-const allArticles = (await getCollection('articles', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const allArticles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
 
 const { prev, next } = getPrevNext(
   allArticles.map((a) => ({ id: a.id, title: a.data.title })),
@@ -40,7 +41,9 @@ const related = await getRelatedContent({
 });
 
 const formattedDate = data.publishedAt.toLocaleDateString('en-US', {
-  year: 'numeric', month: 'long', day: 'numeric',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
 });
 
 const updatedDate = data.updatedAt
@@ -75,12 +78,17 @@ const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
   <Section spacing="md">
     <Container width="narrow">
       <Stack gap="lg">
-        <Breadcrumbs crumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Writing', href: '/writing' },
-          { label: data.category, href: `/writing/tag/${data.category.toLowerCase().replace(/\s+/g, '-')}` },
-          { label: data.title },
-        ]} />
+        <Breadcrumbs
+          crumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Writing', href: '/writing' },
+            {
+              label: data.category,
+              href: `/writing/tag/${data.category.toLowerCase().replace(/\s+/g, '-')}`,
+            },
+            { label: data.title },
+          ]}
+        />
 
         <Stack gap="md">
           <Stack direction="horizontal" gap="sm" wrap align="center">
@@ -98,18 +106,15 @@ const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
         {data.tags.length > 0 && (
           <Stack direction="horizontal" gap="sm" wrap>
             {data.tags.map((tag) => (
-              <a href={`/writing/tag/${tag}/`} class="article-tag">#{tag}</a>
+              <a href={`/writing/tag/${tag}/`} class="article-tag">
+                #{tag}
+              </a>
             ))}
           </Stack>
         )}
         {data.featuredImage && (
           <div class="article-hero">
-            <Image
-              src={data.featuredImage}
-              alt={data.title}
-              loading="eager"
-              fetchpriority="high"
-            />
+            <Image src={data.featuredImage} alt={data.title} loading="eager" fetchpriority="high" />
           </div>
         )}
       </Stack>
@@ -133,7 +138,10 @@ const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
     <Container width="narrow">
       <ShareButtons url={canonicalURL} title={data.title} />
       <p class="article-author">
-        Written by <a href="/about" rel="author"><strong>Freedom Amenaghawon</strong></a>
+        Written by{' '}
+        <a href="/about" rel="author">
+          <strong>Freedom Amenaghawon</strong>
+        </a>
       </p>
       <PrevNextNav prev={prev} next={next} basePath="/writing" />
       <RelatedContent items={related} />
@@ -217,12 +225,18 @@ const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
     }
   }
 
-  .article-body { min-width: 0; }
+  .article-body {
+    min-width: 0;
+  }
 
-  .article-toc { display: none; }
+  .article-toc {
+    display: none;
+  }
 
   @media (min-width: 1024px) {
-    .article-toc { display: block; }
+    .article-toc {
+      display: block;
+    }
   }
 
   .article-hero {
@@ -236,5 +250,4 @@ const canonicalURL = new URL(`/writing/${article.id}/`, Astro.site).toString();
     border-radius: 0;
     margin: 0;
   }
-
 </style>

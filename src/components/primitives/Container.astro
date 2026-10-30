@@ -5,9 +5,7 @@ interface Props {
 }
 
 const { width = 'default', class: className = '' } = Astro.props;
-const classes = ['container', `container--${width}`, className]
-  .filter(Boolean)
-  .join(' ');
+const classes = ['container', `container--${width}`, className].filter(Boolean).join(' ');
 ---
 
 <div class={classes}>
@@ -22,11 +20,21 @@ const classes = ['container', `container--${width}`, className]
   }
 
   @media (min-width: 768px) {
-    .container { padding-inline: var(--gutter-desktop); }
+    .container {
+      padding-inline: var(--gutter-desktop);
+    }
   }
 
-  .container--narrow  { max-width: var(--container-narrow); }
-  .container--default { max-width: var(--container-max); }
-  .container--wide    { max-width: var(--container-wide); }
-  .container--full    { max-width: none; }
+  .container--narrow {
+    max-width: var(--container-narrow);
+  }
+  .container--default {
+    max-width: var(--container-max);
+  }
+  .container--wide {
+    max-width: var(--container-wide);
+  }
+  .container--full {
+    max-width: none;
+  }
 </style>

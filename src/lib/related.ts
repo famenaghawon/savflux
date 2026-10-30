@@ -108,7 +108,7 @@ export function getPrevNext<T extends { id: string }>(
   const index = items.findIndex((item) => item.id === currentId);
   if (index === -1) return { prev: null, next: null };
   return {
-    prev: index > 0 ? items[index - 1] ?? null : null,
-    next: index < items.length - 1 ? items[index + 1] ?? null : null,
+    prev: index > 0 ? (items[index - 1] ?? null) : null,
+    next: index < items.length - 1 ? (items[index + 1] ?? null) : null,
   };
 }

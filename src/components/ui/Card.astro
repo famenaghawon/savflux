@@ -21,7 +21,9 @@ const classes = [
   `card--pad-${padding}`,
   interactive || href ? 'card--interactive' : '',
   className,
-].filter(Boolean).join(' ');
+]
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <Tag class={classes} href={href}>
@@ -42,10 +44,18 @@ const classes = [
       transform var(--duration-micro) var(--ease-standard);
   }
 
-  .card--pad-none { padding: 0; }
-  .card--pad-sm   { padding: var(--space-4); }
-  .card--pad-md   { padding: var(--space-6); }
-  .card--pad-lg   { padding: var(--space-8); }
+  .card--pad-none {
+    padding: 0;
+  }
+  .card--pad-sm {
+    padding: var(--space-4);
+  }
+  .card--pad-md {
+    padding: var(--space-6);
+  }
+  .card--pad-lg {
+    padding: var(--space-8);
+  }
 
   .card--interactive {
     cursor: pointer;
@@ -63,6 +73,10 @@ const classes = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .card, .card--interactive { transition: none; transform: none; }
+    .card,
+    .card--interactive {
+      transition: none;
+      transform: none;
+    }
   }
 </style>

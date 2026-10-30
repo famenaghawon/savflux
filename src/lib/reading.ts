@@ -8,7 +8,8 @@ export function estimateReadingTime(text: string, wpm = 200): number {
 }
 
 export function formatDate(date: Date, style: 'short' | 'long' = 'long'): string {
-  return date.toLocaleDateString('en-US',
+  return date.toLocaleDateString(
+    'en-US',
     style === 'long'
       ? { year: 'numeric', month: 'long', day: 'numeric' }
       : { year: 'numeric', month: 'short' },

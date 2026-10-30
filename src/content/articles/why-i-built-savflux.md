@@ -45,7 +45,7 @@ Savflux is:
 - **A place for writing** — technical articles, essays, lessons learned
 - **A durable identity** — that outlives any specific business
 
-The brand descriptor says it: *Technology Lab by Freedom Evbakoe Amenaghawon*.
+The brand descriptor says it: _Technology Lab by Freedom Evbakoe Amenaghawon_.
 
 Not a company. Not a product. A lab.
 
@@ -62,6 +62,7 @@ Three big bets shaped Savflux.
 
 **1. Static-first over dynamic.**
 Every page is pre-rendered HTML. Zero JavaScript shipped for content. This means:
+
 - Fast everywhere (under 1 second globally)
 - SEO-native
 - Cheap to host
@@ -69,12 +70,14 @@ Every page is pre-rendered HTML. Zero JavaScript shipped for content. This means
 
 **2. Cloudflare Workers over traditional hosting.**
 Global edge deployment, zero cold-start, predictable cost.
+
 - Same infrastructure as the biggest sites on the internet
 - No servers to patch
 - No regional latency issues
 
 **3. Design system over page-by-page design.**
 A component library — buttons, cards, badges, forms, layout primitives — with every component documented and reproducible.
+
 - New pages are assembled, not designed
 - Consistency emerges from constraints, not discipline
 - Changes propagate everywhere
@@ -85,7 +88,7 @@ Every one of these is a bet that lasts. If Savflux grows to hundreds of pages, t
 
 I've been building technology for years. But until recently, everything I built was either for a business or for a specific research problem.
 
-What was missing was **a body of work that was mine** — a place to point at and say *"this is what I actually do, and here's the evidence."*
+What was missing was **a body of work that was mine** — a place to point at and say _"this is what I actually do, and here's the evidence."_
 
 Savflux is that place. It's not marketing. It's not a portfolio. It's the natural home for a technical person who wants a durable, ownable, extensible presence on the internet.
 

@@ -35,17 +35,10 @@ const canonicalURL = canonical
 
 // Dynamic OG image path (or explicit override if `image` was provided)
 const dynamicOgPath = `/og${canonicalURL.pathname.replace(/\/$/, '')}.png`;
-const ogImageURL = image
-  ? new URL(image, Astro.site)
-  : new URL(dynamicOgPath, Astro.site);
+const ogImageURL = image ? new URL(image, Astro.site) : new URL(dynamicOgPath, Astro.site);
 
 // Build the full structured-data graph for this page
-const baseGraph = graph(
-  personSchema(),
-  websiteSchema(),
-  organizationSchema(),
-  ...structuredData,
-);
+const baseGraph = graph(personSchema(), websiteSchema(), organizationSchema(), ...structuredData);
 ---
 
 <title>{pageTitle}</title>

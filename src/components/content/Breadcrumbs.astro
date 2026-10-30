@@ -21,9 +21,13 @@ const { crumbs, class: className = '' } = Astro.props;
       return (
         <li class="breadcrumbs__item">
           {crumb.href && !isLast ? (
-            <a href={crumb.href} class="breadcrumbs__link">{crumb.label}</a>
+            <a href={crumb.href} class="breadcrumbs__link">
+              {crumb.label}
+            </a>
           ) : (
-            <span class="breadcrumbs__current" aria-current="page">{crumb.label}</span>
+            <span class="breadcrumbs__current" aria-current="page">
+              {crumb.label}
+            </span>
           )}
           {!isLast && <Icon name="chevron-right" size={12} class="breadcrumbs__sep" />}
         </li>
@@ -62,7 +66,9 @@ const { crumbs, class: className = '' } = Astro.props;
     transition: color var(--duration-micro) var(--ease-standard);
   }
 
-  .breadcrumbs__link:hover { color: var(--color-accent); }
+  .breadcrumbs__link:hover {
+    color: var(--color-accent);
+  }
 
   .breadcrumbs__current {
     color: var(--color-text-secondary);
@@ -74,13 +80,16 @@ const { crumbs, class: className = '' } = Astro.props;
   }
 </style>
 
-<script type="application/ld+json" set:html={JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: crumbs.map((c, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    name: c.label,
-    ...(c.href ? { item: new URL(c.href, Astro.site).toString() } : {}),
-  })),
-})} />
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.label,
+      ...(c.href ? { item: new URL(c.href, Astro.site).toString() } : {}),
+    })),
+  })}
+/>

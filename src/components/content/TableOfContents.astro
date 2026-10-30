@@ -22,7 +22,9 @@ const { class: className = '' } = Astro.props;
     padding-right: var(--space-4);
   }
 
-  .toc[hidden] { display: none; }
+  .toc[hidden] {
+    display: none;
+  }
 
   .toc__label {
     display: block;
@@ -62,15 +64,17 @@ const { class: className = '' } = Astro.props;
     padding-left: var(--space-4);
   }
 
-  .toc__list :global(a:hover) { color: var(--color-text-primary); }
+  .toc__list :global(a:hover) {
+    color: var(--color-text-primary);
+  }
 
-  .toc__list :global(a[data-active="true"]) {
+  .toc__list :global(a[data-active='true']) {
     color: var(--color-accent);
     border-left-color: var(--color-accent);
     font-weight: var(--fw-medium);
   }
 
-  .toc__list :global(li[data-level="3"] a) {
+  .toc__list :global(li[data-level='3'] a) {
     padding-left: var(--space-6);
     font-size: 0.6875rem;
   }

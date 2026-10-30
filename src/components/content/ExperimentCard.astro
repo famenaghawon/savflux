@@ -51,7 +51,9 @@ const { title, summary, href, status, updatedAt, class: className } = Astro.prop
     transition: color var(--duration-micro) var(--ease-standard);
   }
 
-  .experiment-card:hover .experiment-card__title { color: var(--color-accent); }
+  .experiment-card:hover .experiment-card__title {
+    color: var(--color-accent);
+  }
 
   .experiment-card__summary {
     font-size: var(--fs-sm);

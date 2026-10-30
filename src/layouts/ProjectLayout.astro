@@ -25,8 +25,7 @@ interface Props {
 const { project } = Astro.props;
 const { data } = project;
 
-const allProjects = (await getCollection('projects'))
-  .sort((a, b) => b.data.weight - a.data.weight);
+const allProjects = (await getCollection('projects')).sort((a, b) => b.data.weight - a.data.weight);
 
 const { prev, next } = getPrevNext(
   allProjects.map((p) => ({ id: p.id, title: p.data.title })),
@@ -69,12 +68,14 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
   <Section spacing="md">
     <Container>
       <Stack gap="lg">
-        <Breadcrumbs crumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Work', href: '/work' },
-          { label: data.category, href: `/work/category/${data.category}/` },
-          { label: data.title },
-        ]} />
+        <Breadcrumbs
+          crumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Work', href: '/work' },
+            { label: data.category, href: `/work/category/${data.category}/` },
+            { label: data.title },
+          ]}
+        />
 
         <Stack gap="md">
           <Stack direction="horizontal" gap="sm" wrap align="center">
@@ -109,7 +110,9 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
           <Stack gap="sm">
             <span class="eyebrow">Stack</span>
             <Stack direction="horizontal" gap="sm" wrap>
-              {data.stack.map((tech) => <span class="tech-tag">{tech}</span>)}
+              {data.stack.map((tech) => (
+                <span class="tech-tag">{tech}</span>
+              ))}
             </Stack>
           </Stack>
         )}
@@ -140,9 +143,7 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
           <Prose>
             <slot />
           </Prose>
-          {data.gallery.length > 0 && (
-            <ProjectGallery images={data.gallery} />
-          )}
+          {data.gallery.length > 0 && <ProjectGallery images={data.gallery} />}
         </div>
         <TableOfContents class="project-toc" />
       </div>
@@ -153,7 +154,10 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
     <Container>
       <ShareButtons url={canonicalURL} title={data.title} />
       <p class="project-author">
-        Built by <a href="/about" rel="author"><strong>Freedom Amenaghawon</strong></a>
+        Built by{' '}
+        <a href="/about" rel="author">
+          <strong>Freedom Amenaghawon</strong>
+        </a>
       </p>
       <PrevNextNav prev={prev} next={next} basePath="/work" label="Project" />
       <RelatedContent items={related} />
@@ -193,11 +197,25 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
     transition: all var(--duration-micro) var(--ease-standard);
   }
 
-  .btn--primary { background: var(--color-accent); color: var(--color-text-inverse); }
-  .btn--primary:hover { background: var(--color-accent-hover); box-shadow: var(--shadow-accent); }
+  .btn--primary {
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+  }
+  .btn--primary:hover {
+    background: var(--color-accent-hover);
+    box-shadow: var(--shadow-accent);
+  }
 
-  .btn--ghost { background: transparent; color: var(--color-text-primary); border: 1px solid var(--color-border-strong); }
-  .btn--ghost:hover { color: var(--color-accent); border-color: var(--color-accent); background: var(--color-accent-tint); }
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-strong);
+  }
+  .btn--ghost:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-tint);
+  }
 
   .project-grid {
     display: grid;
@@ -233,7 +251,7 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
     border-bottom-color: var(--color-accent);
     color: var(--color-accent);
   }
-  
+
   .project-hero__placeholder {
     display: flex;
     align-items: center;
@@ -263,7 +281,15 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
     margin: 0;
   }
 
-  .project-body { min-width: 0; }
-  .project-toc { display: none; }
-  @media (min-width: 1024px) { .project-toc { display: block; } }
+  .project-body {
+    min-width: 0;
+  }
+  .project-toc {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .project-toc {
+      display: block;
+    }
+  }
 </style>

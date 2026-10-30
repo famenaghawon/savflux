@@ -23,6 +23,7 @@ Not the wrong problems — just not mine. The distinction matters, because the m
 Nigerian commerce runs on trust and infrastructure that nobody talks about.
 
 A business selling premium gadgets needs:
+
 - Real sourcing relationships (so the product is authentic)
 - Real-time inventory (so customers know what's available)
 - Reliable delivery (so trust compounds)
@@ -37,13 +38,14 @@ The moment I understood that, PrimeShieldHub changed from "a website" into "an i
 
 The biggest change was mental. As a developer, I asked:
 
-> *"Does this work?"*
+> _"Does this work?"_
 
 As an operator, I ask:
 
-> *"Does this work at 3am when I'm not looking, at scale, for a customer I'll never meet, under conditions I didn't anticipate?"*
+> _"Does this work at 3am when I'm not looking, at scale, for a customer I'll never meet, under conditions I didn't anticipate?"_
 
 That question forces you to build differently. You care about:
+
 - **Failure modes** — not just happy paths
 - **Observability** — can you tell what happened when something breaks?
 - **Cost at scale** — what happens when usage 10×s?
@@ -59,6 +61,7 @@ Some people build businesses without building technology. That works.
 But building **both** gives you a specific advantage: **you can see the business as a system and implement changes directly.**
 
 You can:
+
 - Notice a workflow friction at 9am
 - Design a solution by noon
 - Ship it by evening

@@ -40,7 +40,9 @@ const { entries, class: className = '' } = Astro.props;
     padding-bottom: var(--space-10);
   }
 
-  .timeline__item:last-child { padding-bottom: 0; }
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
 
   .timeline__item::before {
     content: '';
@@ -52,7 +54,9 @@ const { entries, class: className = '' } = Astro.props;
     background: var(--color-border);
   }
 
-  .timeline__item:last-child::before { display: none; }
+  .timeline__item:last-child::before {
+    display: none;
+  }
 
   .timeline__marker {
     position: absolute;

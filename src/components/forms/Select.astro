@@ -39,7 +39,9 @@ const classes = ['select', error && 'select--error', className].filter(Boolean).
   aria-describedby={error ? `${id}-error` : undefined}
 >
   {options.map((opt) => (
-    <option value={opt.value} selected={opt.value === value}>{opt.label}</option>
+    <option value={opt.value} selected={opt.value === value}>
+      {opt.label}
+    </option>
   ))}
 </select>
 
@@ -64,14 +66,21 @@ const classes = ['select', error && 'select--error', className].filter(Boolean).
       background-color var(--duration-micro) var(--ease-standard);
   }
 
-  .select:hover:not(:disabled) { border-color: var(--color-border-strong); }
+  .select:hover:not(:disabled) {
+    border-color: var(--color-border-strong);
+  }
   .select:focus {
     outline: none;
     border-color: var(--color-accent);
     box-shadow: 0 0 0 3px var(--color-accent-tint);
   }
-  .select:disabled { opacity: 0.5; cursor: not-allowed; }
-  .select--error { border-color: #dc2626; }
+  .select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .select--error {
+    border-color: #dc2626;
+  }
   .select--error:focus {
     border-color: #dc2626;
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);

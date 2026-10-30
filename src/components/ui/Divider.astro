@@ -5,18 +5,11 @@ interface Props {
   class?: string;
 }
 
-const {
-  orientation = 'horizontal',
-  label,
-  class: className = '',
-} = Astro.props;
+const { orientation = 'horizontal', label, class: className = '' } = Astro.props;
 
-const classes = [
-  'divider',
-  `divider--${orientation}`,
-  label && 'divider--labeled',
-  className,
-].filter(Boolean).join(' ');
+const classes = ['divider', `divider--${orientation}`, label && 'divider--labeled', className]
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <div class={classes} role="separator" aria-orientation={orientation}>

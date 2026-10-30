@@ -7,8 +7,9 @@ import Stack from '@/components/primitives/Stack.astro';
 import ExperimentCard from '@/components/content/ExperimentCard.astro';
 import { getCollection } from 'astro:content';
 
-const experiments = (await getCollection('experiments'))
-  .sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
+const experiments = (await getCollection('experiments')).sort(
+  (a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf(),
+);
 
 const statusLegend = [
   { key: 'idea', label: 'Idea' },
@@ -31,8 +32,8 @@ const statusLegend = [
         <span class="eyebrow">Savflux Lab</span>
         <h1>Experiments in progress.</h1>
         <p class="lead">
-          Ideas don't have to be finished to be worth documenting. Every entry
-          here is marked by its actual status — not dressed up to look more complete than it is.
+          Ideas don't have to be finished to be worth documenting. Every entry here is marked by its
+          actual status — not dressed up to look more complete than it is.
         </p>
       </Stack>
 
@@ -56,7 +57,10 @@ const statusLegend = [
             summary={exp.data.summary}
             href={`/lab/${exp.id}`}
             status={exp.data.status}
-            updatedAt={exp.data.updatedAt.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            updatedAt={exp.data.updatedAt.toLocaleDateString('en-US', {
+              month: 'short',
+              year: 'numeric',
+            })}
           />
         ))}
       </Grid>
@@ -90,10 +94,22 @@ const statusLegend = [
     background: var(--color-text-muted);
   }
 
-  .legend-dot--idea      { background: #9AA4B2; }
-  .legend-dot--research  { background: #5B8CFF; }
-  .legend-dot--prototype { background: #fbbf24; }
-  .legend-dot--building  { background: #00D9FF; }
-  .legend-dot--live      { background: #4ade80; }
-  .legend-dot--archived  { background: #5C6577; }
+  .legend-dot--idea {
+    background: #9aa4b2;
+  }
+  .legend-dot--research {
+    background: #5b8cff;
+  }
+  .legend-dot--prototype {
+    background: #fbbf24;
+  }
+  .legend-dot--building {
+    background: #00d9ff;
+  }
+  .legend-dot--live {
+    background: #4ade80;
+  }
+  .legend-dot--archived {
+    background: #5c6577;
+  }
 </style>

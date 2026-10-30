@@ -23,19 +23,64 @@ import Radio from '@/components/forms/Radio.astro';
 import Icon from '@/components/icons/Icon.astro';
 
 const icons = [
-  'arrow-right', 'arrow-up-right', 'external-link', 'mail', 'menu', 'x', 'search',
-  'plus', 'minus', 'check', 'chevron-right', 'chevron-down', 'chevron-up',
-  'circle', 'clock', 'calendar', 'tag', 'layers',
-  'cpu', 'database', 'cloud', 'code', 'terminal', 'sparkles', 'zap', 'rocket',
-  'flask-conical', 'beaker', 'microscope',
-  'file-text', 'book-open', 'play', 'video', 'globe', 'link', 'send',
-  'info', 'circle-alert', 'circle-check', 'circle-x',
+  'arrow-right',
+  'arrow-up-right',
+  'external-link',
+  'mail',
+  'menu',
+  'x',
+  'search',
+  'plus',
+  'minus',
+  'check',
+  'chevron-right',
+  'chevron-down',
+  'chevron-up',
+  'circle',
+  'clock',
+  'calendar',
+  'tag',
+  'layers',
+  'cpu',
+  'database',
+  'cloud',
+  'code',
+  'terminal',
+  'sparkles',
+  'zap',
+  'rocket',
+  'flask-conical',
+  'beaker',
+  'microscope',
+  'file-text',
+  'book-open',
+  'play',
+  'video',
+  'globe',
+  'link',
+  'send',
+  'info',
+  'circle-alert',
+  'circle-check',
+  'circle-x',
 ] as const;
 
 const timelineEntries = [
-  { year: '2026', title: 'Founded PrimeShieldHub', description: 'Building technology-driven commerce for gadgets and enterprise procurement.' },
-  { year: '2025', title: 'BuildMart enterprise platform', description: 'Digital operating system for construction material procurement.' },
-  { year: '2024', title: 'Computational biology research', description: 'Bioinformatics pipelines, data science, and cancer biomarker discovery.' },
+  {
+    year: '2026',
+    title: 'Founded PrimeShieldHub',
+    description: 'Building technology-driven commerce for gadgets and enterprise procurement.',
+  },
+  {
+    year: '2025',
+    title: 'BuildMart enterprise platform',
+    description: 'Digital operating system for construction material procurement.',
+  },
+  {
+    year: '2024',
+    title: 'Computational biology research',
+    description: 'Bioinformatics pipelines, data science, and cancer biomarker discovery.',
+  },
 ];
 
 const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwind'];
@@ -51,8 +96,8 @@ const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwin
       <p class="eyebrow">Savflux · Internal</p>
       <h1 style="margin-top: var(--space-4);">Design System</h1>
       <p class="lead">
-        Every component, every variant, every state. This page is the source of truth
-        for the Savflux visual language. It is <strong>noindex</strong> — never appears in search.
+        Every component, every variant, every state. This page is the source of truth for the
+        Savflux visual language. It is <strong>noindex</strong> — never appears in search.
       </p>
     </Container>
   </Section>
@@ -73,16 +118,30 @@ const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwin
         </Stack>
 
         <Stack direction="horizontal" gap="sm" wrap align="center">
-          <Button size="sm" variant="primary">Small</Button>
-          <Button size="md" variant="primary">Medium</Button>
-          <Button size="lg" variant="primary">Large</Button>
+          <Button size="sm" variant="primary">
+            Small
+          </Button>
+          <Button size="md" variant="primary">
+            Medium
+          </Button>
+          <Button size="lg" variant="primary">
+            Large
+          </Button>
         </Stack>
 
         <Stack direction="horizontal" gap="sm" wrap align="center">
-          <Button variant="primary" icon="arrow-right">With icon</Button>
-          <Button variant="ghost" icon="code" iconPosition="left">GitHub</Button>
-          <Button variant="primary" loading>Loading</Button>
-          <Button variant="primary" disabled>Disabled</Button>
+          <Button variant="primary" icon="arrow-right">
+            With icon
+          </Button>
+          <Button variant="ghost" icon="code" iconPosition="left">
+            GitHub
+          </Button>
+          <Button variant="primary" loading>
+            Loading
+          </Button>
+          <Button variant="primary" disabled>
+            Disabled
+          </Button>
         </Stack>
       </Stack>
     </Container>
@@ -105,9 +164,15 @@ const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwin
         </Stack>
 
         <Stack direction="horizontal" gap="sm" wrap>
-          <Badge variant="accent" dot>Building</Badge>
-          <Badge variant="success" dot>Live</Badge>
-          <Badge variant="warning" dot>Prototype</Badge>
+          <Badge variant="accent" dot>
+            Building
+          </Badge>
+          <Badge variant="success" dot>
+            Live
+          </Badge>
+          <Badge variant="warning" dot>
+            Prototype
+          </Badge>
         </Stack>
       </Stack>
     </Container>
@@ -144,9 +209,18 @@ const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwin
       <h2>Cards</h2>
       <Divider />
       <Grid cols={3} gap="md">
-        <Card><h3>Card — default</h3><p>Standard surface. Nothing interactive.</p></Card>
-        <Card interactive><h3>Card — interactive</h3><p>Hover lifts the card by 2px.</p></Card>
-        <Card href="/"><h3>Card — link</h3><p>Wraps in an anchor, keeps semantics.</p></Card>
+        <Card>
+          <h3>Card — default</h3>
+          <p>Standard surface. Nothing interactive.</p>
+        </Card>
+        <Card interactive>
+          <h3>Card — interactive</h3>
+          <p>Hover lifts the card by 2px.</p>
+        </Card>
+        <Card href="/">
+          <h3>Card — link</h3>
+          <p>Wraps in an anchor, keeps semantics.</p>
+        </Card>
       </Grid>
     </Container>
   </Section>
@@ -157,12 +231,24 @@ const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwin
       <h2>Status Badges</h2>
       <Divider />
       <Stack direction="horizontal" gap="sm" wrap>
-        <Badge variant="default" dot>Idea</Badge>
-        <Badge variant="info" dot>Research</Badge>
-        <Badge variant="warning" dot>Prototype</Badge>
-        <Badge variant="accent" dot>Building</Badge>
-        <Badge variant="success" dot>Live</Badge>
-        <Badge variant="default" dot>Archived</Badge>
+        <Badge variant="default" dot>
+          Idea
+        </Badge>
+        <Badge variant="info" dot>
+          Research
+        </Badge>
+        <Badge variant="warning" dot>
+          Prototype
+        </Badge>
+        <Badge variant="accent" dot>
+          Building
+        </Badge>
+        <Badge variant="success" dot>
+          Live
+        </Badge>
+        <Badge variant="default" dot>
+          Archived
+        </Badge>
       </Stack>
     </Container>
   </Section>
@@ -290,10 +376,18 @@ const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwin
         </Field>
 
         <Field label="Message" htmlFor="demo-message" required>
-          <Textarea id="demo-message" name="message" placeholder="Tell me what you're working on…" />
+          <Textarea
+            id="demo-message"
+            name="message"
+            placeholder="Tell me what you're working on…"
+          />
         </Field>
 
-        <Field label="Email — invalid state" htmlFor="demo-email-err" error="Please enter a valid email address">
+        <Field
+          label="Email — invalid state"
+          htmlFor="demo-email-err"
+          error="Please enter a valid email address"
+        >
           <Input id="demo-email-err" name="email_err" type="email" value="not-an-email" error />
         </Field>
 
@@ -313,7 +407,9 @@ const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwin
         <Divider />
 
         <Stack direction="horizontal" gap="sm" wrap>
-          <Button type="submit" variant="primary" icon="send">Send message</Button>
+          <Button type="submit" variant="primary" icon="send">
+            Send message
+          </Button>
           <Button variant="ghost">Cancel</Button>
         </Stack>
       </Stack>
@@ -347,7 +443,9 @@ const sampleStack = ['Astro', 'TypeScript', 'Cloudflare Workers', 'D1', 'Tailwin
         {[1, 2, 3, 4].map((i) => (
           <Card data-reveal data-reveal-delay={String(i)} padding="lg">
             <h3>Reveal item {i}</h3>
-            <p>Scroll-triggered. Respects <code>prefers-reduced-motion</code>.</p>
+            <p>
+              Scroll-triggered. Respects <code>prefers-reduced-motion</code>.
+            </p>
           </Card>
         ))}
       </Stack>

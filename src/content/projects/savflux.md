@@ -31,6 +31,7 @@ Savflux is this site — a technology laboratory, a personal identity, and a pub
 ## Problem
 
 Personal brands online are either:
+
 - **Portfolios** — static, unmaintained, one-off
 - **Blogs** — commentary without engineering
 - **Company sites** — polished but anonymous
@@ -54,15 +55,14 @@ A static-first, edge-deployed, content-driven technology platform:
 ## Architecture
 
 savflux.com
-                     │
-                     ▼
-              Cloudflare Workers
-                     │
-            ┌────────┼────────┐
-            ▼        ▼        ▼
-         HTML/CSS  Content  Assets
-          (static)  (MD)   (SVG)
-
+│
+▼
+Cloudflare Workers
+│
+┌────────┼────────┐
+▼ ▼ ▼
+HTML/CSS Content Assets
+(static) (MD) (SVG)
 
 The build happens in GitHub Actions; the site is deployed to Cloudflare's global edge; every visitor sees HTML from the nearest datacenter.
 

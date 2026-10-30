@@ -9,11 +9,32 @@ import { IDS } from '@/lib/schema';
 import Image from '@/components/media/Image.astro';
 
 const timelineEntries = [
-  { year: '2026', title: 'Savflux', description: 'A personal technology laboratory — the durable identity for everything built, researched, and written.' },
-  { year: '2025', title: 'PrimeShieldHub BuildMart', description: 'Enterprise operating system for construction material procurement.' },
-  { year: '2025', title: 'PrimeShieldHub', description: 'Technology-driven commerce infrastructure for premium gadgets.' },
-  { year: '2024–2025', title: 'Computational biology research', description: 'Bioinformatics pipelines, multi-omics analysis, cancer biomarker discovery.' },
-  { year: 'University of Benin', title: 'B.Sc. Microbiology', description: 'The foundation — systems thinking applied to the smallest living things.' },
+  {
+    year: '2026',
+    title: 'Savflux',
+    description:
+      'A personal technology laboratory — the durable identity for everything built, researched, and written.',
+  },
+  {
+    year: '2025',
+    title: 'PrimeShieldHub BuildMart',
+    description: 'Enterprise operating system for construction material procurement.',
+  },
+  {
+    year: '2025',
+    title: 'PrimeShieldHub',
+    description: 'Technology-driven commerce infrastructure for premium gadgets.',
+  },
+  {
+    year: '2024–2025',
+    title: 'Computational biology research',
+    description: 'Bioinformatics pipelines, multi-omics analysis, cancer biomarker discovery.',
+  },
+  {
+    year: 'University of Benin',
+    title: 'B.Sc. Microbiology',
+    description: 'The foundation — systems thinking applied to the smallest living things.',
+  },
 ];
 
 const chapters = [
@@ -44,7 +65,7 @@ const chapters = [
   },
   {
     number: '06',
-    title: 'What I\'m Building',
+    title: "What I'm Building",
     body: 'Savflux — a technology lab that documents, builds, and ships. Software, AI, data, cloud, research. Proof of work, not claims of skill.',
   },
   {
@@ -55,7 +76,7 @@ const chapters = [
   {
     number: '08',
     title: 'Current Focus',
-    body: 'AI experiments, enterprise systems, computational research, and public technical writing. See the Now page for what\'s actively moving.',
+    body: "AI experiments, enterprise systems, computational research, and public technical writing. See the Now page for what's actively moving.",
   },
 ];
 ---
@@ -85,11 +106,16 @@ const chapters = [
         <span class="eyebrow">About</span>
         <h1>Freedom Evbakoe Amenaghawon.</h1>
         <p class="lead">
-          Also known as <strong>Freedom Amenaghawon</strong>. Technology entrepreneur,
-          full-stack developer, and systems builder. Founder of
-          <a href="https://savflux.com" rel="noopener">Savflux</a> — a technology lab —
-          and <a href="https://primeshieldhub.com" rel="noopener">PrimeShieldHub</a> —
-          a technology-driven commerce platform. Based in Benin City, Nigeria.
+          Also known as <strong>Freedom Amenaghawon</strong>. Technology entrepreneur, full-stack
+          developer, and systems builder. Founder of
+          <a href="https://savflux.com" rel="noopener">
+            Savflux
+          </a>{' '}
+          — a technology lab — and{' '}
+          <a href="https://primeshieldhub.com" rel="noopener">
+            PrimeShieldHub
+          </a>{' '}
+          — a technology-driven commerce platform. Based in Benin City, Nigeria.
         </p>
       </Stack>
 
@@ -135,7 +161,9 @@ const chapters = [
 </BaseLayout>
 
 <style>
-  .chapters { max-width: 800px; }
+  .chapters {
+    max-width: 800px;
+  }
 
   .chapter {
     display: flex;

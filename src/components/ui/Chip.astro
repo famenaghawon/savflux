@@ -7,25 +7,15 @@ interface Props {
 
 const { href, active = false, class: className = '' } = Astro.props;
 
-const classes = ['chip', active && 'chip--active', className]
-  .filter(Boolean)
-  .join(' ');
+const classes = ['chip', active && 'chip--active', className].filter(Boolean).join(' ');
 ---
 
 {href ? (
-  <a
-    class={classes}
-    href={href}
-    aria-current={active ? 'page' : undefined}
-  >
+  <a class={classes} href={href} aria-current={active ? 'page' : undefined}>
     <slot />
   </a>
 ) : (
-  <button
-    class={classes}
-    type="button"
-    aria-pressed={active}
-  >
+  <button class={classes} type="button" aria-pressed={active}>
     <slot />
   </button>
 )}

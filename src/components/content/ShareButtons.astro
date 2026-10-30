@@ -13,8 +13,16 @@ const encodedUrl = encodeURIComponent(url);
 const encodedTitle = encodeURIComponent(title);
 
 const shares = [
-  { name: 'X', icon: 'code', href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}` },
-  { name: 'LinkedIn', icon: 'briefcase', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+  {
+    name: 'X',
+    icon: 'code',
+    href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+  },
+  {
+    name: 'LinkedIn',
+    icon: 'briefcase',
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+  },
 ];
 ---
 
@@ -33,12 +41,7 @@ const shares = [
         <span>{s.name}</span>
       </a>
     ))}
-    <button
-      type="button"
-      class="share__btn"
-      data-copy-url={url}
-      aria-label="Copy link"
-    >
+    <button type="button" class="share__btn" data-copy-url={url} aria-label="Copy link">
       <Icon name="link" size={14} />
       <span data-copy-label>Copy link</span>
     </button>
@@ -103,7 +106,9 @@ const shares = [
         if (label) {
           const orig = label.textContent ?? 'Copy link';
           label.textContent = 'Copied';
-          setTimeout(() => { label.textContent = orig; }, 2000);
+          setTimeout(() => {
+            label.textContent = orig;
+          }, 2000);
         }
       } catch {
         /* clipboard unsupported — silent fail */

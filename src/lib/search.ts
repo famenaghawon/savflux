@@ -65,14 +65,78 @@ export async function buildSearchIndex(): Promise<SearchRecord[]> {
 
   // Static pages
   const pages: Array<Omit<SearchRecord, 'type'> & { type: 'page' }> = [
-    { type: 'page', title: 'About', description: 'About Freedom Evbakoe Amenaghawon.', href: '/about', body: 'biography education timeline technology entrepreneur', tags: ['about'], date: '' },
-    { type: 'page', title: 'Work', description: 'All projects and case studies.', href: '/work', body: 'projects portfolio case studies software ai data cloud', tags: ['work'], date: '' },
-    { type: 'page', title: 'The Lab', description: 'Experiments, prototypes, ideas.', href: '/lab', body: 'experiments prototypes research ideas', tags: ['lab'], date: '' },
-    { type: 'page', title: 'Technology', description: 'The technology stack.', href: '/technology', body: 'stack languages frameworks infrastructure ai', tags: ['technology'], date: '' },
-    { type: 'page', title: 'Writing', description: 'Articles and essays.', href: '/writing', body: 'articles essays technical writing', tags: ['writing'], date: '' },
-    { type: 'page', title: 'Now', description: 'Current focus.', href: '/now', body: 'currently building learning reading exploring', tags: ['now'], date: '' },
-    { type: 'page', title: 'Open Source', description: 'Public repositories.', href: '/open-source', body: 'github open source repositories code', tags: ['open-source'], date: '' },
-    { type: 'page', title: 'Contact', description: 'Get in touch.', href: '/contact', body: 'contact email collaboration speaking', tags: ['contact'], date: '' },
+    {
+      type: 'page',
+      title: 'About',
+      description: 'About Freedom Evbakoe Amenaghawon.',
+      href: '/about',
+      body: 'biography education timeline technology entrepreneur',
+      tags: ['about'],
+      date: '',
+    },
+    {
+      type: 'page',
+      title: 'Work',
+      description: 'All projects and case studies.',
+      href: '/work',
+      body: 'projects portfolio case studies software ai data cloud',
+      tags: ['work'],
+      date: '',
+    },
+    {
+      type: 'page',
+      title: 'The Lab',
+      description: 'Experiments, prototypes, ideas.',
+      href: '/lab',
+      body: 'experiments prototypes research ideas',
+      tags: ['lab'],
+      date: '',
+    },
+    {
+      type: 'page',
+      title: 'Technology',
+      description: 'The technology stack.',
+      href: '/technology',
+      body: 'stack languages frameworks infrastructure ai',
+      tags: ['technology'],
+      date: '',
+    },
+    {
+      type: 'page',
+      title: 'Writing',
+      description: 'Articles and essays.',
+      href: '/writing',
+      body: 'articles essays technical writing',
+      tags: ['writing'],
+      date: '',
+    },
+    {
+      type: 'page',
+      title: 'Now',
+      description: 'Current focus.',
+      href: '/now',
+      body: 'currently building learning reading exploring',
+      tags: ['now'],
+      date: '',
+    },
+    {
+      type: 'page',
+      title: 'Open Source',
+      description: 'Public repositories.',
+      href: '/open-source',
+      body: 'github open source repositories code',
+      tags: ['open-source'],
+      date: '',
+    },
+    {
+      type: 'page',
+      title: 'Contact',
+      description: 'Get in touch.',
+      href: '/contact',
+      body: 'contact email collaboration speaking',
+      tags: ['contact'],
+      date: '',
+    },
   ];
 
   records.push(...pages);
@@ -82,12 +146,12 @@ export async function buildSearchIndex(): Promise<SearchRecord[]> {
 
 function stripMarkdown(md: string): string {
   return md
-    .replace(/^---[\s\S]*?---/, '')          // frontmatter
-    .replace(/```[\s\S]*?```/g, ' ')         // code blocks
-    .replace(/`[^`]+`/g, ' ')                // inline code
-    .replace(/!\[.*?\]\(.*?\)/g, ' ')        // images
-    .replace(/\[(.*?)\]\(.*?\)/g, '$1')      // links → text
-    .replace(/[#>*_~\-]+/g, ' ')             // markdown symbols
+    .replace(/^---[\s\S]*?---/, '') // frontmatter
+    .replace(/```[\s\S]*?```/g, ' ') // code blocks
+    .replace(/`[^`]+`/g, ' ') // inline code
+    .replace(/!\[.*?\]\(.*?\)/g, ' ') // images
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // links → text
+    .replace(/[#>*_~\-]+/g, ' ') // markdown symbols
     .replace(/\s+/g, ' ')
     .trim();
 }

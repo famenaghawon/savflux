@@ -22,8 +22,8 @@ import { SITE } from '@/lib/site';
         <span class="eyebrow">Contact</span>
         <h1>Get in touch.</h1>
         <p class="lead">
-          Project enquiries, collaborations, speaking invitations, or just a
-          thoughtful question about something on the site. I read everything.
+          Project enquiries, collaborations, speaking invitations, or just a thoughtful question
+          about something on the site. I read everything.
         </p>
       </Stack>
     </Container>
@@ -57,11 +57,18 @@ import { SITE } from '@/lib/site';
           </Field>
 
           <Field label="Message" htmlFor="message" required hint="What would you like to discuss?">
-            <Textarea id="message" name="message" placeholder="Tell me what you're working on…" required />
+            <Textarea
+              id="message"
+              name="message"
+              placeholder="Tell me what you're working on…"
+              required
+            />
           </Field>
 
           <Stack direction="horizontal" gap="sm" wrap>
-            <Button type="submit" variant="primary" icon="send">Send message</Button>
+            <Button type="submit" variant="primary" icon="send">
+              Send message
+            </Button>
           </Stack>
         </Stack>
       </form>
@@ -75,11 +82,20 @@ import { SITE } from '@/lib/site';
         <Stack gap="sm">
           <p class="contact-direct">
             <span class="contact-direct__label">Email</span>
-            <a href={`mailto:${SITE.author.email}`} class="contact-direct__value">{SITE.author.email}</a>
+            <a href={`mailto:${SITE.author.email}`} class="contact-direct__value">
+              {SITE.author.email}
+            </a>
           </p>
           <p class="contact-direct">
             <span class="contact-direct__label">GitHub</span>
-            <a href={SITE.author.github} class="contact-direct__value" target="_blank" rel="noopener">github.com/famenaghawon</a>
+            <a
+              href={SITE.author.github}
+              class="contact-direct__value"
+              target="_blank"
+              rel="noopener"
+            >
+              github.com/famenaghawon
+            </a>
           </p>
           <p class="contact-direct">
             <span class="contact-direct__label">ORCID</span>
@@ -92,7 +108,9 @@ import { SITE } from '@/lib/site';
 </BaseLayout>
 
 <style>
-  .contact-form { max-width: 100%; }
+  .contact-form {
+    max-width: 100%;
+  }
 
   .contact-direct {
     display: flex;
@@ -123,5 +141,7 @@ import { SITE } from '@/lib/site';
     text-decoration: none;
   }
 
-  a.contact-direct__value:hover { color: var(--color-accent); }
+  a.contact-direct__value:hover {
+    color: var(--color-accent);
+  }
 </style>
