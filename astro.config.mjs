@@ -21,6 +21,7 @@ export default defineConfig({
     }),
   ],
   vite: {
+    // @ts-expect-error — Astro's bundled Vite types drift from @tailwindcss/vite's
     plugins: [tailwindcss()],
   },
   prefetch: {

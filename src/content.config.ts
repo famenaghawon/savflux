@@ -24,8 +24,8 @@ const projects = defineCollection({
         }),
       )
       .default([]),
-    liveUrl: z.url().optional(),
-    repoUrl: z.url().optional(),
+    liveUrl: z.string().url().optional(),
+    repoUrl: z.string().url().optional(),
     featured: z.boolean().default(false),
     weight: z.number().default(0),
     relatedArticles: z.array(z.string()).default([]),
@@ -65,7 +65,7 @@ const articles = defineCollection({
     draft: z.boolean().default(false),
     relatedProjects: z.array(z.string()).default([]),
     relatedArticles: z.array(z.string()).default([]),
-    canonical: z.url().optional(),
+    canonical: z.string().url().optional(),
   }),
 });
 
