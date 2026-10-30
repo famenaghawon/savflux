@@ -52,6 +52,7 @@ const canonicalURL = new URL(`/work/${project.id}/`, Astro.site).toString();
   canonical={`/work/${project.id}/`}
   structuredData={[
     projectSchema({
+      slug: project.id,
       url: new URL(`/work/${project.id}/`, Astro.site).toString(),
       title: data.title,
       summary: data.summary,

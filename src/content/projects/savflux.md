@@ -22,7 +22,7 @@ featured: true
 weight: 80
 relatedArticles:
   - why-i-built-savflux
-publishedAt: 2026-01-01
+publishedAt: 2026-10-01
 updatedAt: 2026-10-01
 ---
 

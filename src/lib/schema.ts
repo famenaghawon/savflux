@@ -1,67 +1,50 @@
 import { SITE } from '@/lib/site';
+import { ENTITY } from '@/data/entity';
 
-/**
- * Canonical @id references — every entity in the graph points to these.
- */
 export const IDS = {
   person: `${SITE.url}/#person`,
   website: `${SITE.url}/#website`,
-  organization: `${SITE.organization.url}/#organization`,
+  organization: `${ENTITY.primeshieldhub.url}/#organization`,
   personProfile: `${SITE.url}/about/#profile`,
 } as const;
 
 type JsonLd = Record<string, unknown>;
 
-/**
- * The Person entity — Freedom Evbakoe Amenaghawon.
- * Referenced by every Article, Project, and Page as `author` or `creator`.
- */
 export function personSchema(): JsonLd {
   const sameAs = [
-    SITE.author.github,
-    SITE.author.linkedin,
-    SITE.author.x,
-    SITE.author.youtube,
-    SITE.author.instagram,
-  ].filter(Boolean);
+    ENTITY.person.social.github,
+    ENTITY.person.social.orcid,
+    ENTITY.person.social.linkedin,
+    ENTITY.person.social.x,
+    ENTITY.person.social.youtube,
+    ENTITY.person.social.instagram,
+  ].filter(Boolean) as string[];
 
   return {
     '@type': 'Person',
     '@id': IDS.person,
-    name: SITE.author.name,
-    alternateName: [
-      'Freedom Amenaghawon',
-      'Freedom Evbakoe Amenaghawon',
-      'Freedom E. Amenaghawon',
-      'Freedom',
-    ],
-    givenName: SITE.author.givenName,
-    additionalName: SITE.author.additionalName,
-    familyName: SITE.author.familyName,
-    jobTitle: [
-      'Technology Entrepreneur',
-      'Full-Stack Developer',
-      'Systems Builder',
-    ],
+    name: ENTITY.person.name,
+    alternateName: ENTITY.person.alternateNames,
+    givenName: 'Freedom',
+    additionalName: 'Evbakoe',
+    familyName: 'Amenaghawon',
+    jobTitle: ['Technology Entrepreneur', 'Full-Stack Developer', 'Systems Builder'],
     description:
       'Freedom Evbakoe Amenaghawon is a technology entrepreneur, full-stack developer, and systems builder. Founder of Savflux, a technology lab, and PrimeShieldHub, a technology-driven commerce platform.',
     url: `${SITE.url}/about/`,
     mainEntityOfPage: `${SITE.url}/about/`,
-    email: `mailto:${SITE.author.email}`,
+    email: `mailto:${ENTITY.person.email}`,
     image: `${SITE.url}/og/about.png`,
     identifier: {
       '@type': 'PropertyValue',
       propertyID: 'ORCID',
-      value: SITE.author.orcid,
+      value: ENTITY.person.orcid,
     },
-    nationality: {
-      '@type': 'Country',
-      name: 'Nigeria',
-    },
+    nationality: { '@type': 'Country', name: ENTITY.person.country },
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Benin City',
-      addressCountry: 'NG',
+      addressLocality: ENTITY.person.city,
+      addressCountry: ENTITY.person.nationality,
     },
     sameAs,
     knowsAbout: [
@@ -76,26 +59,21 @@ export function personSchema(): JsonLd {
       'Technology Entrepreneurship',
       'Digital Systems',
     ],
-    owns: [
-      { '@id': IDS.website },
-      { '@id': IDS.organization },
-    ],
+    owns: [{ '@id': IDS.website }, { '@id': IDS.organization }],
   };
 }
 
-/**
- * The WebSite entity — savflux.com.
- */
 export function websiteSchema(): JsonLd {
   return {
     '@type': 'WebSite',
     '@id': IDS.website,
     url: SITE.url,
-    name: SITE.name,
+    name: ENTITY.savflux.name,
     description: SITE.defaults.description,
     inLanguage: 'en-US',
     publisher: { '@id': IDS.person },
     creator: { '@id': IDS.person },
+    datePublished: ENTITY.savflux.launched,
     potentialAction: {
       '@type': 'SearchAction',
       target: {
@@ -107,50 +85,40 @@ export function websiteSchema(): JsonLd {
   };
 }
 
-/**
- * The Organization entity — PrimeShieldHub.
- */
 export function organizationSchema(): JsonLd {
   return {
     '@type': 'Organization',
     '@id': IDS.organization,
-    name: SITE.organization.name,
-    alternateName: 'PrimeShieldHub',
-    url: SITE.organization.url,
+    name: ENTITY.primeshieldhub.name,
+    alternateName: ENTITY.primeshieldhub.name,
+    url: ENTITY.primeshieldhub.url,
     founder: { '@id': IDS.person },
-    foundingDate: '2025',
-    description:
-      'Technology-driven commerce infrastructure for premium gadgets and enterprise procurement.',
+    foundingDate: ENTITY.primeshieldhub.founded,
+    description: ENTITY.primeshieldhub.description,
     knowsAbout: [
       'E-Commerce Infrastructure',
       'Enterprise Software',
       'Cloud Architecture',
       'Digital Commerce',
     ],
-    sameAs: [SITE.organization.url],
+    sameAs: [ENTITY.primeshieldhub.url],
   };
 }
 
-/**
- * The ProfilePage — wraps /about.
- */
 export function profilePageSchema(): JsonLd {
   return {
     '@type': 'ProfilePage',
     '@id': IDS.personProfile,
     url: `${SITE.url}/about/`,
-    name: `About ${SITE.author.name}`,
+    name: `About ${ENTITY.person.name}`,
     isPartOf: { '@id': IDS.website },
     mainEntity: { '@id': IDS.person },
     about: { '@id': IDS.person },
-    dateCreated: '2026-01-01T00:00:00Z',
+    dateCreated: ENTITY.savflux.launched + 'T00:00:00Z',
     dateModified: new Date().toISOString(),
   };
 }
 
-/**
- * Article schema for /writing/[slug].
- */
 export function articleSchema(params: {
   url: string;
   title: string;
@@ -171,7 +139,7 @@ export function articleSchema(params: {
     datePublished: params.publishedAt,
     dateModified: params.updatedAt ?? params.publishedAt,
     inLanguage: 'en-US',
-    image: params.image ? [params.image] : [`${SITE.url}/og-default.png`],
+    image: params.image ? [params.image] : [`${SITE.url}/og-default.svg`],
     articleSection: params.category,
     keywords: params.tags.join(', '),
     wordCount: params.wordCount,
@@ -182,10 +150,8 @@ export function articleSchema(params: {
   };
 }
 
-/**
- * SoftwareApplication / CreativeWork schema for /work/[slug].
- */
 export function projectSchema(params: {
+  slug: string;
   url: string;
   title: string;
   summary: string;
@@ -195,15 +161,20 @@ export function projectSchema(params: {
   liveUrl?: string;
   repoUrl?: string;
 }): JsonLd {
+  const projectDates = ENTITY.projects[params.slug as keyof typeof ENTITY.projects];
+  const launched = projectDates?.launched ?? `${params.year}-01-01`;
+  const updated = projectDates?.lastUpdated ?? launched;
+
   const base: JsonLd = {
     '@type': 'SoftwareApplication',
     '@id': `${params.url}#project`,
-    url: params.url,
+    url: params.liveUrl ?? params.url,
     name: params.title,
     description: params.summary,
     applicationCategory: params.category,
     operatingSystem: 'Any',
-    datePublished: `${params.year}-01-01`,
+    datePublished: launched,
+    dateModified: updated,
     author: { '@id': IDS.person },
     creator: { '@id': IDS.person },
     publisher: { '@id': IDS.person },
@@ -211,20 +182,12 @@ export function projectSchema(params: {
     programmingLanguage: params.stack,
   };
 
-  if (params.liveUrl) base.url = params.liveUrl;
-  if (params.repoUrl) {
-    base.codeRepository = params.repoUrl;
-  }
-  if (params.liveUrl) {
-    base.sameAs = [params.liveUrl];
-  }
+  if (params.repoUrl) base.codeRepository = params.repoUrl;
+  if (params.liveUrl) base.sameAs = [params.liveUrl];
 
   return base;
 }
 
-/**
- * Lab entry schema for /lab/[slug].
- */
 export function experimentSchema(params: {
   url: string;
   title: string;
@@ -249,10 +212,6 @@ export function experimentSchema(params: {
   };
 }
 
-/**
- * Wraps all schemas in a top-level @graph.
- * Only emits entries that are actually present.
- */
 export function graph(...items: (JsonLd | null | undefined)[]): JsonLd {
   return {
     '@context': 'https://schema.org',
