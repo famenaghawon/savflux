@@ -1,8 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "savflux",
-  "compatibility_date": "2026-01-01",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2025-04-01",
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",

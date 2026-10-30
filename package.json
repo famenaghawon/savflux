@@ -24,17 +24,17 @@
     "cf:tail": "wrangler tail"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.0.0",
-    "@astrojs/mdx": "^4.0.0",
-    "@astrojs/rss": "^4.0.0",
-    "@astrojs/sitemap": "^3.2.0",
-    "@fontsource-variable/inter": "^5.1.0",
-    "@fontsource/inter": "^5.1.0",
-    "@fontsource/jetbrains-mono": "^5.1.0",
-    "@tailwindcss/vite": "^4.0.0",
-    "astro": "^5.0.0",
-    "lucide-static": "^1.0.0",
-    "tailwindcss": "^4.0.0"
+    "@astrojs/cloudflare": "12.6.0",
+    "@astrojs/mdx": "4.3.0",
+    "@astrojs/rss": "4.0.10",
+    "@astrojs/sitemap": "3.2.1",
+    "@fontsource-variable/inter": "5.2.5",
+    "@fontsource/inter": "5.2.5",
+    "@fontsource/jetbrains-mono": "5.2.5",
+    "@tailwindcss/vite": "4.1.4",
+    "astro": "5.7.5",
+    "lucide-static": "0.475.0",
+    "tailwindcss": "4.1.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
