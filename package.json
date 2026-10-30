@@ -24,7 +24,6 @@
     "cf:tail": "wrangler tail"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "12.6.0",
     "@astrojs/mdx": "4.3.0",
     "@astrojs/rss": "4.0.10",
     "@astrojs/sitemap": "3.2.1",
@@ -33,7 +32,7 @@
     "@fontsource/jetbrains-mono": "5.2.5",
     "@tailwindcss/vite": "4.1.4",
     "astro": "5.7.5",
-    "lucide-static": "0.475.0",
+    "lucide-static": "^0.475.0",
     "tailwindcss": "4.1.4"
   },
   "devDependencies": {
