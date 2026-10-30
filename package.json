@@ -32,7 +32,7 @@
     "@fontsource/jetbrains-mono": "5.2.5",
     "@tailwindcss/vite": "4.1.4",
     "astro": "5.7.5",
-    "lucide-static": "^0.475.0",
+    "lucide-static": "^1.65.0",
     "tailwindcss": "4.1.4"
   },
   "devDependencies": {
