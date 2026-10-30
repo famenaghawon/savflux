@@ -2,11 +2,15 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://savflux.com',
-  output: 'static',
+  output: 'server', // <--- THIS MAKES IT DYNAMIC
+  adapter: cloudflare({
+    imageService: 'compile',
+  }),
   integrations: [
     mdx(),
     sitemap({
@@ -28,13 +32,4 @@ export default defineConfig({
   },
   compressHTML: true,
   trailingSlash: 'ignore',
-  markdown: {
-    shikiConfig: {
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
-      wrap: true,
-    },
-  },
 });
